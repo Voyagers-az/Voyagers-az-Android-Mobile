@@ -26,49 +26,47 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.natiqhaciyef.voyagers.R
 import com.natiqhaciyef.voyagers.util.FontList
 import com.natiqhaciyef.voyagers.view.components.BottomShadow
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID
-import com.natiqhaciyef.voyagers.view.ui.theme.AppAquatic
 import com.natiqhaciyef.voyagers.view.ui.theme.AppBrown
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.Red
 
-//@Preview
 @Composable
-fun RegisterScreen(navController: NavController){
-    val username = remember{ mutableStateOf("") }
-    val email = remember{ mutableStateOf("") }
-    val phone = remember{ mutableStateOf("") }
-    val password = remember{ mutableStateOf("") }
+fun LoginScreen(navController: NavController) {
+    val email = remember { mutableStateOf("") }
+    val password = remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(color = Color.White)
     ) {
-        RegisterTopView()
-        RegisterMainPart(username, email, phone, password, navController)
+        LoginTopView()
+        LoginMainPart(email, password, navController)
     }
 }
 
 @Composable
-private fun RegisterTopView(){
+private fun LoginTopView() {
     val composition by rememberLottieComposition(
-        spec = LottieCompositionSpec.RawRes(R.raw.register_animation)
+        spec = LottieCompositionSpec.RawRes(R.raw.login_animation),
     )
-    Spacer(modifier = Modifier.height(15.dp))
+    Spacer(modifier = Modifier.height(45.dp))
     LottieAnimation(
         modifier = Modifier
             .fillMaxWidth()
-            .height(220.dp),
+            .height(270.dp),
         composition = composition,
+        iterations = LottieConstants.IterateForever
     )
 
     Text(
-        text = "Registration",
+        text = "Login",
         fontSize = 25.sp,
         color = Color.Black,
         fontFamily = FontList.fontFamily,
@@ -77,15 +75,13 @@ private fun RegisterTopView(){
         modifier = Modifier.fillMaxWidth()
     )
 
-    Spacer(modifier = Modifier.height(20.dp))
+    Spacer(modifier = Modifier.height(30.dp))
 }
 
 
 @Composable
-private fun RegisterMainPart(
-    username: MutableState<String> = mutableStateOf(""),
+private fun LoginMainPart(
     email: MutableState<String> = mutableStateOf(""),
-    phone: MutableState<String> = mutableStateOf(""),
     password: MutableState<String> = mutableStateOf(""),
     navController: NavController,
 ) {
@@ -106,41 +102,6 @@ private fun RegisterMainPart(
             Spacer(modifier = Modifier.height(40.dp))
 
             OutlinedTextField(
-                value = username.value,
-                onValueChange = {
-                    username.value = it
-                },
-                singleLine = true,
-                placeholder = {
-                    Text(text = "Username")
-                },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.AccountCircle,
-                        contentDescription = "Username"
-                    )
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(55.dp)
-                    .padding(horizontal = 20.dp),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    backgroundColor = Color.White,
-                    textColor = Color.Black,
-                ),
-                shape = RoundedCornerShape(10.dp),
-                textStyle = TextStyle.Default.copy(
-                    fontSize = 17.sp,
-                    fontWeight = FontWeight.SemiBold
-                )
-            )
-
-            BottomShadow(padding = 23.dp)
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            OutlinedTextField(
                 value = email.value,
                 onValueChange = {
                     email.value = it
@@ -154,41 +115,6 @@ private fun RegisterMainPart(
                     Icon(
                         imageVector = Icons.Default.Email,
                         contentDescription = "Email"
-                    )
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(55.dp)
-                    .padding(horizontal = 20.dp),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    backgroundColor = Color.White,
-                    textColor = Color.Black,
-                ),
-                shape = RoundedCornerShape(10.dp),
-                textStyle = TextStyle.Default.copy(
-                    fontSize = 17.sp,
-                    fontWeight = FontWeight.SemiBold
-                )
-            )
-
-            BottomShadow(padding = 23.dp)
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            OutlinedTextField(
-                value = phone.value,
-                onValueChange = {
-                    phone.value = it
-                },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
-                singleLine = true,
-                placeholder = {
-                    Text(text = "Phone")
-                },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Phone,
-                        contentDescription = "Phone"
                     )
                 },
                 modifier = Modifier
@@ -262,7 +188,22 @@ private fun RegisterMainPart(
 
             BottomShadow(padding = 23.dp)
 
-            Spacer(modifier = Modifier.height(25.dp))
+            Spacer(modifier = Modifier.height(5.dp))
+            Text(
+                text = "Forgot password ?",
+                color = Color.White,
+                fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 30.dp,end = 30.dp)
+                    .clickable {
+                        navController.navigate(ScreenID.ResetPasswordScreen.name)
+                    },
+                textAlign = TextAlign.End
+            )
+
+            Spacer(modifier = Modifier.height(45.dp))
 
             val context = LocalContext.current
 
@@ -271,7 +212,7 @@ private fun RegisterMainPart(
                     .height(55.dp)
                     .width(200.dp),
                 onClick = {
-                    // register
+                    // login
                 },
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(
@@ -279,7 +220,7 @@ private fun RegisterMainPart(
                 )
             ) {
                 Text(
-                    text = "Register",
+                    text = "Login",
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
@@ -307,7 +248,7 @@ private fun RegisterMainPart(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Do you have an account ?",
+                    text = "You don't have an account ?",
                     fontWeight = FontWeight.SemiBold,
                     color = Color.White,
                     fontSize = 15.sp
@@ -318,9 +259,9 @@ private fun RegisterMainPart(
                 Text(
                     modifier = Modifier
                         .clickable {
-                            navController.navigate(ScreenID.LoginScreen.name)
+                            navController.navigate(ScreenID.RegisterScreen.name)
                         },
-                    text = "Sign in",
+                    text = "Sign up",
                     color = Red,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.SemiBold,
@@ -329,3 +270,5 @@ private fun RegisterMainPart(
         }
     }
 }
+
+

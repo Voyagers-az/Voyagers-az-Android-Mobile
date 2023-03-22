@@ -30,7 +30,7 @@ fun SplashScreen(navController: NavController) {
         contentAlignment = Alignment.Center
     ){
         coroutineScope.launch(Dispatchers.Main) {
-            delay(2500)
+            delay(1500)
             navController.navigate(ScreenID.RegisterScreen.name)
         }
         Image(
