@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagers.network.config
+package com.natiqhaciyef.voyagers.network.remote
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

@@ -1,5 +1,7 @@
 package com.natiqhaciyef.voyagers.network.config
 
+import com.natiqhaciyef.voyagers.network.remote.RetrofitClient
+
 class RetrofitConfig {
     companion object {
         const val BASE_URL = ""
