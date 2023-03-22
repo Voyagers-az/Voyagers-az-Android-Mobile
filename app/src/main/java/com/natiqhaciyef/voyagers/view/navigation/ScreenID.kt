@@ -4,7 +4,7 @@ enum class ScreenID {
     SplashScreen,
     RegisterScreen,
     LoginScreen,
-    ResetPassword,
+    ResetPasswordScreen,
     HomeScreen,
     DetailsScreen,
     Tours,
