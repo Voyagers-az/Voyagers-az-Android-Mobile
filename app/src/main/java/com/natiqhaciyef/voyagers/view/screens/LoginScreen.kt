@@ -1,5 +1,6 @@
 package com.natiqhaciyef.voyagers.view.screens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -23,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -35,11 +37,16 @@ import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.AppBrown
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.Red
+import com.natiqhaciyef.voyagers.view.viewmodel.RegistrationViewModel
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(
+    navController: NavController,
+    viewModel: RegistrationViewModel = hiltViewModel()
+) {
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
+    val usernames by remember { viewModel.allUsersState }
 
     Column(
         modifier = Modifier
@@ -47,7 +54,16 @@ fun LoginScreen(navController: NavController) {
             .background(color = Color.White)
     ) {
         LoginTopView()
-        LoginMainPart(email, password, navController)
+        LoginMainPart(email, password, navController) {
+            val e = usernames.associateBy { user -> user.email }
+            val p = usernames.associateBy { user -> user.password }
+
+            if (e.contains(email.value) && p.containsKey(password.value)) {
+                navController.navigate(ScreenID.HomeScreen.name)
+            }else{
+                // login fail
+            }
+        }
     }
 }
 
@@ -84,6 +100,7 @@ private fun LoginMainPart(
     email: MutableState<String> = mutableStateOf(""),
     password: MutableState<String> = mutableStateOf(""),
     navController: NavController,
+    content: () -> Unit
 ) {
     var passwordVisible by remember { mutableStateOf(false) }
     Card(
@@ -196,7 +213,7 @@ private fun LoginMainPart(
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 30.dp,end = 30.dp)
+                    .padding(start = 30.dp, end = 30.dp)
                     .clickable {
                         navController.navigate(ScreenID.ResetPasswordScreen.name)
                     },
@@ -212,7 +229,7 @@ private fun LoginMainPart(
                     .height(55.dp)
                     .width(200.dp),
                 onClick = {
-                    // login
+                    content()
                 },
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(

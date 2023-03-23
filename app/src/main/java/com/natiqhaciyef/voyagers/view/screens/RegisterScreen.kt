@@ -1,5 +1,6 @@
 package com.natiqhaciyef.voyagers.view.screens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -23,26 +24,35 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.natiqhaciyef.voyagers.R
+import com.natiqhaciyef.voyagers.data.model.UserModel
 import com.natiqhaciyef.voyagers.util.FontList
 import com.natiqhaciyef.voyagers.view.components.BottomShadow
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID
-import com.natiqhaciyef.voyagers.view.ui.theme.AppAquatic
 import com.natiqhaciyef.voyagers.view.ui.theme.AppBrown
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.Red
+import com.natiqhaciyef.voyagers.view.viewmodel.RegistrationViewModel
 
 //@Preview
 @Composable
-fun RegisterScreen(navController: NavController){
-    val username = remember{ mutableStateOf("") }
-    val email = remember{ mutableStateOf("") }
-    val phone = remember{ mutableStateOf("") }
-    val password = remember{ mutableStateOf("") }
+fun RegisterScreen(
+    navController: NavController,
+    viewModel: RegistrationViewModel = hiltViewModel()
+) {
+    val username = remember { mutableStateOf("") }
+    val email = remember { mutableStateOf("") }
+    val phone = remember { mutableStateOf("") }
+    val password = remember { mutableStateOf("") }
+    val user by remember { viewModel.userState }
+    val allUserState by remember { viewModel.allUsersState }
+    val list = allUserState.associateBy { user -> user.email }
 
     Column(
         modifier = Modifier
@@ -50,12 +60,31 @@ fun RegisterScreen(navController: NavController){
             .background(color = Color.White)
     ) {
         RegisterTopView()
-        RegisterMainPart(username, email, phone, password, navController)
+        RegisterMainPart(username, email, phone, password, navController) {
+            if (email.value.isNotEmpty() && !list.contains(email.value)) {
+                Log.d("MYLOG","Email is not empty and list is not contains")
+
+                if (user.email != email.value && phone.value.isNotEmpty() &&
+                    username.value.isNotEmpty() && password.value.isNotEmpty()
+                ) {
+                    viewModel.insertUser(
+                        UserModel(
+                            id = 0,
+                            name = username.value,
+                            email = email.value,
+                            phone = phone.value,
+                            password = password.value
+                        )
+                    )
+                    navController.navigate(ScreenID.LoginScreen.name)
+                }
+            }
+        }
     }
 }
 
 @Composable
-private fun RegisterTopView(){
+private fun RegisterTopView() {
     val composition by rememberLottieComposition(
         spec = LottieCompositionSpec.RawRes(R.raw.register_animation)
     )
@@ -88,6 +117,7 @@ private fun RegisterMainPart(
     phone: MutableState<String> = mutableStateOf(""),
     password: MutableState<String> = mutableStateOf(""),
     navController: NavController,
+    content: () -> Unit
 ) {
     var passwordVisible by remember { mutableStateOf(false) }
     Card(
@@ -271,7 +301,7 @@ private fun RegisterMainPart(
                     .height(55.dp)
                     .width(200.dp),
                 onClick = {
-                    // register
+                    content()
                 },
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(
@@ -329,3 +359,5 @@ private fun RegisterMainPart(
         }
     }
 }
+
+
