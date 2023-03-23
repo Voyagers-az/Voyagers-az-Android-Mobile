@@ -35,7 +35,6 @@ import com.natiqhaciyef.voyagers.data.model.UserModel
 import com.natiqhaciyef.voyagers.util.FontList
 import com.natiqhaciyef.voyagers.view.components.BottomShadow
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID
-import com.natiqhaciyef.voyagers.view.ui.theme.AppAquatic
 import com.natiqhaciyef.voyagers.view.ui.theme.AppBrown
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.Red
@@ -77,6 +76,7 @@ fun RegisterScreen(
                             password = password.value
                         )
                     )
+                    navController.navigate(ScreenID.LoginScreen.name)
                 }
             }
         }
