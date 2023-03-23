@@ -11,7 +11,7 @@ import com.natiqhaciyef.voyagers.view.components.NavBar
 
 @Preview
 @Composable
-fun MainScreenLine(){
+fun MainScreenLine() {
     val selectedIndex = remember { mutableStateOf(0) }
 
     Scaffold(
@@ -21,14 +21,16 @@ fun MainScreenLine(){
         }
     ) {
         it.calculateBottomPadding()
-        when(selectedIndex.value){
-            0 -> { HomeScreen() }
-            1 -> { TourScreen() }
-            2 -> { UserProfileScreen() }
+        when (selectedIndex.value) {
+            0 -> {
+                HomeScreen()
+            }
+            1 -> {
+                TourScreen()
+            }
+            2 -> {
+                UserProfileScreen()
+            }
         }
     }
-
-import androidx.compose.runtime.Composable
-
-@Composable
-fun MainScreenLine(){
+}
