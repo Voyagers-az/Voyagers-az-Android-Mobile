@@ -22,9 +22,6 @@ fun MainScreenLine(){
         }
     ) {
         it.calculateBottomPadding()
-
-//        HomeScreen(navController = navController)
-
         when(selectedIndex.value){
             0 -> { HomeScreen() }
             1 -> { TourScreen() }
