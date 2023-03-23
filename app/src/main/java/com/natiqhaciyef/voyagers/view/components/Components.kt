@@ -1,7 +1,8 @@
 package com.natiqhaciyef.voyagers.view.components
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,14 +13,22 @@ import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Tour
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Blue
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.graphics.ColorFilter.Companion.tint
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -43,7 +52,8 @@ import com.natiqhaciyef.voyagers.R
 import com.natiqhaciyef.voyagers.util.NavItemModel
 import androidx.compose.ui.util.lerp
 import com.natiqhaciyef.voyagers.util.FontList
-import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
+import com.natiqhaciyef.voyagers.util.NavItem
+import com.natiqhaciyef.voyagers.view.ui.theme.*
 
 
 @Composable
@@ -86,7 +96,7 @@ fun NavBar(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
-            .background(Color.White, RoundedCornerShape(8.dp))
+            .background(AppDarkBlue, RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp))
     ) {
 
         Row(
@@ -97,7 +107,7 @@ fun NavBar(
                 Box(
                     modifier = Modifier
                         .fillMaxHeight()
-                        .weight(12f)
+                        .weight(11f)
                         .clickable { selectedIndex.value = index },
                     contentAlignment = Alignment.Center
                 ) {
@@ -112,7 +122,7 @@ fun NavBar(
                         Box(
                             modifier = Modifier
                                 .background(
-                                    if (selectedIndex.value == index) MaterialTheme.colors.primary
+                                    if (selectedIndex.value == index) AppYellow
                                     else Color.Transparent,
                                     shape = CircleShape
                                 )
@@ -123,15 +133,16 @@ fun NavBar(
                                 painter = painterResource(id = icon.image),
                                 contentDescription = "content",
                                 modifier = Modifier.size(25.dp),
-                                tint = if (selectedIndex.value == index) Color.White else Color.Gray
+                                tint = if (selectedIndex.value == index) AppBrown else White
                             )
                         }
                         AnimatedVisibility(visible = (selectedIndex.value == index)) {
                             Text(
                                 text = icon.title,
                                 modifier = Modifier,
-                                color = Color.Black,
-                                fontSize = 12.sp
+                                color = White,
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.SemiBold
                             )
                         }
                     }
