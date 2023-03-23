@@ -14,24 +14,32 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.natiqhaciyef.voyagers.R
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID
+import com.natiqhaciyef.voyagers.view.viewmodel.RegistrationViewModel
 import kotlinx.coroutines.*
 
 //@Preview
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
-fun SplashScreen(navController: NavController) {
+fun SplashScreen(
+    navController: NavController,
+    viewModel: RegistrationViewModel = hiltViewModel()
+) {
     val coroutineScope = rememberCoroutineScope()
     Box(
         modifier = Modifier
             .background(color = Color.White),
         contentAlignment = Alignment.Center
-    ){
+    ) {
         coroutineScope.launch(Dispatchers.Main) {
             delay(1500)
-            navController.navigate(ScreenID.RegisterScreen.name)
+            if (viewModel.allUsersState.value.isNotEmpty())
+                navController.navigate(ScreenID.MainScreenLine.name)
+            else
+                navController.navigate(ScreenID.LoginScreen.name)
         }
         Image(
             modifier = Modifier.fillMaxSize(),

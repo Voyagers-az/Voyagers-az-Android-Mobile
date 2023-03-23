@@ -1,13 +1,12 @@
 package com.natiqhaciyef.voyagers.view.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.natiqhaciyef.voyagers.view.screens.LoginScreen
-import com.natiqhaciyef.voyagers.view.screens.RegisterScreen
-import com.natiqhaciyef.voyagers.view.screens.ResetPasswordScreen
-import com.natiqhaciyef.voyagers.view.screens.SplashScreen
+import com.natiqhaciyef.voyagers.view.screens.*
+import com.natiqhaciyef.voyagers.view.viewmodel.RegistrationViewModel
 
 
 @Composable
@@ -31,7 +30,7 @@ fun AppNavigation() {
         }
 
         composable(route = ScreenID.MainScreenLine.name) {
-
+            MainScreenLine()
         }
     }
 }
