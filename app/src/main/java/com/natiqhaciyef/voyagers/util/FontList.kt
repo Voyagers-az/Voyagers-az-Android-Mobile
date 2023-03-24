@@ -7,20 +7,14 @@ import com.natiqhaciyef.voyagers.R
 object FontList {
     val fontFamily = FontFamily(
         fonts = listOf(
-            Font(resId = R.font.josefin_sans_bold),
-            Font(resId = R.font.josefin_sans_bold_italic),
-            Font(resId = R.font.josefin_sans_semi_bold),
-            Font(resId = R.font.josefin_sans_semi_bold_italic),
-            Font(resId = R.font.josefin_sans_medium),
-            Font(resId = R.font.josefin_sans_medium_italic),
-            Font(resId = R.font.josefin_sans_regular),
-            Font(resId = R.font.josefin_sans_italic),
-            Font(resId = R.font.josefin_sans_light),
-            Font(resId = R.font.josefin_sans_light_italic),
-            Font(resId = R.font.josefin_sans_extra_light),
-            Font(resId = R.font.josefin_sans_extra_light_italic),
-            Font(resId = R.font.josefin_sans_thin),
-            Font(resId = R.font.josefin_sans_thin_italic),
+            Font(resId = R.font.ubuntlu_light),
+            Font(resId = R.font.ubuntu_light_italic),
+            Font(resId = R.font.ubuntu_bold),
+            Font(resId = R.font.ubuntu_bold_italic),
+            Font(resId = R.font.ubuntu_medium),
+            Font(resId = R.font.ubuntu_medium_italic),
+            Font(resId = R.font.ubuntu_regular),
+            Font(resId = R.font.ubuntu_italic),
         )
     )
 }
