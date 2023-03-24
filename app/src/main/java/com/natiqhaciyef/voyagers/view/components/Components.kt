@@ -156,10 +156,10 @@ fun NavBar(
 //@Preview
 //@ExperimentalPagerApi
 //@Composable
-//fun CustomViewPager() {
+//fun CustomViewPager(list: MutableList<TourModel> = mutableListOf()) {
 //    val pagerState = rememberPagerState(
 //        initialPage = 0,
-//        pageCount = InstructorList.instructors.size
+//        pageCount = list.size
 //    )
 //
 //    LaunchedEffect(key1 = Unit) {
@@ -202,46 +202,51 @@ fun NavBar(
 //                .padding(horizontal = 40.dp),
 //            shape = RoundedCornerShape(15.dp)
 //        ) {
-//            val item = InstructorList.instructors[page]
-//            Box(
+//            val item = list[page]
+//            ViewPagerItem()
+//        }
+//    }
+//}
+//
+//@Composable
+//fun ViewPagerItem(item: TravelModel){
+//    Box(
+//        modifier = Modifier
+//            .fillMaxSize()
+//            .background(color = AppDarkBlue),
+//        contentAlignment = Alignment.Center
+//    ) {
+//        Column(
+//            modifier = Modifier,
+//            horizontalAlignment = Alignment.CenterHorizontally,
+//            verticalArrangement = Arrangement.Center
+//        ) {
+//            Image(
 //                modifier = Modifier
-//                    .fillMaxSize()
-//                    .align(Alignment.Center)
-//                    .background(color = AppDarkBlue)
-//            ) {
-//                Column(
-//                    modifier = Modifier,
-//                    horizontalAlignment = Alignment.CenterHorizontally,
-//                    verticalArrangement = Arrangement.Center
-//                ) {
-//                    Image(
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                            .height(230.dp),
-//                        contentScale = ContentScale.Crop,
-//                        painter = painterResource(id = item.image),
-//                        contentDescription = "Instructor",
-//                    )
+//                    .fillMaxWidth()
+//                    .height(230.dp),
+//                contentScale = ContentScale.Crop,
+//                painter = painterResource(id = item.image),
+//                contentDescription = "Instructor",
+//            )
 //
-//                    Spacer(modifier = Modifier.height(5.dp))
+//            Spacer(modifier = Modifier.height(5.dp))
 //
-//                    Text(
-//                        text = item.name,
-//                        fontSize = 18.sp,
-//                        fontWeight = FontWeight.SemiBold,
-//                        color = Color.White
-//                    )
+//            Text(
+//                text = item.name,
+//                fontSize = 18.sp,
+//                fontWeight = FontWeight.SemiBold,
+//                color = Color.White
+//            )
 //
-//                    Spacer(modifier = Modifier.height(5.dp))
+//            Spacer(modifier = Modifier.height(5.dp))
 //
-//                    Text(
-//                        text = item.field,
-//                        fontSize = 18.sp,
-//                        fontWeight = FontWeight.SemiBold,
-//                        color = Color.White
-//                    )
-//                }
-//            }
+//            Text(
+//                text = item.field,
+//                fontSize = 18.sp,
+//                fontWeight = FontWeight.SemiBold,
+//                color = Color.White
+//            )
 //        }
 //    }
 //}

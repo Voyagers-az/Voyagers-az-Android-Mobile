@@ -141,7 +141,9 @@ fun HomeTopView(
     }
 }
 
+@Preview
 @Composable
 fun HomeMainPartView() {
+
 
 }
