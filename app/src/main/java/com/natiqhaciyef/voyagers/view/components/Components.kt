@@ -1,7 +1,9 @@
 package com.natiqhaciyef.voyagers.view.components
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.*
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,15 +14,20 @@ import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.Color.Companion.Blue
 import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.ColorFilter.Companion.tint
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
@@ -43,12 +50,15 @@ import com.natiqhaciyef.voyagers.R
 import com.natiqhaciyef.voyagers.util.NavItemModel
 import androidx.compose.ui.util.lerp
 import com.natiqhaciyef.voyagers.util.FontList
-import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
+import com.natiqhaciyef.voyagers.util.NavItem
+import com.natiqhaciyef.voyagers.view.ui.theme.*
 
 
 @Composable
-fun BottomShadow(alpha: Float = 0.1f, height: Dp = 8.dp,
-                 padding: Dp = 0.dp) {
+fun BottomShadow(
+    alpha: Float = 0.1f, height: Dp = 8.dp,
+    padding: Dp = 0.dp
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -86,7 +96,7 @@ fun NavBar(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
-            .background(Color.White, RoundedCornerShape(8.dp))
+            .background(AppDarkBlue, RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp))
     ) {
 
         Row(
@@ -97,7 +107,7 @@ fun NavBar(
                 Box(
                     modifier = Modifier
                         .fillMaxHeight()
-                        .weight(12f)
+                        .weight(11f)
                         .clickable { selectedIndex.value = index },
                     contentAlignment = Alignment.Center
                 ) {
@@ -112,7 +122,7 @@ fun NavBar(
                         Box(
                             modifier = Modifier
                                 .background(
-                                    if (selectedIndex.value == index) MaterialTheme.colors.primary
+                                    if (selectedIndex.value == index) AppYellow
                                     else Color.Transparent,
                                     shape = CircleShape
                                 )
@@ -123,15 +133,16 @@ fun NavBar(
                                 painter = painterResource(id = icon.image),
                                 contentDescription = "content",
                                 modifier = Modifier.size(25.dp),
-                                tint = if (selectedIndex.value == index) Color.White else Color.Gray
+                                tint = if (selectedIndex.value == index) AppBrown else White
                             )
                         }
                         AnimatedVisibility(visible = (selectedIndex.value == index)) {
                             Text(
                                 text = icon.title,
                                 modifier = Modifier,
-                                color = Color.Black,
-                                fontSize = 12.sp
+                                color = White,
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.SemiBold
                             )
                         }
                     }
@@ -142,14 +153,13 @@ fun NavBar(
 }
 
 
-
 //@Preview
 //@ExperimentalPagerApi
 //@Composable
-//fun CustomViewPager() {
+//fun CustomViewPager(list: MutableList<TourModel> = mutableListOf()) {
 //    val pagerState = rememberPagerState(
 //        initialPage = 0,
-//        pageCount = InstructorList.instructors.size
+//        pageCount = list.size
 //    )
 //
 //    LaunchedEffect(key1 = Unit) {
@@ -192,46 +202,51 @@ fun NavBar(
 //                .padding(horizontal = 40.dp),
 //            shape = RoundedCornerShape(15.dp)
 //        ) {
-//            val item = InstructorList.instructors[page]
-//            Box(
+//            val item = list[page]
+//            ViewPagerItem()
+//        }
+//    }
+//}
+//
+//@Composable
+//fun ViewPagerItem(item: TravelModel){
+//    Box(
+//        modifier = Modifier
+//            .fillMaxSize()
+//            .background(color = AppDarkBlue),
+//        contentAlignment = Alignment.Center
+//    ) {
+//        Column(
+//            modifier = Modifier,
+//            horizontalAlignment = Alignment.CenterHorizontally,
+//            verticalArrangement = Arrangement.Center
+//        ) {
+//            Image(
 //                modifier = Modifier
-//                    .fillMaxSize()
-//                    .align(Alignment.Center)
-//                    .background(color = AppDarkBlue)
-//            ) {
-//                Column(
-//                    modifier = Modifier,
-//                    horizontalAlignment = Alignment.CenterHorizontally,
-//                    verticalArrangement = Arrangement.Center
-//                ) {
-//                    Image(
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                            .height(230.dp),
-//                        contentScale = ContentScale.Crop,
-//                        painter = painterResource(id = item.image),
-//                        contentDescription = "Instructor",
-//                    )
+//                    .fillMaxWidth()
+//                    .height(230.dp),
+//                contentScale = ContentScale.Crop,
+//                painter = painterResource(id = item.image),
+//                contentDescription = "Instructor",
+//            )
 //
-//                    Spacer(modifier = Modifier.height(5.dp))
+//            Spacer(modifier = Modifier.height(5.dp))
 //
-//                    Text(
-//                        text = item.name,
-//                        fontSize = 18.sp,
-//                        fontWeight = FontWeight.SemiBold,
-//                        color = Color.White
-//                    )
+//            Text(
+//                text = item.name,
+//                fontSize = 18.sp,
+//                fontWeight = FontWeight.SemiBold,
+//                color = Color.White
+//            )
 //
-//                    Spacer(modifier = Modifier.height(5.dp))
+//            Spacer(modifier = Modifier.height(5.dp))
 //
-//                    Text(
-//                        text = item.field,
-//                        fontSize = 18.sp,
-//                        fontWeight = FontWeight.SemiBold,
-//                        color = Color.White
-//                    )
-//                }
-//            }
+//            Text(
+//                text = item.field,
+//                fontSize = 18.sp,
+//                fontWeight = FontWeight.SemiBold,
+//                color = Color.White
+//            )
 //        }
 //    }
 //}
@@ -280,4 +295,63 @@ fun MulticoloredText(
             }
         }
     )
+}
+
+
+@Preview
+@Composable
+fun CurvedRectangle(
+    height: Int = 300,
+    curveHeight: Int = 145,
+    color: Color = AppAquatic
+) {
+    Canvas(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(height.dp)
+    ) {
+        val path = Path().apply {
+            lineTo(0f, size.height - curveHeight)
+            cubicTo(
+                0f,
+                size.height - curveHeight / 2,
+                size.width / 2,
+                size.height,
+                size.width,
+                size.height - curveHeight / 2
+            )
+            lineTo(size.width, 0f)
+            close()
+        }
+        drawPath(
+            path = path,
+            color = color
+        )
+    }
+}
+
+
+@Preview
+@Composable
+fun CategoryCardView(
+    icon: ImageVector = Icons.Default.DirectionsCar
+) {
+    Card(
+        modifier = Modifier.size(70.dp),
+        shape = RoundedCornerShape(10.dp),
+        backgroundColor = AppDarkBlue,
+        contentColor = White,
+        elevation = 5.dp
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = "Category",
+                modifier = Modifier.size(35.dp)
+            )
+        }
+    }
 }
