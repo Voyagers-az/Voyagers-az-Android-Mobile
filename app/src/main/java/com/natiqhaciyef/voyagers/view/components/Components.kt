@@ -1,5 +1,6 @@
 package com.natiqhaciyef.voyagers.view.components
 
+//https://freebiefy.com/free-travel-app-ui-design/
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.*
@@ -53,9 +54,11 @@ import com.natiqhaciyef.voyagers.util.NavItemModel
 import androidx.compose.ui.util.lerp
 import coil.compose.rememberImagePainter
 import com.google.accompanist.pager.*
+import com.natiqhaciyef.voyagers.data.model.ServiceModel
 import com.natiqhaciyef.voyagers.data.model.TourModel
+import com.natiqhaciyef.voyagers.data.model.TourScope
 import com.natiqhaciyef.voyagers.util.FontList
-import com.natiqhaciyef.voyagers.util.NavItem
+import com.natiqhaciyef.voyagers.util.Services
 import com.natiqhaciyef.voyagers.view.ui.theme.*
 import kotlin.math.ceil
 import kotlin.math.floor
@@ -264,82 +267,6 @@ fun ViewPagerItem(item: TourModel) {
     }
 }
 
-@Preview
-@Composable
-fun PlaceItem(
-    item: TourModel = TourModel(
-        id = 0,
-        name = "ViaTour",
-        image = mutableListOf(),
-        info = "Daxildir: 3 gecə, 4 gün gəzmək imkanı, otel xərcləri qarşılanır",
-        route = mutableMapOf("Bakı" to "Roma"),
-        price = 570.0,
-        personCount = 12,
-        rating = 3.6,
-        country = "Italiya"
-    )
-) {
-
-    val colorMatrix = floatArrayOf(
-        0.5f, 0f, 0f, 0f, 0f,
-        0f, 0.5f, 0f, 0f, 0f,
-        0f, 0f, 0.5f, 0f, 0f,
-        0f, 0f, 0f, 1f, 0f
-    )
-
-    Card(
-        modifier = Modifier
-            .width(280.dp)
-            .height(330.dp)
-            .padding(start = 5.dp, end = 5.dp, bottom = 10.dp),
-        shape = RoundedCornerShape(12.dp),
-        backgroundColor = White,
-        elevation = 5.dp
-    ) {
-        Image(
-            painter = rememberImagePainter(data = item.image[0]),
-            contentDescription = "Tour image",
-            colorFilter = ColorFilter.colorMatrix(ColorMatrix(colorMatrix)),
-            modifier = Modifier
-                .fillMaxSize(),
-            contentScale = ContentScale.Crop
-        )
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 15.dp),
-            verticalArrangement = Arrangement.Bottom,
-            horizontalAlignment = Alignment.Start
-        ) {
-
-            Text(
-                text = "${item.country} turu",
-                fontSize = 22.sp,
-                fontWeight = FontWeight.Bold,
-                color = White,
-                modifier = Modifier
-            )
-
-            Spacer(modifier = Modifier.height(5.dp))
-
-            RatingBar(rating = item.rating)
-
-            Spacer(modifier = Modifier.height(5.dp))
-
-            Text(
-                text = item.info,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                color = White,
-                modifier = Modifier
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-        }
-    }
-}
-
-
 //@Preview
 @Composable
 fun CurvedRectangle(
@@ -428,3 +355,127 @@ fun RatingBar(
         }
     }
 }
+
+
+@Preview
+@Composable
+fun PlaceItem(
+    item: TourModel = TourModel(
+        id = 0,
+        name = "ViaTour",
+        image = mutableListOf(),
+        info = "Daxildir: 3 gecə, 4 gün gəzmək imkanı, otel xərcləri qarşılanır",
+        route = mutableMapOf("Bakı" to "Roma"),
+        price = 570.0,
+        personCount = 12,
+        rating = 3.6,
+        country = "Italiya",
+        scope = TourScope.Global.scope
+    )
+) {
+
+    val colorMatrix = floatArrayOf(
+        0.5f, 0f, 0f, 0f, 0f,
+        0f, 0.5f, 0f, 0f, 0f,
+        0f, 0f, 0.5f, 0f, 0f,
+        0f, 0f, 0f, 1f, 0f
+    )
+
+    Card(
+        modifier = Modifier
+            .width(280.dp)
+            .height(330.dp)
+            .padding(start = 5.dp, end = 5.dp, bottom = 10.dp),
+        shape = RoundedCornerShape(12.dp),
+        backgroundColor = White,
+        elevation = 5.dp
+    ) {
+        Image(
+            painter = rememberImagePainter(data = item.image[0]),
+            contentDescription = "Tour image",
+            colorFilter = ColorFilter.colorMatrix(ColorMatrix(colorMatrix)),
+            modifier = Modifier
+                .fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 15.dp),
+            verticalArrangement = Arrangement.Bottom,
+            horizontalAlignment = Alignment.Start
+        ) {
+
+            Text(
+                text = "${item.country} turu",
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Bold,
+                color = White,
+                modifier = Modifier
+            )
+
+            Spacer(modifier = Modifier.height(5.dp))
+
+            RatingBar(rating = item.rating)
+
+            Spacer(modifier = Modifier.height(5.dp))
+
+            Text(
+                text = item.info,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                color = White,
+                modifier = Modifier
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+        }
+    }
+}
+
+
+@Preview
+@Composable
+fun ServiceCardItem(
+    serviceModel: ServiceModel = Services.services[0]
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(70.dp)
+            .padding(horizontal = 10.dp),
+        shape = RoundedCornerShape(12.dp),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(AppDarkBlue),
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+            ) {
+                Text(
+                    text = serviceModel.title,
+                    color = White,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .padding(start = 15.dp, end = 20.dp)
+                        .align(Alignment.CenterStart)
+                )
+
+                Icon(
+                    imageVector = serviceModel.image!!,
+                    contentDescription = "Service icon",
+                    tint = White,
+                    modifier = Modifier
+                        .padding(end = 30.dp)
+                        .align(Alignment.CenterEnd)
+                )
+            }
+        }
+    }
+}
+

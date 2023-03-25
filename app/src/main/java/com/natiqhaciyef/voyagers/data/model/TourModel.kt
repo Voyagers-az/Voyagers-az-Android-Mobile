@@ -9,5 +9,7 @@ data class TourModel(
     var route: MutableMap<String,String>,
     var price: Double,
     var personCount: Int,
-    var rating: Double
+    var rating: Double,
+    var scope: String,
+    var region: String = "Qeyd olunmayıb"
 )
