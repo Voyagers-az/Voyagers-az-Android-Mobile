@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -17,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -59,7 +61,7 @@ fun LoginScreen(
             val p = usernames.associateBy { user -> user.password }
 
             if (e.contains(email.value) && p.containsKey(password.value)) {
-                navController.navigate(ScreenID.HomeScreen.name)
+                navController.navigate(ScreenID.MainScreenLine.name)
             }else{
                 // login fail
             }
@@ -82,7 +84,7 @@ private fun LoginTopView() {
     )
 
     Text(
-        text = "Login",
+        text = "Daxil ol",
         fontSize = 25.sp,
         color = Color.Black,
         fontFamily = FontList.fontFamily,
@@ -123,7 +125,9 @@ private fun LoginMainPart(
                 onValueChange = {
                     email.value = it
                 },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email).copy(
+                    imeAction = ImeAction.Next
+                ),
                 singleLine = true,
                 placeholder = {
                     Text(text = "Email")
