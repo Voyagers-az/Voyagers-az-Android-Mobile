@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "322113832640",
+    "project_id": "voyagers-666fb",
+    "storage_bucket": "voyagers-666fb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:322113832640:android:04668c04bca8fe11044f25",
+        "android_client_info": {
+          "package_name": "com.natiqhaciyef.voyagers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "322113832640-st59tr7c6unnu1f0084f0c3i9t8nrld4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.natiqhaciyef.voyagers",
+            "certificate_hash": "37d8c14786fd080225f82e444e203116c715948a"
+          }
+        },
+        {
+          "client_id": "322113832640-rgg8uom70i6d184gna40jq32tb7k4kps.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrEz2UhbFZTKVKhWY51312HZTn62dvEvw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "322113832640-rgg8uom70i6d184gna40jq32tb7k4kps.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

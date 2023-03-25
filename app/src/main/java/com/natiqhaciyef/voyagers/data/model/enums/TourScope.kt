@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagers.data.model
+package com.natiqhaciyef.voyagers.data.model.enums
 
 enum class TourScope(var scope: String) {
     Local("Yerli"),

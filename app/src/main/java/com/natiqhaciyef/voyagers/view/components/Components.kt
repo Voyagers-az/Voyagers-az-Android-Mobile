@@ -2,7 +2,6 @@ package com.natiqhaciyef.voyagers.view.components
 
 //https://freebiefy.com/free-travel-app-ui-design/
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
@@ -13,7 +12,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -25,23 +23,15 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.Color.Companion.Black
-import androidx.compose.ui.graphics.Color.Companion.Blue
 import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.graphics.ColorFilter.Companion.tint
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -54,10 +44,11 @@ import com.natiqhaciyef.voyagers.util.NavItemModel
 import androidx.compose.ui.util.lerp
 import coil.compose.rememberImagePainter
 import com.google.accompanist.pager.*
+import com.natiqhaciyef.voyagers.data.model.PlaceModel
 import com.natiqhaciyef.voyagers.data.model.ServiceModel
 import com.natiqhaciyef.voyagers.data.model.TourModel
-import com.natiqhaciyef.voyagers.data.model.TourScope
-import com.natiqhaciyef.voyagers.util.FontList
+import com.natiqhaciyef.voyagers.data.model.enums.RegionSide
+import com.natiqhaciyef.voyagers.data.model.enums.TourScope
 import com.natiqhaciyef.voyagers.util.Services
 import com.natiqhaciyef.voyagers.view.ui.theme.*
 import kotlin.math.ceil
@@ -96,9 +87,9 @@ fun BottomShadow(modifier: Modifier) {
 fun NavBar(
     selectedIndex: MutableState<Int>,
     list: MutableList<NavItemModel> = mutableListOf(
-        NavItemModel(image = R.drawable.home_icon, title = "Home"),
-        NavItemModel(image = R.drawable.tour_icon, title = "Tour"),
-        NavItemModel(image = R.drawable.account_circle_icon, title = "User")
+        NavItemModel(image = R.drawable.home_icon, title = "Ana səhifə"),
+        NavItemModel(image = R.drawable.tour_icon, title = "Turlar"),
+        NavItemModel(image = R.drawable.account_circle_icon, title = "Profil")
     )
 ) {
 
@@ -360,17 +351,13 @@ fun RatingBar(
 @Preview
 @Composable
 fun PlaceItem(
-    item: TourModel = TourModel(
+    item: PlaceModel = PlaceModel(
         id = 0,
         name = "ViaTour",
-        image = mutableListOf(),
-        info = "Daxildir: 3 gecə, 4 gün gəzmək imkanı, otel xərcləri qarşılanır",
-        route = mutableMapOf("Bakı" to "Roma"),
-        price = 570.0,
-        personCount = 12,
-        rating = 3.6,
-        country = "Italiya",
-        scope = TourScope.Global.scope
+        image = "",
+        scope = TourScope.Global.scope,
+        side = RegionSide.North.side,
+        rating = 4.5
     )
 ) {
 
@@ -391,8 +378,8 @@ fun PlaceItem(
         elevation = 5.dp
     ) {
         Image(
-            painter = rememberImagePainter(data = item.image[0]),
-            contentDescription = "Tour image",
+            painter = rememberImagePainter(data = item.image),
+            contentDescription = "Place image",
             colorFilter = ColorFilter.colorMatrix(ColorMatrix(colorMatrix)),
             modifier = Modifier
                 .fillMaxSize(),
@@ -407,7 +394,7 @@ fun PlaceItem(
         ) {
 
             Text(
-                text = "${item.country} turu",
+                text = "${item.name} turu",
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
                 color = White,
@@ -417,16 +404,6 @@ fun PlaceItem(
             Spacer(modifier = Modifier.height(5.dp))
 
             RatingBar(rating = item.rating)
-
-            Spacer(modifier = Modifier.height(5.dp))
-
-            Text(
-                text = item.info,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                color = White,
-                modifier = Modifier
-            )
 
             Spacer(modifier = Modifier.height(10.dp))
         }
@@ -474,16 +451,6 @@ fun ServiceCardItem(
                         .padding(end = 30.dp)
                         .align(Alignment.CenterEnd)
                 )
-
-//                Icon(
-//                    imageVector = serviceModel.image!!,
-//                    contentDescription = "Service icon",
-//                    tint = White,
-//                    modifier = Modifier
-//                        .padding(end = 30.dp)
-//                        .align(Alignment.CenterEnd)
-//                )
-
             }
         }
     }

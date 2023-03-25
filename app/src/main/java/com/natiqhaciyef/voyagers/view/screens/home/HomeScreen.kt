@@ -1,8 +1,7 @@
-package com.natiqhaciyef.voyagers.view.screens
+package com.natiqhaciyef.voyagers.view.screens.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -29,10 +28,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.natiqhaciyef.voyagers.data.model.ServiceModel
-import com.natiqhaciyef.voyagers.data.model.TourModel
-import com.natiqhaciyef.voyagers.data.model.TourScope
 import com.natiqhaciyef.voyagers.util.CategoryIcons
+import com.natiqhaciyef.voyagers.util.Places
 import com.natiqhaciyef.voyagers.util.Services
 import com.natiqhaciyef.voyagers.view.components.*
 import com.natiqhaciyef.voyagers.view.ui.theme.*
@@ -138,32 +135,7 @@ fun HomeTopView(
     }
 }
 
-val list = mutableListOf(
-    TourModel(
-        id = 1,
-        name = "Avia",
-        image = mutableListOf("https://img.fotocommunity.com/qebele-azerbaijan-6372766b-168f-4fea-891b-f2afc2981167.jpg?height=1080"),
-        info = "Qəbələ turu. Gediş-gəliş, səhər yeməyi daxil",
-        route = mutableMapOf("Baku" to "Qebele", "Qebele" to "Baku"),
-        price = 20.0,
-        personCount = 25,
-        rating = 4.5,
-        country = "Azerbaijan",
-        scope = TourScope.Local.scope
-    ),
-    TourModel(
-        id = 2,
-        name = "Voyager",
-        image = mutableListOf("https://i.ytimg.com/vi/0vSvcf39WzE/maxresdefault.jpg"),
-        info = "Quba turu, Çənlibel gölü. Gediş-gəliş, səhər yeməyi daxil",
-        route = mutableMapOf("Baku" to "Quba", "Quba" to "Baku"),
-        price = 20.0,
-        personCount = 25,
-        rating = 4.5,
-        country = "Azerbaijan",
-        scope = TourScope.Local.scope
-    )
-)
+
 
 
 @OptIn(ExperimentalPagerApi::class)
@@ -185,8 +157,8 @@ fun HomeMainPartView() {
         Spacer(modifier = Modifier.height(10.dp))
 
         LazyRow {
-            items(list) { tour ->
-                PlaceItem(tour) // implement it
+            items(Places.list) { place ->
+                PlaceItem(place) // implement it
             }
         }
 
