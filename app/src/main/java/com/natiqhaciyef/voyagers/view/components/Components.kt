@@ -474,6 +474,16 @@ fun ServiceCardItem(
                         .padding(end = 30.dp)
                         .align(Alignment.CenterEnd)
                 )
+
+//                Icon(
+//                    imageVector = serviceModel.image!!,
+//                    contentDescription = "Service icon",
+//                    tint = White,
+//                    modifier = Modifier
+//                        .padding(end = 30.dp)
+//                        .align(Alignment.CenterEnd)
+//                )
+
             }
         }
     }
