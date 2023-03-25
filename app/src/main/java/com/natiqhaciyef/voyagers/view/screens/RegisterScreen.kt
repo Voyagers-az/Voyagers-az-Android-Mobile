@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -144,7 +145,9 @@ private fun RegisterMainPart(
                 placeholder = {
                     Text(text = "Username")
                 },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text).copy(
+                    imeAction = ImeAction.Next
+                ),
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.AccountCircle,
@@ -175,7 +178,9 @@ private fun RegisterMainPart(
                 onValueChange = {
                     email.value = it
                 },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email).copy(
+                    imeAction = ImeAction.Next
+                ),
                 singleLine = true,
                 placeholder = {
                     Text(text = "Email")
@@ -210,7 +215,9 @@ private fun RegisterMainPart(
                 onValueChange = {
                     phone.value = it
                 },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone).copy(
+                    imeAction = ImeAction.Next
+                ),
                 singleLine = true,
                 placeholder = {
                     Text(text = "Phone")
@@ -309,7 +316,7 @@ private fun RegisterMainPart(
                 )
             ) {
                 Text(
-                    text = "Register",
+                    text = "Qeydiyyat",
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White

@@ -66,7 +66,7 @@ private fun ResetPasswordTopView() {
     Spacer(modifier = Modifier.height(25.dp))
 
     Text(
-        text = "Reset Password",
+        text = "Şifrəni yenilə",
         fontSize = 25.sp,
         color = Color.Black,
         fontFamily = FontList.fontFamily,

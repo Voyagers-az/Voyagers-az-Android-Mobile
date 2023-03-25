@@ -1,5 +1,6 @@
 package com.natiqhaciyef.voyagers.view.components
 
+//https://freebiefy.com/free-travel-app-ui-design/
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.*
@@ -16,15 +17,21 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.Star
+import androidx.compose.material.icons.outlined.StarHalf
+import androidx.compose.material.icons.outlined.StarOutline
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.Blue
+import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.ColorFilter.Companion.tint
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -39,19 +46,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.calculateCurrentOffsetForPage
-import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.yield
 import kotlin.math.absoluteValue
 import com.natiqhaciyef.voyagers.R
 import com.natiqhaciyef.voyagers.util.NavItemModel
 import androidx.compose.ui.util.lerp
+import coil.compose.rememberImagePainter
+import com.google.accompanist.pager.*
+import com.natiqhaciyef.voyagers.data.model.ServiceModel
+import com.natiqhaciyef.voyagers.data.model.TourModel
+import com.natiqhaciyef.voyagers.data.model.TourScope
 import com.natiqhaciyef.voyagers.util.FontList
-import com.natiqhaciyef.voyagers.util.NavItem
+import com.natiqhaciyef.voyagers.util.Services
 import com.natiqhaciyef.voyagers.view.ui.theme.*
+import kotlin.math.ceil
+import kotlin.math.floor
 
 
 @Composable
@@ -67,7 +77,7 @@ fun BottomShadow(
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        Color.Black.copy(alpha = alpha),
+                        Black.copy(alpha = alpha),
                         Color.Transparent,
                     )
                 )
@@ -133,7 +143,7 @@ fun NavBar(
                                 painter = painterResource(id = icon.image),
                                 contentDescription = "content",
                                 modifier = Modifier.size(25.dp),
-                                tint = if (selectedIndex.value == index) AppBrown else White
+                                tint = if (selectedIndex.value == index) White else Gray
                             )
                         }
                         AnimatedVisibility(visible = (selectedIndex.value == index)) {
@@ -154,154 +164,113 @@ fun NavBar(
 
 
 //@Preview
-//@ExperimentalPagerApi
-//@Composable
-//fun CustomViewPager(list: MutableList<TourModel> = mutableListOf()) {
-//    val pagerState = rememberPagerState(
-//        initialPage = 0,
-//        pageCount = list.size
-//    )
-//
-//    LaunchedEffect(key1 = Unit) {
-//        while (true) {
-//            yield()
-//            delay(2000)
-//            pagerState.animateScrollToPage(
-//                page = (pagerState.currentPage + 1) % (pagerState.pageCount),
-//                animationSpec = tween(600)
-//            )
-//        }
-//    }
-//
-//    HorizontalPager(
-//        state = pagerState,
-//        modifier = Modifier
-//            .padding(horizontal = 40.dp)
-//    ) { page ->
-//
-//        Card(
-//            modifier = Modifier
-//                .graphicsLayer {
-//                    val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
-//                    lerp(
-//                        start = 0.85f,
-//                        stop = 1f,
-//                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
-//                    ).also { scale ->
-//                        scaleX = scale
-//                        scaleY = scale
-//                    }
-//                    alpha = lerp(
-//                        start = 0.5f,
-//                        stop = 1f,
-//                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
-//                    )
-//                }
-//                .fillMaxWidth()
-//                .height(295.dp)
-//                .padding(horizontal = 40.dp),
-//            shape = RoundedCornerShape(15.dp)
-//        ) {
-//            val item = list[page]
-//            ViewPagerItem()
-//        }
-//    }
-//}
-//
-//@Composable
-//fun ViewPagerItem(item: TravelModel){
-//    Box(
-//        modifier = Modifier
-//            .fillMaxSize()
-//            .background(color = AppDarkBlue),
-//        contentAlignment = Alignment.Center
-//    ) {
-//        Column(
-//            modifier = Modifier,
-//            horizontalAlignment = Alignment.CenterHorizontally,
-//            verticalArrangement = Arrangement.Center
-//        ) {
-//            Image(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .height(230.dp),
-//                contentScale = ContentScale.Crop,
-//                painter = painterResource(id = item.image),
-//                contentDescription = "Instructor",
-//            )
-//
-//            Spacer(modifier = Modifier.height(5.dp))
-//
-//            Text(
-//                text = item.name,
-//                fontSize = 18.sp,
-//                fontWeight = FontWeight.SemiBold,
-//                color = Color.White
-//            )
-//
-//            Spacer(modifier = Modifier.height(5.dp))
-//
-//            Text(
-//                text = item.field,
-//                fontSize = 18.sp,
-//                fontWeight = FontWeight.SemiBold,
-//                color = Color.White
-//            )
-//        }
-//    }
-//}
-
-@Preview
+@ExperimentalPagerApi
 @Composable
-fun MulticoloredText(
-    selectedText: String = "",
-    unSelectedTextIntro: String = "",
-    unSelectedTextOutro: String = ""
-) {
-    Text(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 40.dp, end = 60.dp),
-        textAlign = TextAlign.Start,
-        text = buildAnnotatedString {
-            withStyle(
-                style = SpanStyle(
-                    fontSize = 30.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    fontFamily = FontList.fontFamily
-                )
-            ) {
-                withStyle(
-                    style = SpanStyle(
-                        color = White,
-                    )
-                ) {
-                    append(text = unSelectedTextIntro)
-                }
-                withStyle(
-                    style = SpanStyle(
-                        color = Color.Yellow
-                    )
-                ) {
-                    append(text = selectedText)
-                }
-                withStyle(
-                    style = SpanStyle(
-                        color = Color.White
-                    )
-                ) {
-                    append(text = unSelectedTextOutro)
-                }
-            }
-        }
+fun CustomViewPager(list: MutableList<TourModel> = mutableListOf()) {
+    val pagerState = rememberPagerState(
+        initialPage = 0,
+        pageCount = list.size
     )
+
+    LaunchedEffect(key1 = Unit) {
+        while (true) {
+            yield()
+            delay(2000)
+            pagerState.animateScrollToPage(
+                page = (pagerState.currentPage + 1) % (pagerState.pageCount),
+                animationSpec = tween(600)
+            )
+        }
+    }
+
+    HorizontalPager(
+        state = pagerState,
+        modifier = Modifier
+            .padding(horizontal = 40.dp)
+    ) { page ->
+
+        Card(
+            modifier = Modifier
+                .graphicsLayer {
+                    val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
+                    lerp(
+                        start = 0.85f,
+                        stop = 1f,
+                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                    ).also { scale ->
+                        scaleX = scale
+                        scaleY = scale
+                    }
+                    alpha = lerp(
+                        start = 0.5f,
+                        stop = 1f,
+                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                    )
+                }
+                .fillMaxWidth()
+                .height(300.dp)
+                .padding(horizontal = 30.dp),
+            shape = RoundedCornerShape(15.dp)
+        ) {
+            val item = list[page]
+            ViewPagerItem(item)
+        }
+    }
 }
 
+@Composable
+fun ViewPagerItem(item: TourModel) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = AppDarkBlue),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            modifier = Modifier,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
+        ) {
+            Image(
+                modifier = Modifier
+                    .width(300.dp)
+                    .height(200.dp),
+                contentScale = ContentScale.Crop,
+                painter = rememberImagePainter(data = item.image[0]),
+                contentDescription = "Places",
+            )
 
-@Preview
+            Spacer(modifier = Modifier.height(5.dp))
+
+            Text(
+                text = item.name,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = AppAquaticLight,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(horizontal = 5.dp)
+            )
+
+            Spacer(modifier = Modifier.height(5.dp))
+
+            Text(
+                text = item.info,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = White,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(horizontal = 15.dp)
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+        }
+    }
+}
+
+//@Preview
 @Composable
 fun CurvedRectangle(
-    height: Int = 300,
+    height: Int = 245,
     curveHeight: Int = 145,
     color: Color = AppAquatic
 ) {
@@ -331,7 +300,7 @@ fun CurvedRectangle(
 }
 
 
-@Preview
+//@Preview
 @Composable
 fun CategoryCardView(
     icon: ImageVector = Icons.Default.DirectionsCar
@@ -355,3 +324,158 @@ fun CategoryCardView(
         }
     }
 }
+
+@Composable
+fun RatingBar(
+    modifier: Modifier = Modifier,
+    rating: Double = 0.0,
+    stars: Int = 5,
+    starsColor: Color = Color.Yellow,
+) {
+    val filledStars = floor(rating).toInt()
+    val unfilledStars = (stars - ceil(rating)).toInt()
+    val halfStar = !(rating.rem(1).equals(0.0))
+    Row(modifier = modifier) {
+        repeat(filledStars) {
+            Icon(imageVector = Icons.Outlined.Star, contentDescription = null, tint = starsColor)
+        }
+        if (halfStar) {
+            Icon(
+                imageVector = Icons.Outlined.StarHalf,
+                contentDescription = null,
+                tint = starsColor
+            )
+        }
+        repeat(unfilledStars) {
+            Icon(
+                imageVector = Icons.Outlined.StarOutline,
+                contentDescription = null,
+                tint = starsColor
+            )
+        }
+    }
+}
+
+
+@Preview
+@Composable
+fun PlaceItem(
+    item: TourModel = TourModel(
+        id = 0,
+        name = "ViaTour",
+        image = mutableListOf(),
+        info = "Daxildir: 3 gecə, 4 gün gəzmək imkanı, otel xərcləri qarşılanır",
+        route = mutableMapOf("Bakı" to "Roma"),
+        price = 570.0,
+        personCount = 12,
+        rating = 3.6,
+        country = "Italiya",
+        scope = TourScope.Global.scope
+    )
+) {
+
+    val colorMatrix = floatArrayOf(
+        0.5f, 0f, 0f, 0f, 0f,
+        0f, 0.5f, 0f, 0f, 0f,
+        0f, 0f, 0.5f, 0f, 0f,
+        0f, 0f, 0f, 1f, 0f
+    )
+
+    Card(
+        modifier = Modifier
+            .width(280.dp)
+            .height(330.dp)
+            .padding(start = 5.dp, end = 5.dp, bottom = 10.dp),
+        shape = RoundedCornerShape(12.dp),
+        backgroundColor = White,
+        elevation = 5.dp
+    ) {
+        Image(
+            painter = rememberImagePainter(data = item.image[0]),
+            contentDescription = "Tour image",
+            colorFilter = ColorFilter.colorMatrix(ColorMatrix(colorMatrix)),
+            modifier = Modifier
+                .fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 15.dp),
+            verticalArrangement = Arrangement.Bottom,
+            horizontalAlignment = Alignment.Start
+        ) {
+
+            Text(
+                text = "${item.country} turu",
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Bold,
+                color = White,
+                modifier = Modifier
+            )
+
+            Spacer(modifier = Modifier.height(5.dp))
+
+            RatingBar(rating = item.rating)
+
+            Spacer(modifier = Modifier.height(5.dp))
+
+            Text(
+                text = item.info,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                color = White,
+                modifier = Modifier
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+        }
+    }
+}
+
+
+@Preview
+@Composable
+fun ServiceCardItem(
+    serviceModel: ServiceModel = Services.services[0]
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(70.dp)
+            .padding(horizontal = 10.dp),
+        shape = RoundedCornerShape(12.dp),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(AppDarkBlue),
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+            ) {
+                Text(
+                    text = serviceModel.title,
+                    color = White,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .padding(start = 15.dp, end = 20.dp)
+                        .align(Alignment.CenterStart)
+                )
+
+                Icon(
+                    imageVector = serviceModel.image!!,
+                    contentDescription = "Service icon",
+                    tint = White,
+                    modifier = Modifier
+                        .padding(end = 30.dp)
+                        .align(Alignment.CenterEnd)
+                )
+            }
+        }
+    }
+}
+

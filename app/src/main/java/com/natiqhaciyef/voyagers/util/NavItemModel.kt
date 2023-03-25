@@ -7,7 +7,3 @@ data class NavItemModel(
     val image: Int,
     val title: String
 )
-
-
-@Immutable
-data class NavItem(val icon: ImageVector, val title: String)
