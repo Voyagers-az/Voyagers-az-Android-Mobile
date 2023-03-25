@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -38,6 +39,7 @@ import com.natiqhaciyef.voyagers.view.components.BottomShadow
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.AppBrown
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
+import com.natiqhaciyef.voyagers.view.ui.theme.AppGray
 import com.natiqhaciyef.voyagers.view.ui.theme.Red
 import com.natiqhaciyef.voyagers.view.viewmodel.RegistrationViewModel
 
@@ -63,7 +65,7 @@ fun RegisterScreen(
         RegisterTopView()
         RegisterMainPart(username, email, phone, password, navController) {
             if (email.value.isNotEmpty() && !list.contains(email.value)) {
-                Log.d("MYLOG","Email is not empty and list is not contains")
+                Log.d("MYLOG", "Email is not empty and list is not contains")
 
                 if (user.email != email.value && phone.value.isNotEmpty() &&
                     username.value.isNotEmpty() && password.value.isNotEmpty()
@@ -98,7 +100,7 @@ private fun RegisterTopView() {
     )
 
     Text(
-        text = "Registration",
+        text = "Qeydiyyat",
         fontSize = 25.sp,
         color = Color.Black,
         fontFamily = FontList.fontFamily,
@@ -143,7 +145,10 @@ private fun RegisterMainPart(
                 },
                 singleLine = true,
                 placeholder = {
-                    Text(text = "Username")
+                    Text(
+                        text = "İstifadəçi adı",
+                        color = AppGray
+                    )
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text).copy(
                     imeAction = ImeAction.Next
@@ -151,7 +156,8 @@ private fun RegisterMainPart(
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.AccountCircle,
-                        contentDescription = "Username"
+                        contentDescription = "Username",
+                        tint = AppGray
                     )
                 },
                 modifier = Modifier
@@ -160,7 +166,7 @@ private fun RegisterMainPart(
                     .padding(horizontal = 20.dp),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     backgroundColor = Color.White,
-                    textColor = Color.Black,
+                    textColor = colorResource(id = MaterialTheme.colors.textInputColor)
                 ),
                 shape = RoundedCornerShape(10.dp),
                 textStyle = TextStyle.Default.copy(
@@ -183,12 +189,16 @@ private fun RegisterMainPart(
                 ),
                 singleLine = true,
                 placeholder = {
-                    Text(text = "Email")
+                    Text(
+                        text = "E-poçt",
+                        color = AppGray
+                    )
                 },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Email,
-                        contentDescription = "Email"
+                        contentDescription = "Email",
+                        tint = AppGray
                     )
                 },
                 modifier = Modifier
@@ -197,7 +207,7 @@ private fun RegisterMainPart(
                     .padding(horizontal = 20.dp),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     backgroundColor = Color.White,
-                    textColor = Color.Black,
+                    textColor = colorResource(id = MaterialTheme.colors.textInputColor),
                 ),
                 shape = RoundedCornerShape(10.dp),
                 textStyle = TextStyle.Default.copy(
@@ -220,12 +230,16 @@ private fun RegisterMainPart(
                 ),
                 singleLine = true,
                 placeholder = {
-                    Text(text = "Phone")
+                    Text(
+                        text = "Nömrə",
+                        color = AppGray
+                    )
                 },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Phone,
-                        contentDescription = "Phone"
+                        contentDescription = "Phone",
+                        tint = AppGray
                     )
                 },
                 modifier = Modifier
@@ -254,12 +268,16 @@ private fun RegisterMainPart(
                 },
                 singleLine = true,
                 placeholder = {
-                    Text(text = "Password")
+                    Text(
+                        text = "Şifrə",
+                        color = AppGray
+                    )
                 },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Lock,
-                        contentDescription = "Password"
+                        contentDescription = "Password",
+                        tint = AppGray
                     )
                 },
                 visualTransformation =
@@ -344,7 +362,7 @@ private fun RegisterMainPart(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Do you have an account ?",
+                    text = "Aktiv hesabınız var ?",
                     fontWeight = FontWeight.SemiBold,
                     color = Color.White,
                     fontSize = 15.sp
@@ -357,7 +375,7 @@ private fun RegisterMainPart(
                         .clickable {
                             navController.navigate(ScreenID.LoginScreen.name)
                         },
-                    text = "Sign in",
+                    text = "Daxil ol",
                     color = Red,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.SemiBold,
@@ -368,3 +386,9 @@ private fun RegisterMainPart(
 }
 
 
+// Adding extra colors for Dark And Light Theme
+@get: Composable
+val Colors.textInputColor: Int
+    get() = if (isLight) R.color.black else R.color.black
+
+//Image

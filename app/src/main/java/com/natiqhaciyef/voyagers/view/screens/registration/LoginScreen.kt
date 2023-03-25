@@ -38,6 +38,7 @@ import com.natiqhaciyef.voyagers.view.components.BottomShadow
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.AppBrown
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
+import com.natiqhaciyef.voyagers.view.ui.theme.AppGray
 import com.natiqhaciyef.voyagers.view.ui.theme.Red
 import com.natiqhaciyef.voyagers.view.viewmodel.RegistrationViewModel
 
@@ -62,7 +63,7 @@ fun LoginScreen(
 
             if (e.contains(email.value) && p.containsKey(password.value)) {
                 navController.navigate(ScreenID.MainScreenLine.name)
-            }else{
+            } else {
                 // login fail
             }
         }
@@ -130,12 +131,16 @@ private fun LoginMainPart(
                 ),
                 singleLine = true,
                 placeholder = {
-                    Text(text = "Email")
+                    Text(
+                        text = "E-poçt",
+                        color = AppGray
+                    )
                 },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Email,
-                        contentDescription = "Email"
+                        contentDescription = "Email",
+                        tint = AppGray
                     )
                 },
                 modifier = Modifier
@@ -164,12 +169,16 @@ private fun LoginMainPart(
                 },
                 singleLine = true,
                 placeholder = {
-                    Text(text = "Password")
+                    Text(
+                        text = "Şifrə",
+                        color = AppGray
+                    )
                 },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Lock,
-                        contentDescription = "Password"
+                        contentDescription = "Password",
+                        tint = AppGray
                     )
                 },
                 visualTransformation =
@@ -211,7 +220,7 @@ private fun LoginMainPart(
 
             Spacer(modifier = Modifier.height(5.dp))
             Text(
-                text = "Forgot password ?",
+                text = "Şifrəni unutmusuz ?",
                 color = Color.White,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.SemiBold,
@@ -241,7 +250,7 @@ private fun LoginMainPart(
                 )
             ) {
                 Text(
-                    text = "Login",
+                    text = "Daxil ol",
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
@@ -269,7 +278,7 @@ private fun LoginMainPart(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "You don't have an account ?",
+                    text = "Yeni hesab yaratmaq ?",
                     fontWeight = FontWeight.SemiBold,
                     color = Color.White,
                     fontSize = 15.sp
@@ -282,7 +291,7 @@ private fun LoginMainPart(
                         .clickable {
                             navController.navigate(ScreenID.RegisterScreen.name)
                         },
-                    text = "Sign up",
+                    text = "Qeydiyyatdan keç",
                     color = Red,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.SemiBold,

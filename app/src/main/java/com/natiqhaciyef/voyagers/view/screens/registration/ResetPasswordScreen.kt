@@ -33,6 +33,7 @@ import com.natiqhaciyef.voyagers.view.components.BottomShadow
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.AppBrown
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
+import com.natiqhaciyef.voyagers.view.ui.theme.AppGray
 import com.natiqhaciyef.voyagers.view.ui.theme.Red
 
 
@@ -107,12 +108,16 @@ private fun ResetPasswordMainPart(
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 singleLine = true,
                 placeholder = {
-                    Text(text = "Email")
+                    Text(
+                        text = "E-poçt",
+                        color = AppGray
+                    )
                 },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Email,
-                        contentDescription = "Email"
+                        contentDescription = "Email",
+                        tint = AppGray
                     )
                 },
                 modifier = Modifier
@@ -138,7 +143,7 @@ private fun ResetPasswordMainPart(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 25.dp),
-                text = "Please check your email, we will send the reset password link. If it is not show, check spam messages box.",
+                text = "Zəhmət olmasa e-poçt addressinizi yoxlayın, sizə şifrə yeniləmə linki göndərildi. Əgər inboxda bildiriş yoxdursa, spam qutusuna nəzər salın. ",
                 color = Color.White,
                 fontSize = 15.sp,
                 textAlign = TextAlign.Center,
@@ -147,7 +152,7 @@ private fun ResetPasswordMainPart(
 
 
             Spacer(modifier = Modifier.height(35.dp))
-            
+
             Button(
                 modifier = Modifier
                     .height(55.dp)
@@ -161,7 +166,7 @@ private fun ResetPasswordMainPart(
                 )
             ) {
                 Text(
-                    text = "Send",
+                    text = "Göndər",
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
