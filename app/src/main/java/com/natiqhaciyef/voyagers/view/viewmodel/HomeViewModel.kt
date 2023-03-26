@@ -15,7 +15,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor() : BaseViewModel() {
     val firestore = Firebase.firestore
     val placesList = mutableStateOf<List<PlaceModel>>(mutableListOf())
-    val isLoading = mutableStateOf(false)
+    val isLoading = mutableStateOf(true)
 
     init {
         getPlaces()
@@ -47,7 +47,7 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
                         )
                         list.add(placeModel)
                     }
-                    isLoading.value = false
+//                    isLoading.value = false
                     placesList.value = list
                 }
             }
