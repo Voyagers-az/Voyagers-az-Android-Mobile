@@ -27,17 +27,22 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.natiqhaciyef.voyagers.data.model.PlaceModel
 import com.natiqhaciyef.voyagers.util.CategoryIcons
-import com.natiqhaciyef.voyagers.util.Places
 import com.natiqhaciyef.voyagers.util.Services
 import com.natiqhaciyef.voyagers.view.components.*
 import com.natiqhaciyef.voyagers.view.ui.theme.*
+import com.natiqhaciyef.voyagers.view.viewmodel.HomeViewModel
 
 @Preview
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    viewModel: HomeViewModel = hiltViewModel()
+) {
     val list = CategoryIcons.list
+    val places = viewModel.placesList
     val selectedCategory = remember { mutableStateOf(Icons.Default.DirectionsCar) }
     Box(
         modifier = Modifier
@@ -54,7 +59,7 @@ fun HomeScreen() {
                     .background(Color.Transparent)
             ) {
                 HomeTopView(selectedCategory, list)
-                HomeMainPartView()
+                HomeMainPartView(places, viewModel.isLoading)
                 Spacer(modifier = Modifier.height(60.dp))
             }
         }
@@ -136,12 +141,13 @@ fun HomeTopView(
 }
 
 
-
-
 @OptIn(ExperimentalPagerApi::class)
 @Preview
 @Composable
-fun HomeMainPartView() {
+fun HomeMainPartView(
+    list: MutableState<List<PlaceModel>> = mutableStateOf(mutableListOf()),
+    isLoading: MutableState<Boolean> = mutableStateOf(true)
+) {
     Column {
         Spacer(modifier = Modifier.height(15.dp))
         Text(
@@ -157,8 +163,8 @@ fun HomeMainPartView() {
         Spacer(modifier = Modifier.height(10.dp))
 
         LazyRow {
-            items(Places.list) { place ->
-                PlaceItem(place) // implement it
+            items(list.value) { place ->
+                PlaceItem(place, isLoading) // implement it
             }
         }
 

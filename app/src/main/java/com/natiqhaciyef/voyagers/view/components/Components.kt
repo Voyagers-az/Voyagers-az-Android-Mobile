@@ -10,17 +10,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material.icons.outlined.StarHalf
 import androidx.compose.material.icons.outlined.StarOutline
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.*
@@ -358,7 +354,8 @@ fun PlaceItem(
         scope = TourScope.Global.scope,
         side = RegionSide.North.side,
         rating = 4.5
-    )
+    ),
+    isLoading: MutableState<Boolean> = mutableStateOf(true)
 ) {
 
     val colorMatrix = floatArrayOf(
@@ -377,14 +374,28 @@ fun PlaceItem(
         backgroundColor = White,
         elevation = 5.dp
     ) {
+
+        if (isLoading.value) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .size(50.dp)
+                        .align(Alignment.Center),
+                    color = AppDarkBlue,
+                    strokeWidth = 3.dp
+                )
+            }
+        }
+
         Image(
             painter = rememberImagePainter(data = item.image),
             contentDescription = "Place image",
             colorFilter = ColorFilter.colorMatrix(ColorMatrix(colorMatrix)),
             modifier = Modifier
                 .fillMaxSize(),
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.Crop,
         )
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -419,7 +430,7 @@ fun ServiceCardItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(70.dp)
+            .height(60.dp)
             .padding(horizontal = 10.dp),
         shape = RoundedCornerShape(12.dp),
     ) {

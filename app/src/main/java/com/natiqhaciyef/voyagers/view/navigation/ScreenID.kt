@@ -6,8 +6,9 @@ enum class ScreenID {
     LoginScreen,
     ResetPasswordScreen,
     HomeScreen,
-    DetailsScreen,
+    ContactDetails,
     Tours,
     UserProfile,
-    MainScreenLine
+    MainScreenLine,
+    ServicesScreen
 }
