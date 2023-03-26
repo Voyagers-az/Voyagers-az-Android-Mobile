@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -35,10 +36,14 @@ import com.natiqhaciyef.voyagers.view.ui.theme.AppBrown
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.AppGray
 import com.natiqhaciyef.voyagers.view.ui.theme.Red
+import com.natiqhaciyef.voyagers.view.viewmodel.RegistrationViewModel
 
 
 @Composable
-fun ResetPasswordScreen(navController: NavController) {
+fun ResetPasswordScreen(
+    navController: NavController,
+    viewModel: RegistrationViewModel = hiltViewModel()
+) {
     val email = remember { mutableStateOf("") }
 
     Column(
@@ -47,7 +52,11 @@ fun ResetPasswordScreen(navController: NavController) {
             .background(color = Color.White)
     ) {
         ResetPasswordTopView()
-        ResetPasswordMainPart(email)
+        ResetPasswordMainPart(email) {
+            viewModel.resetPasswordUser(email.value){
+                navController.navigate(ScreenID.LoginScreen.name)
+            }
+        }
     }
 }
 
@@ -79,11 +88,11 @@ private fun ResetPasswordTopView() {
     Spacer(modifier = Modifier.height(25.dp))
 }
 
-@Preview
+//@Preview
 @Composable
 private fun ResetPasswordMainPart(
     email: MutableState<String> = mutableStateOf(""),
-//    navController: NavController,
+    content: () -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -158,7 +167,7 @@ private fun ResetPasswordMainPart(
                     .height(55.dp)
                     .width(200.dp),
                 onClick = {
-                    // reset password
+                    content()
                 },
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(

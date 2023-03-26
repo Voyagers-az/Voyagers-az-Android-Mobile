@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagers.view.screens
+package com.natiqhaciyef.voyagers.view.screens.registration
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -23,11 +23,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -79,7 +77,10 @@ fun RegisterScreen(
                             password = password.value
                         )
                     )
-                    navController.navigate(ScreenID.LoginScreen.name)
+                    viewModel.registerUser(email.value, password.value, username.value, phone.value){
+                        navController.navigate(ScreenID.LoginScreen.name)
+                    }
+                    Log.d("MYLOG", viewModel.resultMessage.value)
                 }
             }
         }
