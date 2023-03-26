@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -21,6 +22,7 @@ import androidx.compose.material.icons.outlined.StarOutline
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.*
@@ -358,7 +360,8 @@ fun PlaceItem(
         scope = TourScope.Global.scope,
         side = RegionSide.North.side,
         rating = 4.5
-    )
+    ),
+    isLoading: MutableState<Boolean> = mutableStateOf(true)
 ) {
 
     val colorMatrix = floatArrayOf(
@@ -385,6 +388,21 @@ fun PlaceItem(
                 .fillMaxSize(),
             contentScale = ContentScale.Crop
         )
+
+
+        if (isLoading.value) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                CircularProgressIndicator(
+                    progress = 0.5f,
+                    modifier = Modifier
+                        .size(30.dp)
+                        .align(Alignment.Center),
+                    color = AppDarkBlue,
+                    strokeWidth = 3.dp
+                )
+            }
+        }
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -419,7 +437,7 @@ fun ServiceCardItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(70.dp)
+            .height(60.dp)
             .padding(horizontal = 10.dp),
         shape = RoundedCornerShape(12.dp),
     ) {

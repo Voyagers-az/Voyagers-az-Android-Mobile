@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RegistrationViewModel @Inject constructor(
     val repository: LocalRepository
-) : ViewModel() {
+) : BaseViewModel() {
     val auth = Firebase.auth
     val firestore = Firebase.firestore
     var userState = mutableStateOf(UserModel(id = 0, name = "", email = "", phone = "", password = ""))
