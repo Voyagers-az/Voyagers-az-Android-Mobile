@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -16,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -27,64 +27,80 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.natiqhaciyef.voyagers.R
+import com.natiqhaciyef.voyagers.data.model.UserModel
 import com.natiqhaciyef.voyagers.util.FontList
 import com.natiqhaciyef.voyagers.view.components.BottomShadow
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.AppBrown
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
+import com.natiqhaciyef.voyagers.view.ui.theme.AppGray
 import com.natiqhaciyef.voyagers.view.ui.theme.Red
 import com.natiqhaciyef.voyagers.view.viewmodel.RegistrationViewModel
 
+//@Preview
 @Composable
-fun LoginScreen(
+fun RegisterScreen(
     navController: NavController,
     viewModel: RegistrationViewModel = hiltViewModel()
 ) {
+    val username = remember { mutableStateOf("") }
     val email = remember { mutableStateOf("") }
+    val phone = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
-    val usernames by remember { viewModel.allUsersState }
+    val user by remember { viewModel.userState }
+    val allUserState by remember { viewModel.allUsersState }
+    val list = allUserState.associateBy { user -> user.email }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(color = Color.White)
     ) {
-        LoginTopView()
-        LoginMainPart(email, password, navController) {
-            val e = usernames.associateBy { user -> user.email }
-            val p = usernames.associateBy { user -> user.password }
+        RegisterTopView()
+        RegisterMainPart(username, email, phone, password, navController) {
+            if (email.value.isNotEmpty() && !list.contains(email.value)) {
+                Log.d("MYLOG", "Email is not empty and list is not contains")
 
-            if (e.contains(email.value) && p.containsKey(password.value)) {
-                navController.navigate(ScreenID.MainScreenLine.name)
-            }else{
-                // login fail
+                if (user.email != email.value && phone.value.isNotEmpty() &&
+                    username.value.isNotEmpty() && password.value.isNotEmpty()
+                ) {
+                    viewModel.insertUser(
+                        UserModel(
+                            id = 0,
+                            name = username.value,
+                            email = email.value,
+                            phone = phone.value,
+                            password = password.value
+                        )
+                    )
+                    navController.navigate(ScreenID.LoginScreen.name)
+                }
             }
         }
     }
 }
 
 @Composable
-private fun LoginTopView() {
+private fun RegisterTopView() {
     val composition by rememberLottieComposition(
-        spec = LottieCompositionSpec.RawRes(R.raw.login_animation),
+        spec = LottieCompositionSpec.RawRes(R.raw.register_animation)
     )
-    Spacer(modifier = Modifier.height(45.dp))
+    Spacer(modifier = Modifier.height(15.dp))
     LottieAnimation(
         modifier = Modifier
             .fillMaxWidth()
-            .height(270.dp),
+            .height(220.dp),
         composition = composition,
-        iterations = LottieConstants.IterateForever
     )
 
     Text(
-        text = "Daxil ol",
+        text = "Qeydiyyat",
         fontSize = 25.sp,
         color = Color.Black,
         fontFamily = FontList.fontFamily,
@@ -93,13 +109,15 @@ private fun LoginTopView() {
         modifier = Modifier.fillMaxWidth()
     )
 
-    Spacer(modifier = Modifier.height(30.dp))
+    Spacer(modifier = Modifier.height(20.dp))
 }
 
 
 @Composable
-private fun LoginMainPart(
+private fun RegisterMainPart(
+    username: MutableState<String> = mutableStateOf(""),
     email: MutableState<String> = mutableStateOf(""),
+    phone: MutableState<String> = mutableStateOf(""),
     password: MutableState<String> = mutableStateOf(""),
     navController: NavController,
     content: () -> Unit
@@ -121,6 +139,47 @@ private fun LoginMainPart(
             Spacer(modifier = Modifier.height(40.dp))
 
             OutlinedTextField(
+                value = username.value,
+                onValueChange = {
+                    username.value = it
+                },
+                singleLine = true,
+                placeholder = {
+                    Text(
+                        text = "İstifadəçi adı",
+                        color = AppGray
+                    )
+                },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text).copy(
+                    imeAction = ImeAction.Next
+                ),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.AccountCircle,
+                        contentDescription = "Username",
+                        tint = AppGray
+                    )
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(55.dp)
+                    .padding(horizontal = 20.dp),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    backgroundColor = Color.White,
+                    textColor = colorResource(id = MaterialTheme.colors.textInputColor)
+                ),
+                shape = RoundedCornerShape(10.dp),
+                textStyle = TextStyle.Default.copy(
+                    fontSize = 17.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
+            )
+
+            BottomShadow(padding = 23.dp)
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            OutlinedTextField(
                 value = email.value,
                 onValueChange = {
                     email.value = it
@@ -130,12 +189,57 @@ private fun LoginMainPart(
                 ),
                 singleLine = true,
                 placeholder = {
-                    Text(text = "Email")
+                    Text(
+                        text = "E-poçt",
+                        color = AppGray
+                    )
                 },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Email,
-                        contentDescription = "Email"
+                        contentDescription = "Email",
+                        tint = AppGray
+                    )
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(55.dp)
+                    .padding(horizontal = 20.dp),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    backgroundColor = Color.White,
+                    textColor = colorResource(id = MaterialTheme.colors.textInputColor),
+                ),
+                shape = RoundedCornerShape(10.dp),
+                textStyle = TextStyle.Default.copy(
+                    fontSize = 17.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
+            )
+
+            BottomShadow(padding = 23.dp)
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            OutlinedTextField(
+                value = phone.value,
+                onValueChange = {
+                    phone.value = it
+                },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone).copy(
+                    imeAction = ImeAction.Next
+                ),
+                singleLine = true,
+                placeholder = {
+                    Text(
+                        text = "Nömrə",
+                        color = AppGray
+                    )
+                },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Phone,
+                        contentDescription = "Phone",
+                        tint = AppGray
                     )
                 },
                 modifier = Modifier
@@ -164,12 +268,16 @@ private fun LoginMainPart(
                 },
                 singleLine = true,
                 placeholder = {
-                    Text(text = "Password")
+                    Text(
+                        text = "Şifrə",
+                        color = AppGray
+                    )
                 },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Lock,
-                        contentDescription = "Password"
+                        contentDescription = "Password",
+                        tint = AppGray
                     )
                 },
                 visualTransformation =
@@ -209,22 +317,7 @@ private fun LoginMainPart(
 
             BottomShadow(padding = 23.dp)
 
-            Spacer(modifier = Modifier.height(5.dp))
-            Text(
-                text = "Forgot password ?",
-                color = Color.White,
-                fontSize = 15.sp,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 30.dp, end = 30.dp)
-                    .clickable {
-                        navController.navigate(ScreenID.ResetPasswordScreen.name)
-                    },
-                textAlign = TextAlign.End
-            )
-
-            Spacer(modifier = Modifier.height(45.dp))
+            Spacer(modifier = Modifier.height(25.dp))
 
             val context = LocalContext.current
 
@@ -241,7 +334,7 @@ private fun LoginMainPart(
                 )
             ) {
                 Text(
-                    text = "Login",
+                    text = "Qeydiyyat",
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
@@ -269,7 +362,7 @@ private fun LoginMainPart(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "You don't have an account ?",
+                    text = "Aktiv hesabınız var ?",
                     fontWeight = FontWeight.SemiBold,
                     color = Color.White,
                     fontSize = 15.sp
@@ -280,9 +373,9 @@ private fun LoginMainPart(
                 Text(
                     modifier = Modifier
                         .clickable {
-                            navController.navigate(ScreenID.RegisterScreen.name)
+                            navController.navigate(ScreenID.LoginScreen.name)
                         },
-                    text = "Sign up",
+                    text = "Daxil ol",
                     color = Red,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.SemiBold,
@@ -293,3 +386,9 @@ private fun LoginMainPart(
 }
 
 
+// Adding extra colors for Dark And Light Theme
+@get: Composable
+val Colors.textInputColor: Int
+    get() = if (isLight) R.color.black else R.color.black
+
+//Image

@@ -7,6 +7,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.natiqhaciyef.voyagers.view.components.NavBar
+import com.natiqhaciyef.voyagers.view.screens.home.HomeScreen
 
 
 @Preview

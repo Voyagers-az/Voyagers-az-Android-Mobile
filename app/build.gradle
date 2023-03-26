@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -112,4 +113,11 @@ dependencies {
     implementation "com.airbnb.android:lottie-compose:5.2.0"    // lottie animation
     implementation "com.google.accompanist:accompanist-pager:0.13.0"                 // viewpager
     implementation "com.google.accompanist:accompanist-pager-indicators:0.13.0"      // viewpager
+
+    //Firebase
+    implementation platform ('com.google.firebase:firebase-bom:31.1.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.1.2'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
 }

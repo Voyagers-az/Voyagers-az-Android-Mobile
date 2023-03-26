@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -26,79 +27,65 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.natiqhaciyef.voyagers.R
-import com.natiqhaciyef.voyagers.data.model.UserModel
 import com.natiqhaciyef.voyagers.util.FontList
 import com.natiqhaciyef.voyagers.view.components.BottomShadow
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.AppBrown
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
+import com.natiqhaciyef.voyagers.view.ui.theme.AppGray
 import com.natiqhaciyef.voyagers.view.ui.theme.Red
 import com.natiqhaciyef.voyagers.view.viewmodel.RegistrationViewModel
 
-//@Preview
 @Composable
-fun RegisterScreen(
+fun LoginScreen(
     navController: NavController,
     viewModel: RegistrationViewModel = hiltViewModel()
 ) {
-    val username = remember { mutableStateOf("") }
     val email = remember { mutableStateOf("") }
-    val phone = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
-    val user by remember { viewModel.userState }
-    val allUserState by remember { viewModel.allUsersState }
-    val list = allUserState.associateBy { user -> user.email }
+    val usernames by remember { viewModel.allUsersState }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(color = Color.White)
     ) {
-        RegisterTopView()
-        RegisterMainPart(username, email, phone, password, navController) {
-            if (email.value.isNotEmpty() && !list.contains(email.value)) {
-                Log.d("MYLOG","Email is not empty and list is not contains")
+        LoginTopView()
+        LoginMainPart(email, password, navController) {
+            val e = usernames.associateBy { user -> user.email }
+            val p = usernames.associateBy { user -> user.password }
 
-                if (user.email != email.value && phone.value.isNotEmpty() &&
-                    username.value.isNotEmpty() && password.value.isNotEmpty()
-                ) {
-                    viewModel.insertUser(
-                        UserModel(
-                            id = 0,
-                            name = username.value,
-                            email = email.value,
-                            phone = phone.value,
-                            password = password.value
-                        )
-                    )
-                    navController.navigate(ScreenID.LoginScreen.name)
-                }
+            if (e.contains(email.value) && p.containsKey(password.value)) {
+                navController.navigate(ScreenID.MainScreenLine.name)
+            } else {
+                // login fail
             }
         }
     }
 }
 
 @Composable
-private fun RegisterTopView() {
+private fun LoginTopView() {
     val composition by rememberLottieComposition(
-        spec = LottieCompositionSpec.RawRes(R.raw.register_animation)
+        spec = LottieCompositionSpec.RawRes(R.raw.login_animation),
     )
-    Spacer(modifier = Modifier.height(15.dp))
+    Spacer(modifier = Modifier.height(45.dp))
     LottieAnimation(
         modifier = Modifier
             .fillMaxWidth()
-            .height(220.dp),
+            .height(270.dp),
         composition = composition,
+        iterations = LottieConstants.IterateForever
     )
 
     Text(
-        text = "Registration",
+        text = "Daxil ol",
         fontSize = 25.sp,
         color = Color.Black,
         fontFamily = FontList.fontFamily,
@@ -107,15 +94,13 @@ private fun RegisterTopView() {
         modifier = Modifier.fillMaxWidth()
     )
 
-    Spacer(modifier = Modifier.height(20.dp))
+    Spacer(modifier = Modifier.height(30.dp))
 }
 
 
 @Composable
-private fun RegisterMainPart(
-    username: MutableState<String> = mutableStateOf(""),
+private fun LoginMainPart(
     email: MutableState<String> = mutableStateOf(""),
-    phone: MutableState<String> = mutableStateOf(""),
     password: MutableState<String> = mutableStateOf(""),
     navController: NavController,
     content: () -> Unit
@@ -137,43 +122,6 @@ private fun RegisterMainPart(
             Spacer(modifier = Modifier.height(40.dp))
 
             OutlinedTextField(
-                value = username.value,
-                onValueChange = {
-                    username.value = it
-                },
-                singleLine = true,
-                placeholder = {
-                    Text(text = "Username")
-                },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text).copy(
-                    imeAction = ImeAction.Next
-                ),
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.AccountCircle,
-                        contentDescription = "Username"
-                    )
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(55.dp)
-                    .padding(horizontal = 20.dp),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    backgroundColor = Color.White,
-                    textColor = Color.Black,
-                ),
-                shape = RoundedCornerShape(10.dp),
-                textStyle = TextStyle.Default.copy(
-                    fontSize = 17.sp,
-                    fontWeight = FontWeight.SemiBold
-                )
-            )
-
-            BottomShadow(padding = 23.dp)
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            OutlinedTextField(
                 value = email.value,
                 onValueChange = {
                     email.value = it
@@ -183,49 +131,16 @@ private fun RegisterMainPart(
                 ),
                 singleLine = true,
                 placeholder = {
-                    Text(text = "Email")
+                    Text(
+                        text = "E-poçt",
+                        color = AppGray
+                    )
                 },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Email,
-                        contentDescription = "Email"
-                    )
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(55.dp)
-                    .padding(horizontal = 20.dp),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    backgroundColor = Color.White,
-                    textColor = Color.Black,
-                ),
-                shape = RoundedCornerShape(10.dp),
-                textStyle = TextStyle.Default.copy(
-                    fontSize = 17.sp,
-                    fontWeight = FontWeight.SemiBold
-                )
-            )
-
-            BottomShadow(padding = 23.dp)
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            OutlinedTextField(
-                value = phone.value,
-                onValueChange = {
-                    phone.value = it
-                },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone).copy(
-                    imeAction = ImeAction.Next
-                ),
-                singleLine = true,
-                placeholder = {
-                    Text(text = "Phone")
-                },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Phone,
-                        contentDescription = "Phone"
+                        contentDescription = "Email",
+                        tint = AppGray
                     )
                 },
                 modifier = Modifier
@@ -254,12 +169,16 @@ private fun RegisterMainPart(
                 },
                 singleLine = true,
                 placeholder = {
-                    Text(text = "Password")
+                    Text(
+                        text = "Şifrə",
+                        color = AppGray
+                    )
                 },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Lock,
-                        contentDescription = "Password"
+                        contentDescription = "Password",
+                        tint = AppGray
                     )
                 },
                 visualTransformation =
@@ -299,7 +218,22 @@ private fun RegisterMainPart(
 
             BottomShadow(padding = 23.dp)
 
-            Spacer(modifier = Modifier.height(25.dp))
+            Spacer(modifier = Modifier.height(5.dp))
+            Text(
+                text = "Şifrəni unutmusuz ?",
+                color = Color.White,
+                fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 30.dp, end = 30.dp)
+                    .clickable {
+                        navController.navigate(ScreenID.ResetPasswordScreen.name)
+                    },
+                textAlign = TextAlign.End
+            )
+
+            Spacer(modifier = Modifier.height(45.dp))
 
             val context = LocalContext.current
 
@@ -316,7 +250,7 @@ private fun RegisterMainPart(
                 )
             ) {
                 Text(
-                    text = "Qeydiyyat",
+                    text = "Daxil ol",
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
@@ -344,7 +278,7 @@ private fun RegisterMainPart(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Do you have an account ?",
+                    text = "Yeni hesab yaratmaq ?",
                     fontWeight = FontWeight.SemiBold,
                     color = Color.White,
                     fontSize = 15.sp
@@ -355,9 +289,9 @@ private fun RegisterMainPart(
                 Text(
                     modifier = Modifier
                         .clickable {
-                            navController.navigate(ScreenID.LoginScreen.name)
+                            navController.navigate(ScreenID.RegisterScreen.name)
                         },
-                    text = "Sign in",
+                    text = "Qeydiyyatdan keç",
                     color = Red,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.SemiBold,
