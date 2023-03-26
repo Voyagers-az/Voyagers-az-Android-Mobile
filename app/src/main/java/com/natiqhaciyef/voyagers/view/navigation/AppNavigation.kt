@@ -1,11 +1,12 @@
 package com.natiqhaciyef.voyagers.view.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.natiqhaciyef.voyagers.view.screens.*
+import com.natiqhaciyef.voyagers.view.screens.registration.LoginScreen
+import com.natiqhaciyef.voyagers.view.screens.registration.RegisterScreen
 
 
 @Composable
