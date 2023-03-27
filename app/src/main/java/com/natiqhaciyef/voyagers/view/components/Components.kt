@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.Phishing
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material.icons.outlined.StarHalf
 import androidx.compose.material.icons.outlined.StarOutline
@@ -36,7 +37,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.yield
 import kotlin.math.absoluteValue
 import com.natiqhaciyef.voyagers.R
-import com.natiqhaciyef.voyagers.util.NavItemModel
+import com.natiqhaciyef.voyagers.util.classes.NavItemModel
 import androidx.compose.ui.util.lerp
 import coil.compose.rememberImagePainter
 import com.google.accompanist.pager.*
@@ -45,7 +46,9 @@ import com.natiqhaciyef.voyagers.data.model.ServiceModel
 import com.natiqhaciyef.voyagers.data.model.TourModel
 import com.natiqhaciyef.voyagers.data.model.enums.RegionSide
 import com.natiqhaciyef.voyagers.data.model.enums.TourScope
+import com.natiqhaciyef.voyagers.util.ContactList
 import com.natiqhaciyef.voyagers.util.Services
+import com.natiqhaciyef.voyagers.util.classes.ContactModel
 import com.natiqhaciyef.voyagers.view.ui.theme.*
 import kotlin.math.ceil
 import kotlin.math.floor
@@ -467,3 +470,36 @@ fun ServiceCardItem(
     }
 }
 
+
+@Preview
+@Composable
+fun ContactCardItem(contactModel: ContactModel = ContactList.list[0]) {
+    Card(
+        modifier = Modifier
+            .size(85.dp),
+        shape = RoundedCornerShape(10.dp),
+        elevation = 5.dp
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Bottom,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(
+                imageVector = contactModel.icon,
+                contentDescription = "Contact icon",
+                modifier = Modifier.size(35.dp)
+            )
+
+            Spacer(modifier = Modifier.height(5.dp))
+            Text(
+                text = contactModel.name,
+                modifier = Modifier.fillMaxWidth(),
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.height(5.dp))
+        }
+    }
+}

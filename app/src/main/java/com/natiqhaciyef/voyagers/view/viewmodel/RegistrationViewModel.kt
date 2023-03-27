@@ -1,13 +1,10 @@
 package com.natiqhaciyef.voyagers.view.viewmodel
 
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.natiqhaciyef.interviewsland_mobile_android.util.Resource
 import com.natiqhaciyef.voyagers.data.local.repository.LocalRepository
 import com.natiqhaciyef.voyagers.data.model.UserModel
 import dagger.hilt.android.lifecycle.HiltViewModel
