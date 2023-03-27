@@ -31,6 +31,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.natiqhaciyef.voyagers.data.model.PlaceModel
 import com.natiqhaciyef.voyagers.util.CategoryIcons
+import com.natiqhaciyef.voyagers.util.ContactList
 import com.natiqhaciyef.voyagers.util.Services
 import com.natiqhaciyef.voyagers.view.components.*
 import com.natiqhaciyef.voyagers.view.ui.theme.*
@@ -196,5 +197,22 @@ fun HomeMainPartView(
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp)
         )
+        Spacer(modifier = Modifier.height(10.dp))
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = 10.dp,
+                    vertical = 10.dp
+                ),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            ContactCardItem(contactModel = ContactList.list[0])
+            Spacer(modifier = Modifier.width(30.dp))
+            ContactCardItem(contactModel = ContactList.list[1])
+            Spacer(modifier = Modifier.width(30.dp))
+            ContactCardItem(contactModel = ContactList.list[2])
+        }
     }
 }

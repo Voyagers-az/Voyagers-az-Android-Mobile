@@ -1,4 +1,4 @@
-package com.natiqhaciyef.interviewsland_mobile_android.util
+package com.natiqhaciyef.voyagers.util.classes
 
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
     companion object {

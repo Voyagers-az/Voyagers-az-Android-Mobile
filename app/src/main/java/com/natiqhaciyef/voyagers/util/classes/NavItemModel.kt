@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagers.util
+package com.natiqhaciyef.voyagers.util.classes
 
 import androidx.compose.ui.graphics.vector.ImageVector
 import javax.annotation.concurrent.Immutable
