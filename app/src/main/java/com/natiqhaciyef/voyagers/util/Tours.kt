@@ -33,25 +33,3 @@ object Tours {
         )
     )
 }
-
-
-object Places {
-    var list = mutableListOf(
-        PlaceModel(
-            id = 0,
-            name = "Qəbələ",
-            image = "https://img.fotocommunity.com/qebele-azerbaijan-6372766b-168f-4fea-891b-f2afc2981167.jpg?height=1080",
-            scope = TourScope.Local.scope,
-            side = RegionSide.North.side,
-            rating = 4.5
-        ),
-        PlaceModel(
-            id = 0,
-            name = "Quba",
-            image = "https://i.ytimg.com/vi/0vSvcf39WzE/maxresdefault.jpg",
-            scope = TourScope.Local.scope,
-            side = RegionSide.North.side,
-            rating = 4.5
-        )
-    )
-}

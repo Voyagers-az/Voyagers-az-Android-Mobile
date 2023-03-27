@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.natiqhaciyef.voyagers.view.screens.*
 import com.natiqhaciyef.voyagers.view.screens.registration.LoginScreen
 import com.natiqhaciyef.voyagers.view.screens.registration.RegisterScreen
+import com.natiqhaciyef.voyagers.view.screens.registration.SplashScreen
 
 
 @Composable
