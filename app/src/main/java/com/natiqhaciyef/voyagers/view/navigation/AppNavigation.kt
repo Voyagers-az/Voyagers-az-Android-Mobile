@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.natiqhaciyef.voyagers.view.screens.*
+import com.natiqhaciyef.voyagers.view.screens.home.MainScreenLine
 import com.natiqhaciyef.voyagers.view.screens.registration.LoginScreen
 import com.natiqhaciyef.voyagers.view.screens.registration.RegisterScreen
 import com.natiqhaciyef.voyagers.view.screens.registration.SplashScreen

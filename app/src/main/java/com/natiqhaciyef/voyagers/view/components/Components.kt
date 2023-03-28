@@ -352,7 +352,7 @@ fun RatingBar(
 fun PlaceItem(
     item: PlaceModel = PlaceModel(
         id = 0,
-        name = "ViaTour",
+        name = "Baki",
         image = "",
         scope = TourScope.Global.scope,
         side = RegionSide.North.side,
@@ -408,7 +408,7 @@ fun PlaceItem(
         ) {
 
             Text(
-                text = "${item.name} turu",
+                text = item.name,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
                 color = White,
