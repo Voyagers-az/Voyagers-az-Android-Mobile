@@ -11,5 +11,6 @@ data class TourModel(
     var personCount: Int,
     var rating: Double,
     var scope: String,
+    var companyName: String,
     var region: String = "Qeyd olunmayıb"
 )
