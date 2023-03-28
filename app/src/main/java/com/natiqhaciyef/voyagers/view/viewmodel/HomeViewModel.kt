@@ -1,10 +1,12 @@
 package com.natiqhaciyef.voyagers.view.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.natiqhaciyef.voyagers.data.model.PlaceModel
+import com.natiqhaciyef.voyagers.data.model.TourModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,6 +21,7 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
 
     init {
         getPlaces()
+//        sendToursToFirebase(Tours.list[1])
     }
 
     private fun getPlaces(){
@@ -51,6 +54,52 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
                     placesList.value = list
                 }
             }
+        }
+    }
+
+    private fun sendToursToFirebase(tourModel: TourModel){
+        viewModelScope.launch(Dispatchers.IO) {
+            val tourMap = hashMapOf<String, Any>()
+            tourMap["id"] = tourModel.id
+            tourMap["name"] = tourModel.name
+            tourMap["image"] = tourModel.image
+            tourMap["info"] = tourModel.info
+            tourMap["country"] = tourModel.country
+            tourMap["route"] = tourModel.route
+            tourMap["price"] = tourModel.price
+            tourMap["personCount"] = tourModel.personCount
+            tourMap["rating"] = tourModel.rating
+            tourMap["scope"] = tourModel.scope
+            tourMap["companyName"] = tourModel.companyName
+            tourMap["region"] = tourModel.region
+
+            firestore.collection("Tours").document("${tourModel.name} - ${tourModel.companyName}")
+                .set(tourMap)
+                .addOnSuccessListener {
+
+                }.addOnFailureListener {
+                    Log.d("MYLOG","${it.message} -> Error coused")
+                }
+        }
+    }
+
+    private fun sendPlacesToFirebase(placeModel: PlaceModel){
+        viewModelScope.launch(Dispatchers.IO) {
+            val placeMap = hashMapOf<String, Any>()
+            placeMap["id"] = placeModel.id
+            placeMap["name"] = placeModel.name
+            placeMap["image"] = placeModel.image
+            placeMap["rating"] = placeModel.rating
+            placeMap["scope"] = placeModel.scope
+            placeMap["side"] = placeModel.side
+
+            firestore.collection("Places").document(placeModel.name)
+                .set(placeMap)
+                .addOnSuccessListener {
+
+                }.addOnFailureListener {
+                    Log.d("MYLOG","${it.message} -> Error coused")
+                }
         }
     }
 }
