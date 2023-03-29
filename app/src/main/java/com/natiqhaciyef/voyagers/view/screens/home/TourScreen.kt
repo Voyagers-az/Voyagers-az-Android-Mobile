@@ -3,6 +3,8 @@ package com.natiqhaciyef.voyagers.view.screens.home
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -25,13 +27,20 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.natiqhaciyef.voyagers.data.model.TourModel
+import com.natiqhaciyef.voyagers.view.components.TourCardItem
 import com.natiqhaciyef.voyagers.view.ui.theme.AppAquatic
 import com.natiqhaciyef.voyagers.view.ui.theme.*
 
+@Preview
 @Composable
 fun TourScreen() {
     val search = remember { mutableStateOf("") }
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(AppWhiteLightPurple)
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -45,8 +54,8 @@ fun TourScreen() {
                 .fillMaxSize()
                 .background(Color.Transparent)
         ) {
-            TourTopView()
-
+            TourTopView(search)
+            TourMainView(search)
         }
     }
 }
@@ -84,6 +93,9 @@ fun TourTopView(
             onValueChange = {
                 search.value = it
             },
+            placeholder = {
+                Text(text = "Turlar üçün axtarış")
+            },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 textColor = Color.Black,
                 backgroundColor = Color.White,
@@ -105,5 +117,37 @@ fun TourTopView(
         )
 
         Spacer(modifier = Modifier.height(15.dp))
+    }
+}
+
+@Composable
+fun TourMainView(
+    search: MutableState<String> = mutableStateOf(""),
+    list: MutableList<TourModel> = mutableListOf()
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
+        Spacer(modifier = Modifier.height(55.dp))
+        Text(
+            text = "Yerli turlar",
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
+            color = Color.Black,
+            fontSize = 22.sp,
+            fontWeight = FontWeight.Bold
+        )
+
+        // create tour model & viewModel of TourScreen
+        Spacer(modifier = Modifier.height(15.dp))
+        LazyRow{
+            items(list){tour ->
+                Spacer(modifier = Modifier.width(5.dp))
+                TourCardItem(tour)
+                Spacer(modifier = Modifier.width(5.dp))
+            }
+        }
     }
 }
