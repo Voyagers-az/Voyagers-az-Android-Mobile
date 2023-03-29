@@ -133,7 +133,7 @@ fun NavBar(
                                 painter = painterResource(id = icon.image),
                                 contentDescription = "content",
                                 modifier = Modifier.size(25.dp),
-                                tint = if (selectedIndex.value == index) White else Gray
+                                tint = if (selectedIndex.value == index) White else AppWhiteLightPurple
                             )
                         }
                         AnimatedVisibility(visible = (selectedIndex.value == index)) {
@@ -500,6 +500,115 @@ fun ContactCardItem(contactModel: ContactModel = ContactList.list[0]) {
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(5.dp))
+        }
+    }
+}
+
+@Preview
+@Composable
+fun TourCardItem(
+    tourModel: TourModel = TourModel(
+        id = 0,
+        name = "Quba",
+        image = mutableListOf("https://i.ytimg.com/vi/0vSvcf39WzE/maxresdefault.jpg"),
+        info = "Quba turu, Çənlibel gölü. Gediş-gəliş, səhər yeməyi daxil",
+        country = "Azerbaijan",
+        route = mutableMapOf("Baku" to "Quba"),
+        price = 20.0,
+        personCount = 20,
+        rating = 4.3,
+        scope = TourScope.Local.scope,
+        companyName = "Voyagers",
+        region = RegionSide.North.side
+    ),
+    isLoading: MutableState<Boolean> = mutableStateOf(true)
+) {
+    val colorMatrix = floatArrayOf(
+        0.7f, 0f, 0f, 0f, 0f,
+        0f, 0.7f, 0f, 0f, 0f,
+        0f, 0f, 0.7f, 0f, 0f,
+        0f, 0f, 0f, 1f, 0f
+    )
+
+    val price = "%.2f".format(tourModel.price)
+
+    Card(
+        modifier = Modifier
+            .width(280.dp)
+            .height(330.dp)
+            .padding(start = 5.dp, end = 5.dp, bottom = 10.dp),
+        shape = RoundedCornerShape(12.dp),
+        backgroundColor = White,
+        elevation = 5.dp
+    ) {
+
+        if (isLoading.value) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .size(50.dp)
+                        .align(Alignment.Center),
+                    color = AppDarkBlue,
+                    strokeWidth = 3.dp
+                )
+            }
+        }
+
+        Image(
+            painter = rememberImagePainter(data = tourModel.image[0]),
+            contentDescription = "Tour image",
+            colorFilter = ColorFilter.colorMatrix(ColorMatrix(colorMatrix)),
+            modifier = Modifier
+                .fillMaxSize(),
+            contentScale = ContentScale.Crop,
+        )
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Card(
+                modifier = Modifier
+                    .width(150.dp)
+                    .height(45.dp)
+                    .padding(horizontal = 15.dp, vertical = 10.dp)
+                    .align(Alignment.TopEnd),
+            ) {
+                Text(
+                    modifier = Modifier
+                        .background(AppDarkBlue),
+                    text = "$price AZN",
+                    textAlign = TextAlign.Center,
+                    color = White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
+            }
+
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 15.dp),
+                verticalArrangement = Arrangement.Bottom,
+                horizontalAlignment = Alignment.Start
+            ) {
+
+
+                Text(
+                    text = tourModel.name,
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = White,
+                    modifier = Modifier
+                )
+
+                Spacer(modifier = Modifier.height(5.dp))
+
+                RatingBar(rating = tourModel.rating)
+
+                Spacer(modifier = Modifier.height(10.dp))
+            }
         }
     }
 }
