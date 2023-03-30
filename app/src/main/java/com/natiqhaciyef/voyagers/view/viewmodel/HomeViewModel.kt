@@ -21,7 +21,7 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
 
     init {
         getPlaces()
-//        sendToursToFirebase(Tours.list[1])
+//        sendPlacesToFirebase(Tours.list[1])
     }
 
     private fun getPlaces(){
@@ -57,31 +57,6 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
         }
     }
 
-    private fun sendToursToFirebase(tourModel: TourModel){
-        viewModelScope.launch(Dispatchers.IO) {
-            val tourMap = hashMapOf<String, Any>()
-            tourMap["id"] = tourModel.id
-            tourMap["name"] = tourModel.name
-            tourMap["image"] = tourModel.image
-            tourMap["info"] = tourModel.info
-            tourMap["country"] = tourModel.country
-            tourMap["route"] = tourModel.route
-            tourMap["price"] = tourModel.price
-            tourMap["personCount"] = tourModel.personCount
-            tourMap["rating"] = tourModel.rating
-            tourMap["scope"] = tourModel.scope
-            tourMap["companyName"] = tourModel.companyName
-            tourMap["region"] = tourModel.region
-
-            firestore.collection("Tours").document("${tourModel.name} - ${tourModel.companyName}")
-                .set(tourMap)
-                .addOnSuccessListener {
-
-                }.addOnFailureListener {
-                    Log.d("MYLOG","${it.message} -> Error coused")
-                }
-        }
-    }
 
     private fun sendPlacesToFirebase(placeModel: PlaceModel){
         viewModelScope.launch(Dispatchers.IO) {

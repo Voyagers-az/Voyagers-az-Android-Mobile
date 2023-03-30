@@ -1,13 +1,16 @@
 package com.natiqhaciyef.voyagers.view.screens.home
 
+import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -27,19 +30,26 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.natiqhaciyef.voyagers.data.model.TourModel
+import com.natiqhaciyef.voyagers.data.model.enums.TourScope
 import com.natiqhaciyef.voyagers.view.components.TourCardItem
 import com.natiqhaciyef.voyagers.view.ui.theme.AppAquatic
 import com.natiqhaciyef.voyagers.view.ui.theme.*
+import com.natiqhaciyef.voyagers.view.viewmodel.TourViewModel
 
 @Preview
 @Composable
-fun TourScreen() {
+fun TourScreen(
+    viewModel: TourViewModel = hiltViewModel()
+) {
     val search = remember { mutableStateOf("") }
+    val tours = viewModel.toursList
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(AppWhiteLightPurple)
+            .verticalScroll(rememberScrollState())
     ) {
         Box(
             modifier = Modifier
@@ -55,7 +65,7 @@ fun TourScreen() {
                 .background(Color.Transparent)
         ) {
             TourTopView(search)
-            TourMainView(search)
+            TourMainView(search, tours)
         }
     }
 }
@@ -123,7 +133,7 @@ fun TourTopView(
 @Composable
 fun TourMainView(
     search: MutableState<String> = mutableStateOf(""),
-    list: MutableList<TourModel> = mutableListOf()
+    tours: MutableState<List<TourModel>> = mutableStateOf(mutableListOf())
 ) {
     Column(
         modifier = Modifier
@@ -140,14 +150,44 @@ fun TourMainView(
             fontWeight = FontWeight.Bold
         )
 
-        // create tour model & viewModel of TourScreen
+        // create local tour model & viewModel of TourScreen
         Spacer(modifier = Modifier.height(15.dp))
+        val localTours = tours.value.filter { it.scope == TourScope.Local.scope }
         LazyRow{
-            items(list){tour ->
+            items(localTours){tour ->
                 Spacer(modifier = Modifier.width(5.dp))
                 TourCardItem(tour)
                 Spacer(modifier = Modifier.width(5.dp))
             }
         }
+
+        // create global tour model & viewModel of TourScreen
+        Spacer(modifier = Modifier.height(35.dp))
+
+        Text(
+            text = "Xarici turlar",
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
+            color = Color.Black,
+            fontSize = 22.sp,
+            fontWeight = FontWeight.Bold
+        )
+
+        // create local tour model & viewModel of TourScreen
+        Spacer(modifier = Modifier.height(15.dp))
+        val globalTours = tours.value.filter { it.scope == TourScope.Global.scope }
+        LazyRow{
+            items(globalTours){tour ->
+                Spacer(modifier = Modifier.width(5.dp))
+                TourCardItem(tour)
+                Spacer(modifier = Modifier.width(5.dp))
+            }
+        }
+
     }
 }
+
+
+// task - tur filtirlemek
+// filter parameters
