@@ -41,6 +41,7 @@ import com.natiqhaciyef.voyagers.util.classes.NavItemModel
 import androidx.compose.ui.util.lerp
 import coil.compose.rememberImagePainter
 import com.google.accompanist.pager.*
+import com.natiqhaciyef.voyagers.data.model.CampModel
 import com.natiqhaciyef.voyagers.data.model.PlaceModel
 import com.natiqhaciyef.voyagers.data.model.ServiceModel
 import com.natiqhaciyef.voyagers.data.model.TourModel
@@ -606,6 +607,117 @@ fun TourCardItem(
                 Spacer(modifier = Modifier.height(5.dp))
 
                 RatingBar(rating = tourModel.rating)
+
+                Spacer(modifier = Modifier.height(10.dp))
+            }
+        }
+    }
+}
+
+
+@Preview
+@Composable
+fun CampCardItem(
+    campModel: CampModel = CampModel(
+        id = 0,
+        name = "Quba",
+        image = "https://i.ytimg.com/vi/0vSvcf39WzE/maxresdefault.jpg",
+        info = "Quba turu, Çənlibel gölü. Gediş-gəliş, səhər yeməyi daxil",
+        country = "Azerbaijan",
+        date = mutableMapOf("20-03-2023" to "27-03-2023"),
+        price = 20.0,
+        personCount = 20,
+        rating = 4.3,
+        scope = TourScope.Local.scope,
+        companyName = "Voyagers",
+        region = RegionSide.North.side,
+        location = "Şamaxı"
+    ),
+    isLoading: MutableState<Boolean> = mutableStateOf(true)
+) {
+    val colorMatrix = floatArrayOf(
+        0.7f, 0f, 0f, 0f, 0f,
+        0f, 0.7f, 0f, 0f, 0f,
+        0f, 0f, 0.7f, 0f, 0f,
+        0f, 0f, 0f, 1f, 0f
+    )
+
+    val price = "%.2f".format(campModel.price)
+
+    Card(
+        modifier = Modifier
+            .width(280.dp)
+            .height(330.dp)
+            .padding(start = 5.dp, end = 5.dp, bottom = 10.dp),
+        shape = RoundedCornerShape(12.dp),
+        backgroundColor = White,
+        elevation = 5.dp
+    ) {
+
+        if (isLoading.value) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .size(50.dp)
+                        .align(Alignment.Center),
+                    color = AppDarkBlue,
+                    strokeWidth = 3.dp
+                )
+            }
+        }
+
+        Image(
+            painter = rememberImagePainter(data = campModel.image),
+            contentDescription = "Tour image",
+            colorFilter = ColorFilter.colorMatrix(ColorMatrix(colorMatrix)),
+            modifier = Modifier
+                .fillMaxSize(),
+            contentScale = ContentScale.Crop,
+        )
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Card(
+                modifier = Modifier
+                    .width(150.dp)
+                    .height(45.dp)
+                    .padding(horizontal = 15.dp, vertical = 10.dp)
+                    .align(Alignment.TopEnd),
+            ) {
+                Text(
+                    modifier = Modifier
+                        .background(AppDarkBlue),
+                    text = "$price AZN",
+                    textAlign = TextAlign.Center,
+                    color = White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
+            }
+
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 15.dp),
+                verticalArrangement = Arrangement.Bottom,
+                horizontalAlignment = Alignment.Start
+            ) {
+
+
+                Text(
+                    text = campModel.name,
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = White,
+                    modifier = Modifier
+                )
+
+                Spacer(modifier = Modifier.height(5.dp))
+
+                RatingBar(rating = campModel.rating)
 
                 Spacer(modifier = Modifier.height(10.dp))
             }

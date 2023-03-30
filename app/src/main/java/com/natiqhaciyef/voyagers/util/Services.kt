@@ -20,6 +20,12 @@ object Services {
             image = Icons.Default.TrendingFlat
         ),
         ServiceModel(
+            title = "Düşərgələrin təşkil olunması",
+            description = "Xarici ğlkələrin gəzməli, tarixi və ya istirahət mərkəzlərinə turları təşkil edə bilərsiniz",
+            price = null,
+            image = Icons.Default.TrendingFlat
+        ),
+        ServiceModel(
             title = "Əməkdaşlıq",
             description = "Həmçinin Voyagers.az şirkətinə partnyorluq üçün müraciət edə bilər və bizə dəstək göstərə bilərsiniz.",
             price = null,
