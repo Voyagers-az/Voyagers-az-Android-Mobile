@@ -4,6 +4,7 @@ enum class RegionSide(var side: String) {
     West("Qərb"),
     East("Şərq"),
     South("Cənub"),
+    Center("Mərkəz"),
     North("Şimal"),
     NotSelected("Qeyd olunmayıb")
 }

@@ -31,8 +31,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.natiqhaciyef.voyagers.data.model.CampModel
 import com.natiqhaciyef.voyagers.data.model.TourModel
 import com.natiqhaciyef.voyagers.data.model.enums.TourScope
+import com.natiqhaciyef.voyagers.view.components.CampCardItem
 import com.natiqhaciyef.voyagers.view.components.TourCardItem
 import com.natiqhaciyef.voyagers.view.ui.theme.AppAquatic
 import com.natiqhaciyef.voyagers.view.ui.theme.*
@@ -45,6 +47,7 @@ fun TourScreen(
 ) {
     val search = remember { mutableStateOf("") }
     val tours = viewModel.toursList
+    val camps = viewModel.campList
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -65,7 +68,7 @@ fun TourScreen(
                 .background(Color.Transparent)
         ) {
             TourTopView(search)
-            TourMainView(search, tours)
+            TourMainView(search, tours, camps)
         }
     }
 }
@@ -133,7 +136,8 @@ fun TourTopView(
 @Composable
 fun TourMainView(
     search: MutableState<String> = mutableStateOf(""),
-    tours: MutableState<List<TourModel>> = mutableStateOf(mutableListOf())
+    tours: MutableState<List<TourModel>> = mutableStateOf(mutableListOf()),
+    camps: MutableState<List<CampModel>> = mutableStateOf(mutableListOf())
 ) {
     Column(
         modifier = Modifier
@@ -185,9 +189,31 @@ fun TourMainView(
             }
         }
 
+        Text(
+            text = "Düşərgələr",
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
+            color = Color.Black,
+            fontSize = 22.sp,
+            fontWeight = FontWeight.Bold
+        )
+
+        // create local tour model & viewModel of TourScreen
+        Spacer(modifier = Modifier.height(15.dp))
+        val campList = camps.value
+        LazyRow{
+            items(campList){camp ->
+                Spacer(modifier = Modifier.width(5.dp))
+                CampCardItem(camp)
+                Spacer(modifier = Modifier.width(5.dp))
+            }
+        }
     }
 }
 
 
 // task - tur filtirlemek
 // filter parameters
+// camplarin teskil olunmasi
+//
