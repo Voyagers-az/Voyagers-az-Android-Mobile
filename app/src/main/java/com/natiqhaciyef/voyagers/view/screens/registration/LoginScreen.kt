@@ -1,6 +1,5 @@
 package com.natiqhaciyef.voyagers.view.screens.registration
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -30,11 +29,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.natiqhaciyef.voyagers.R
-import com.natiqhaciyef.voyagers.data.model.UserModel
 import com.natiqhaciyef.voyagers.util.FontList
 import com.natiqhaciyef.voyagers.view.components.BottomShadow
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID
@@ -227,7 +222,7 @@ private fun LoginMainPart(
                     .fillMaxWidth()
                     .padding(start = 30.dp, end = 30.dp)
                     .clickable {
-                        navController.navigate(ScreenID.ResetPasswordScreen.name)
+                        navController.navigate(ScreenID.ResetPassword.name)
                     },
                 textAlign = TextAlign.End
             )
@@ -288,7 +283,7 @@ private fun LoginMainPart(
                 Text(
                     modifier = Modifier
                         .clickable {
-                            navController.navigate(ScreenID.RegisterScreen.name)
+                            navController.navigate(ScreenID.Register.name)
                         },
                     text = "Qeydiyyatdan keç",
                     color = Red,

@@ -63,7 +63,7 @@ fun RegisterScreen(
         RegisterTopView()
         RegisterMainPart(username, email, phone, password, navController) {
             if (email.value.isNotEmpty() && !list.contains(email.value)) {
-                Log.d("MYLOG", "Email is not empty and list is not contains")
+//                Log.d("MYLOG", "Email is not empty and list is not contains")
 
                 if (user.email != email.value && phone.value.isNotEmpty() &&
                     username.value.isNotEmpty() && password.value.isNotEmpty()
@@ -78,9 +78,9 @@ fun RegisterScreen(
                         )
                     )
                     viewModel.registerUser(email.value, password.value, username.value, phone.value){
-                        navController.navigate(ScreenID.LoginScreen.name)
+                        navController.navigate(ScreenID.Login.name)
                     }
-                    Log.d("MYLOG", viewModel.resultMessage.value)
+//                    Log.d("MYLOG", viewModel.resultMessage.value)
                 }
             }
         }
@@ -374,7 +374,7 @@ private fun RegisterMainPart(
                 Text(
                     modifier = Modifier
                         .clickable {
-                            navController.navigate(ScreenID.LoginScreen.name)
+                            navController.navigate(ScreenID.Login.name)
                         },
                     text = "Daxil ol",
                     color = Red,
