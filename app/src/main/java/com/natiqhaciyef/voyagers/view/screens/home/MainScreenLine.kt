@@ -6,13 +6,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import com.natiqhaciyef.voyagers.view.components.NavBar
 import com.natiqhaciyef.voyagers.view.screens.UserProfileScreen
+import com.natiqhaciyef.voyagers.view.screens.home.tours.TourScreen
 
 
-@Preview
+//@Preview
 @Composable
-fun MainScreenLine() {
+fun MainScreenLine(
+    navController: NavController
+) {
     val selectedIndex = remember { mutableStateOf(0) }
 
     Scaffold(
@@ -27,7 +31,7 @@ fun MainScreenLine() {
                 HomeScreen()
             }
             1 -> {
-                TourScreen()
+                TourScreen(navController = navController)
             }
             2 -> {
                 UserProfileScreen()

@@ -41,9 +41,9 @@ fun SplashScreen(
                 )
                     navController.navigate(ScreenID.MainScreenLine.name)
                 else
-                    navController.navigate(ScreenID.LoginScreen.name)
+                    navController.navigate(ScreenID.Login.name)
             }else
-                navController.navigate(ScreenID.LoginScreen.name)
+                navController.navigate(ScreenID.Login.name)
         }
 
         Image(

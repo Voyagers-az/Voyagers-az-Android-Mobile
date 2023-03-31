@@ -1,7 +1,6 @@
 package com.natiqhaciyef.voyagers.view.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -13,14 +12,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -35,7 +30,6 @@ import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.AppBrown
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.AppGray
-import com.natiqhaciyef.voyagers.view.ui.theme.Red
 import com.natiqhaciyef.voyagers.view.viewmodel.RegistrationViewModel
 
 
@@ -54,7 +48,7 @@ fun ResetPasswordScreen(
         ResetPasswordTopView()
         ResetPasswordMainPart(email) {
             viewModel.resetPasswordUser(email.value){
-                navController.navigate(ScreenID.LoginScreen.name)
+                navController.navigate(ScreenID.Login.name)
             }
         }
     }
