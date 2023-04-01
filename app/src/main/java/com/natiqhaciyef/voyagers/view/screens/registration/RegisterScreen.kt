@@ -62,12 +62,10 @@ fun RegisterScreen(
     ) {
         RegisterTopView()
         RegisterMainPart(username, email, phone, password, navController) {
-            if (email.value.isNotEmpty() && !list.contains(email.value)) {
-//                Log.d("MYLOG", "Email is not empty and list is not contains")
-
-                if (user.email != email.value && phone.value.isNotEmpty() &&
-                    username.value.isNotEmpty() && password.value.isNotEmpty()
-                ) {
+            if (user.email != email.value && phone.value.isNotEmpty() &&
+                username.value.isNotEmpty() && password.value.isNotEmpty()
+            ) {
+                viewModel.registerUser(email.value, password.value, username.value, phone.value) {
                     viewModel.insertUser(
                         UserModel(
                             id = 0,
@@ -77,10 +75,7 @@ fun RegisterScreen(
                             password = password.value
                         )
                     )
-                    viewModel.registerUser(email.value, password.value, username.value, phone.value){
-                        navController.navigate(ScreenID.Login.name)
-                    }
-//                    Log.d("MYLOG", viewModel.resultMessage.value)
+                    navController.navigate(ScreenID.Login.name)
                 }
             }
         }
