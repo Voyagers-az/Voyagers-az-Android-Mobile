@@ -2,11 +2,13 @@ package com.natiqhaciyef.voyagers.view.screens.home
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import com.natiqhaciyef.voyagers.util.DefaultModelImplementations
 import com.natiqhaciyef.voyagers.view.components.NavBar
 import com.natiqhaciyef.voyagers.view.screens.UserProfileScreen
 import com.natiqhaciyef.voyagers.view.screens.home.tours.TourScreen
@@ -15,9 +17,9 @@ import com.natiqhaciyef.voyagers.view.screens.home.tours.TourScreen
 //@Preview
 @Composable
 fun MainScreenLine(
-    navController: NavController
+    navController: NavController,
+    selectedIndex: MutableState<Int> = DefaultModelImplementations.selectedIndex
 ) {
-    val selectedIndex = remember { mutableStateOf(0) }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
