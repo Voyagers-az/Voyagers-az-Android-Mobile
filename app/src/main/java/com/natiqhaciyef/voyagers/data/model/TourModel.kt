@@ -1,7 +1,7 @@
 package com.natiqhaciyef.voyagers.data.model
 
 data class TourModel(
-    var id: Int,
+    var id: String,
     var name: String,
     var image: MutableList<String>,
     var info: String,
@@ -11,6 +11,7 @@ data class TourModel(
     var personCount: Int,
     var rating: Double,
     var scope: String,
+    var location: String,
     var companyName: String,
     var region: String = "Qeyd olunmayıb"
 )

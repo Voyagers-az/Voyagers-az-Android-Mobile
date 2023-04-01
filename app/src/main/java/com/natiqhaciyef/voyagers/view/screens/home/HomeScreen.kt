@@ -53,7 +53,7 @@ fun HomeScreen(
         Surface(
             color = AppWhiteLightPurple
         ) {
-            CurvedRectangle(280)
+            CurvedRectangle(300)
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -77,7 +77,7 @@ fun HomeTopView(
         modifier = Modifier
             .fillMaxWidth()
     ) {
-        Spacer(modifier = Modifier.height(55.dp))
+        Spacer(modifier = Modifier.height(75.dp))
         Text(
             modifier = Modifier
                 .fillMaxWidth()

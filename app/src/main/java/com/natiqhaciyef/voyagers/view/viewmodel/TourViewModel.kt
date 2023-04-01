@@ -41,7 +41,7 @@ class TourViewModel @Inject constructor(
                     list.clear()
 
                     for (doc in docs) {
-                        val id = doc["id"].toString().toInt()
+                        val id = doc["id"].toString()
                         var name = doc["name"] as String
                         var image = doc["image"] as MutableList<String>
                         var info = doc["info"] as String
@@ -51,6 +51,7 @@ class TourViewModel @Inject constructor(
                         var personCount = doc["personCount"].toString().toInt()
                         var rating = doc["rating"] as Double
                         var scope = doc["scope"] as String
+                        var location = doc["location"] as String
                         var companyName = doc["companyName"] as String
                         var region = doc["region"] as String
 
@@ -66,7 +67,8 @@ class TourViewModel @Inject constructor(
                             rating = rating,
                             scope = scope,
                             companyName = companyName,
-                            region = region
+                            region = region,
+                            location = location
                         )
 
                         list.add(tourModel)
@@ -91,10 +93,12 @@ class TourViewModel @Inject constructor(
             tourMap["personCount"] = tourModel.personCount
             tourMap["rating"] = tourModel.rating
             tourMap["scope"] = tourModel.scope
+            tourMap["location"] = tourModel.location
             tourMap["companyName"] = tourModel.companyName
             tourMap["region"] = tourModel.region
 
-            firestore.collection("Tours").document("${tourModel.name} - ${tourModel.companyName}")
+            firestore.collection("Tours")
+                .document("${tourModel.name} - ${tourModel.companyName}")
                 .set(tourMap)
                 .addOnSuccessListener {
 
@@ -144,7 +148,7 @@ class TourViewModel @Inject constructor(
                             rating = rating
                         )
 
-                        Log.d("MYLOG","${campModel}")
+                        Log.d("MYLOG", "${campModel}")
                         list.add(campModel)
                     }
 

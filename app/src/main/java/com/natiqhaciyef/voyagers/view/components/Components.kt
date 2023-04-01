@@ -13,7 +13,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.outlined.Phishing
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material.icons.outlined.StarHalf
 import androidx.compose.material.icons.outlined.StarOutline
@@ -22,7 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.Color.Companion.Black
-import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
@@ -45,9 +43,10 @@ import com.natiqhaciyef.voyagers.data.model.CampModel
 import com.natiqhaciyef.voyagers.data.model.PlaceModel
 import com.natiqhaciyef.voyagers.data.model.ServiceModel
 import com.natiqhaciyef.voyagers.data.model.TourModel
-import com.natiqhaciyef.voyagers.data.model.enums.RegionSide
 import com.natiqhaciyef.voyagers.data.model.enums.TourScope
 import com.natiqhaciyef.voyagers.util.ContactList
+import com.natiqhaciyef.voyagers.util.classes.DataTypes
+import com.natiqhaciyef.voyagers.util.DefaultModelImplementations
 import com.natiqhaciyef.voyagers.util.Services
 import com.natiqhaciyef.voyagers.util.classes.ContactModel
 import com.natiqhaciyef.voyagers.view.ui.theme.*
@@ -351,14 +350,7 @@ fun RatingBar(
 @Preview
 @Composable
 fun PlaceItem(
-    item: PlaceModel = PlaceModel(
-        id = 0,
-        name = "Baki",
-        image = "",
-        scope = TourScope.Global.scope,
-        side = RegionSide.North.side,
-        rating = 4.5
-    ),
+    item: PlaceModel = DefaultModelImplementations.place,
     isLoading: MutableState<Boolean> = mutableStateOf(true)
 ) {
 
@@ -508,21 +500,9 @@ fun ContactCardItem(contactModel: ContactModel = ContactList.list[0]) {
 @Preview
 @Composable
 fun TourCardItem(
-    tourModel: TourModel = TourModel(
-        id = 0,
-        name = "Quba",
-        image = mutableListOf("https://i.ytimg.com/vi/0vSvcf39WzE/maxresdefault.jpg"),
-        info = "Quba turu, Çənlibel gölü. Gediş-gəliş, səhər yeməyi daxil",
-        country = "Azerbaijan",
-        route = mutableMapOf("Baku" to "Quba"),
-        price = 20.0,
-        personCount = 20,
-        rating = 4.3,
-        scope = TourScope.Local.scope,
-        companyName = "Voyagers",
-        region = RegionSide.North.side
-    ),
-    isLoading: MutableState<Boolean> = mutableStateOf(true)
+    tourModel: TourModel = DefaultModelImplementations.tourModel,
+    isLoading: MutableState<Boolean> = mutableStateOf(true),
+    content: (Any) -> Unit = { }
 ) {
     val colorMatrix = floatArrayOf(
         0.7f, 0f, 0f, 0f, 0f,
@@ -537,7 +517,12 @@ fun TourCardItem(
         modifier = Modifier
             .width(280.dp)
             .height(330.dp)
-            .padding(start = 5.dp, end = 5.dp, bottom = 10.dp),
+            .padding(start = 5.dp, end = 5.dp, bottom = 10.dp)
+            .clickable {
+                content(
+                    tourModel
+                )
+            },
         shape = RoundedCornerShape(12.dp),
         backgroundColor = White,
         elevation = 5.dp
@@ -618,22 +603,9 @@ fun TourCardItem(
 @Preview
 @Composable
 fun CampCardItem(
-    campModel: CampModel = CampModel(
-        id = 0,
-        name = "Quba",
-        image = "https://i.ytimg.com/vi/0vSvcf39WzE/maxresdefault.jpg",
-        info = "Quba turu, Çənlibel gölü. Gediş-gəliş, səhər yeməyi daxil",
-        country = "Azerbaijan",
-        date = mutableMapOf("20-03-2023" to "27-03-2023"),
-        price = 20.0,
-        personCount = 20,
-        rating = 4.3,
-        scope = TourScope.Local.scope,
-        companyName = "Voyagers",
-        region = RegionSide.North.side,
-        location = "Şamaxı"
-    ),
-    isLoading: MutableState<Boolean> = mutableStateOf(true)
+    campModel: CampModel = DefaultModelImplementations.campModel,
+    isLoading: MutableState<Boolean> = mutableStateOf(true),
+    content: (Any) -> Unit = { }
 ) {
     val colorMatrix = floatArrayOf(
         0.7f, 0f, 0f, 0f, 0f,
@@ -648,7 +620,12 @@ fun CampCardItem(
         modifier = Modifier
             .width(280.dp)
             .height(330.dp)
-            .padding(start = 5.dp, end = 5.dp, bottom = 10.dp),
+            .padding(start = 5.dp, end = 5.dp, bottom = 10.dp)
+            .clickable {
+                content(
+                    campModel
+                )
+            },
         shape = RoundedCornerShape(12.dp),
         backgroundColor = White,
         elevation = 5.dp
