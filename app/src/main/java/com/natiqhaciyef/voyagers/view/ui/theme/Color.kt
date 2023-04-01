@@ -44,6 +44,7 @@ val AppAquatic = Color(0xff3DB1FF)
 val AppAquaticLight = Color(0xFF88E3FF)
 val AppYellow = Color(0xFFFFB300)
 val AppGray = Color(0xFF8D8D8D)
+val AppLightGray = Color(0xFFD6D6D6)
 val AppWhiteLightPurple = Color(0xFFF1EEFF)
 val AppBrown = Color(0xff65403a)
 
