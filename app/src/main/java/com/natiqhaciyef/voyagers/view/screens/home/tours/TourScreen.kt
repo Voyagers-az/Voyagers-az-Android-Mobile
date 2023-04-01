@@ -11,6 +11,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Tune
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -29,7 +30,6 @@ import androidx.navigation.NavController
 import com.natiqhaciyef.voyagers.data.model.CampModel
 import com.natiqhaciyef.voyagers.data.model.TourModel
 import com.natiqhaciyef.voyagers.data.model.enums.TourScope
-import com.natiqhaciyef.voyagers.util.DataTypes
 import com.natiqhaciyef.voyagers.util.DefaultModelImplementations
 import com.natiqhaciyef.voyagers.view.components.CampCardItem
 import com.natiqhaciyef.voyagers.view.components.TourCardItem
@@ -56,7 +56,7 @@ fun TourScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(200.dp)
+                .height(210.dp)
                 .background(AppAquatic)
         )
 
@@ -67,7 +67,7 @@ fun TourScreen(
                 .background(Color.Transparent)
         ) {
             TourTopView(search)
-            TourMainView(search, navController ,tours, camps)
+            TourMainView(search, navController, tours, camps)
         }
     }
 }
@@ -82,7 +82,7 @@ fun TourTopView(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Spacer(modifier = Modifier.height(70.dp))
+        Spacer(modifier = Modifier.height(80.dp))
 
         Text(
             modifier = Modifier
@@ -122,6 +122,12 @@ fun TourTopView(
                     contentDescription = "Search icon"
                 )
             },
+            trailingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Tune,
+                    contentDescription = "Filter icon"
+                )
+            },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Search
@@ -143,7 +149,7 @@ fun TourMainView(
         modifier = Modifier
             .fillMaxWidth()
     ) {
-        Spacer(modifier = Modifier.height(55.dp))
+        Spacer(modifier = Modifier.height(45.dp))
         Text(
             text = "Yerli turlar",
             modifier = Modifier
@@ -157,10 +163,10 @@ fun TourMainView(
         // create local tour model & viewModel of TourScreen
         Spacer(modifier = Modifier.height(15.dp))
         val localTours = tours.value.filter { it.scope == TourScope.Local.scope }
-        LazyRow{
-            items(localTours){tour ->
+        LazyRow {
+            items(localTours) { tour ->
                 Spacer(modifier = Modifier.width(5.dp))
-                TourCardItem(tour){
+                TourCardItem(tour) {
                     DefaultModelImplementations.data = tour
                     navController.navigate(ScreenID.TourDetails.name)
                 }
@@ -184,10 +190,13 @@ fun TourMainView(
         // create local tour model & viewModel of TourScreen
         Spacer(modifier = Modifier.height(15.dp))
         val globalTours = tours.value.filter { it.scope == TourScope.Global.scope }
-        LazyRow{
-            items(globalTours){tour ->
+        LazyRow {
+            items(globalTours) { tour ->
                 Spacer(modifier = Modifier.width(5.dp))
-                TourCardItem(tour)
+                TourCardItem(tour){
+                    DefaultModelImplementations.data = tour
+                    navController.navigate(ScreenID.TourDetails.name)
+                }
                 Spacer(modifier = Modifier.width(5.dp))
             }
         }
@@ -208,10 +217,10 @@ fun TourMainView(
         // create local tour model & viewModel of TourScreen
         Spacer(modifier = Modifier.height(15.dp))
         val campList = camps.value
-        LazyRow{
-            items(campList){camp ->
+        LazyRow {
+            items(campList) { camp ->
                 Spacer(modifier = Modifier.width(5.dp))
-                CampCardItem(camp){
+                CampCardItem(camp) {
                     DefaultModelImplementations.data = camp
                     navController.navigate(ScreenID.TourDetails.name)
                 }
