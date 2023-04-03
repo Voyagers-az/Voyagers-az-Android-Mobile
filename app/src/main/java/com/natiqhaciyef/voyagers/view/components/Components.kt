@@ -355,9 +355,9 @@ fun PlaceItem(
 ) {
 
     val colorMatrix = floatArrayOf(
-        0.5f, 0f, 0f, 0f, 0f,
-        0f, 0.5f, 0f, 0f, 0f,
-        0f, 0f, 0.5f, 0f, 0f,
+        0.7f, 0f, 0f, 0f, 0f,
+        0f, 0.7f, 0f, 0f, 0f,
+        0f, 0f, 0.7f, 0f, 0f,
         0f, 0f, 0f, 1f, 0f
     )
 

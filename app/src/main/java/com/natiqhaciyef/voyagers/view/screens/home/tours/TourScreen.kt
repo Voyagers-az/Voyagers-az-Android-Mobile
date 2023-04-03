@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,6 +32,7 @@ import com.natiqhaciyef.voyagers.data.model.CampModel
 import com.natiqhaciyef.voyagers.data.model.TourModel
 import com.natiqhaciyef.voyagers.data.model.enums.TourScope
 import com.natiqhaciyef.voyagers.util.DefaultModelImplementations
+import com.natiqhaciyef.voyagers.util.FontList
 import com.natiqhaciyef.voyagers.view.components.CampCardItem
 import com.natiqhaciyef.voyagers.view.components.TourCardItem
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID
@@ -145,6 +147,8 @@ fun TourMainView(
     tours: MutableState<List<TourModel>> = mutableStateOf(mutableListOf()),
     camps: MutableState<List<CampModel>> = mutableStateOf(mutableListOf())
 ) {
+
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -162,15 +166,36 @@ fun TourMainView(
 
         // create local tour model & viewModel of TourScreen
         Spacer(modifier = Modifier.height(15.dp))
-        val localTours = tours.value.filter { it.scope == TourScope.Local.scope }
-        LazyRow {
-            items(localTours) { tour ->
-                Spacer(modifier = Modifier.width(5.dp))
-                TourCardItem(tour) {
-                    DefaultModelImplementations.data = tour
-                    navController.navigate(ScreenID.TourDetails.name)
+        val localTours = tours.value
+            .filter { it.scope == TourScope.Local.scope }
+            .filter {
+                it.name.lowercase().contains(search.value.lowercase())
+                        || it.location.lowercase().contains(search.value.lowercase())
+                        || it.region.lowercase().contains(search.value.lowercase())
+            }
+
+        if (localTours.isEmpty()) {
+            Text(
+                text = "Tur tapılmadı",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontList.fontFamily,
+                color = Color.Black,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 20.dp, horizontal = 20.dp),
+                textAlign = TextAlign.Center
+            )
+        } else {
+            LazyRow {
+                items(localTours) { tour ->
+                    Spacer(modifier = Modifier.width(5.dp))
+                    TourCardItem(tour) {
+                        DefaultModelImplementations.data = tour
+                        navController.navigate(ScreenID.TourDetails.name)
+                    }
+                    Spacer(modifier = Modifier.width(5.dp))
                 }
-                Spacer(modifier = Modifier.width(5.dp))
             }
         }
 
@@ -189,17 +214,39 @@ fun TourMainView(
 
         // create local tour model & viewModel of TourScreen
         Spacer(modifier = Modifier.height(15.dp))
-        val globalTours = tours.value.filter { it.scope == TourScope.Global.scope }
-        LazyRow {
-            items(globalTours) { tour ->
-                Spacer(modifier = Modifier.width(5.dp))
-                TourCardItem(tour){
-                    DefaultModelImplementations.data = tour
-                    navController.navigate(ScreenID.TourDetails.name)
+        val globalTours = tours.value
+            .filter { it.scope == TourScope.Global.scope }
+            .filter {
+                it.name.lowercase().contains(search.value.lowercase())
+                        || it.location.lowercase().contains(search.value.lowercase())
+                        || it.region.lowercase().contains(search.value.lowercase())
+            }
+
+        if(globalTours.isEmpty()){
+            Text(
+                text = "Tur tapılmadı",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontList.fontFamily,
+                color = Color.Black,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 20.dp, horizontal = 20.dp),
+                textAlign = TextAlign.Center
+            )
+        }else{
+            LazyRow {
+                items(globalTours) { tour ->
+                    Spacer(modifier = Modifier.width(5.dp))
+                    TourCardItem(tour) {
+                        DefaultModelImplementations.data = tour
+                        navController.navigate(ScreenID.TourDetails.name)
+                    }
+                    Spacer(modifier = Modifier.width(5.dp))
                 }
-                Spacer(modifier = Modifier.width(5.dp))
             }
         }
+
 
 
         Spacer(modifier = Modifier.height(35.dp))
@@ -217,14 +264,34 @@ fun TourMainView(
         // create local tour model & viewModel of TourScreen
         Spacer(modifier = Modifier.height(15.dp))
         val campList = camps.value
-        LazyRow {
-            items(campList) { camp ->
-                Spacer(modifier = Modifier.width(5.dp))
-                CampCardItem(camp) {
-                    DefaultModelImplementations.data = camp
-                    navController.navigate(ScreenID.TourDetails.name)
+            .filter {
+                it.name.lowercase().contains(search.value.lowercase())
+                        || it.location.lowercase().contains(search.value.lowercase())
+                        || it.region.lowercase().contains(search.value.lowercase())
+            }
+
+        if (campList.isEmpty()){
+            Text(
+                text = "Düşərgə tapılmadı",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontList.fontFamily,
+                color = Color.Black,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 20.dp, horizontal = 20.dp),
+                textAlign = TextAlign.Center
+            )
+        }else{
+            LazyRow {
+                items(campList) { camp ->
+                    Spacer(modifier = Modifier.width(5.dp))
+                    CampCardItem(camp) {
+                        DefaultModelImplementations.data = camp
+                        navController.navigate(ScreenID.TourDetails.name)
+                    }
+                    Spacer(modifier = Modifier.width(5.dp))
                 }
-                Spacer(modifier = Modifier.width(5.dp))
             }
         }
 
@@ -232,7 +299,5 @@ fun TourMainView(
     }
 }
 
-
-// task - tur filtirlemek
 // filter parameters
 // camplarin teskil olunmasi
