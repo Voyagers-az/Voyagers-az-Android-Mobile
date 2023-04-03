@@ -40,5 +40,7 @@ fun AppNavigation() {
         composable(route = ScreenID.TourDetails.name) {
             TourDetailsScreen(data = DefaultModelImplementations.data, navController = navController)
         }
+
+        composable(route = ScreenID.ContactDetails.name){}
     }
 }

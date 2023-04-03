@@ -79,7 +79,7 @@ fun UserProfileMainView(
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp, vertical = 7.dp),
             fontWeight = FontWeight.Bold,
-            fontSize = 22.sp,
+            fontSize = 19.sp,
             textAlign = TextAlign.Start
         )
     }
@@ -108,7 +108,7 @@ fun UserProfileMainView(
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp, vertical = 7.dp),
             fontWeight = FontWeight.Bold,
-            fontSize = 22.sp,
+            fontSize = 19.sp,
             textAlign = TextAlign.Start
         )
     }
@@ -180,7 +180,7 @@ private fun LikedPosts() {
 
             Text(
                 text = "Bəyənilən turlar",
-                fontSize = 20.sp,
+                fontSize = 17.sp,
                 color = AppDarkBlue,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier,
@@ -216,7 +216,7 @@ private fun LastTours() {
 
             Text(
                 text = "Son gəzintilər",
-                fontSize = 20.sp,
+                fontSize = 17.sp,
                 color = AppDarkBlue,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier,
@@ -251,7 +251,7 @@ private fun ResetPasswordUP() {
 
             Text(
                 text = "Şifrəni yeniləmək",
-                fontSize = 20.sp,
+                fontSize = 17.sp,
                 color = AppDarkBlue,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier,
@@ -287,7 +287,7 @@ private fun LanguageSupport() {
 
             Text(
                 text = "Dil dəyişmək",
-                fontSize = 20.sp,
+                fontSize = 17.sp,
                 color = AppDarkBlue,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier,
@@ -323,7 +323,7 @@ private fun ChangeUserName() {
 
             Text(
                 text = "İstifadəçi adını dəyişmək",
-                fontSize = 20.sp,
+                fontSize = 17.sp,
                 color = AppDarkBlue,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier,
@@ -358,7 +358,7 @@ private fun CardInfo() {
 
             Text(
                 text = "Kart məlumatlarını yeniləmək",
-                fontSize = 20.sp,
+                fontSize = 17.sp,
                 color = AppDarkBlue,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier,

@@ -53,6 +53,7 @@ class TourViewModel @Inject constructor(
                         var scope = doc["scope"] as String
                         var location = doc["location"] as String
                         var companyName = doc["companyName"] as String
+                        var date = doc["date"] as MutableMap<String, String>
                         var region = doc["region"] as String
 
                         val tourModel = TourModel(
@@ -68,7 +69,8 @@ class TourViewModel @Inject constructor(
                             scope = scope,
                             companyName = companyName,
                             region = region,
-                            location = location
+                            location = location,
+                            date =  date
                         )
 
                         list.add(tourModel)
@@ -96,6 +98,7 @@ class TourViewModel @Inject constructor(
             tourMap["location"] = tourModel.location
             tourMap["companyName"] = tourModel.companyName
             tourMap["region"] = tourModel.region
+            tourMap["date"] = tourModel.date
 
             firestore.collection("Tours")
                 .document("${tourModel.name} - ${tourModel.companyName}")

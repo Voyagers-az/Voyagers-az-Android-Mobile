@@ -5,6 +5,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
+import androidx.compose.ui.graphics.Path
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -19,10 +20,17 @@ import androidx.compose.material.icons.outlined.StarOutline
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.PathParser
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -39,10 +47,7 @@ import com.natiqhaciyef.voyagers.util.classes.NavItemModel
 import androidx.compose.ui.util.lerp
 import coil.compose.rememberImagePainter
 import com.google.accompanist.pager.*
-import com.natiqhaciyef.voyagers.data.model.CampModel
-import com.natiqhaciyef.voyagers.data.model.PlaceModel
-import com.natiqhaciyef.voyagers.data.model.ServiceModel
-import com.natiqhaciyef.voyagers.data.model.TourModel
+import com.natiqhaciyef.voyagers.data.model.*
 import com.natiqhaciyef.voyagers.data.model.enums.TourScope
 import com.natiqhaciyef.voyagers.util.ContactList
 import com.natiqhaciyef.voyagers.util.classes.DataTypes
@@ -421,7 +426,8 @@ fun PlaceItem(
 @Preview
 @Composable
 fun ServiceCardItem(
-    serviceModel: ServiceModel = Services.services[0]
+    serviceModel: ServiceModel = Services.services[0],
+    content: () -> Unit = {}
 ) {
     Card(
         modifier = Modifier
@@ -457,6 +463,9 @@ fun ServiceCardItem(
                     modifier = Modifier
                         .padding(end = 30.dp)
                         .align(Alignment.CenterEnd)
+                        .clickable {
+                            content()
+                        }
                 )
             }
         }
@@ -701,3 +710,26 @@ fun CampCardItem(
         }
     }
 }
+
+
+@Preview
+@Composable
+fun TicketCardView(
+    name: String = "Natiq",
+    surname: String = "Haciyev",
+    location: String = "Baki",
+    idNumber: String = "217805F",
+    phoneNumber: String = "+994-55-333-22-44"
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(350.dp)
+            .padding(horizontal = 20.dp)
+            .clip(shape = RoundedCornerShape(10.dp))
+            .background(color = AppWhiteLightPurple)
+    ) {
+
+    }
+}
+

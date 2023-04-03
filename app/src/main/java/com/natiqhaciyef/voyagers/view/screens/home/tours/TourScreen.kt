@@ -113,6 +113,8 @@ fun TourTopView(
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 textColor = Color.Black,
                 backgroundColor = Color.White,
+                focusedBorderColor = AppDarkBlue,
+                unfocusedBorderColor = Color.Gray
             ),
             shape = RoundedCornerShape(10.dp),
             enabled = true,
@@ -165,7 +167,7 @@ fun TourMainView(
         )
 
         // create local tour model & viewModel of TourScreen
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         val localTours = tours.value
             .filter { it.scope == TourScope.Local.scope }
             .filter {
@@ -200,7 +202,7 @@ fun TourMainView(
         }
 
         // create global tour model & viewModel of TourScreen
-        Spacer(modifier = Modifier.height(35.dp))
+        Spacer(modifier = Modifier.height(25.dp))
 
         Text(
             text = "Xarici turlar",
@@ -213,7 +215,7 @@ fun TourMainView(
         )
 
         // create local tour model & viewModel of TourScreen
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         val globalTours = tours.value
             .filter { it.scope == TourScope.Global.scope }
             .filter {
@@ -249,7 +251,7 @@ fun TourMainView(
 
 
 
-        Spacer(modifier = Modifier.height(35.dp))
+        Spacer(modifier = Modifier.height(25.dp))
 
         Text(
             text = "Düşərgələr",
@@ -262,7 +264,7 @@ fun TourMainView(
         )
 
         // create local tour model & viewModel of TourScreen
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         val campList = camps.value
             .filter {
                 it.name.lowercase().contains(search.value.lowercase())

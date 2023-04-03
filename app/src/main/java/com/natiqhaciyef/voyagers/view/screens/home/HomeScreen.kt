@@ -28,19 +28,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.natiqhaciyef.voyagers.data.model.PlaceModel
 import com.natiqhaciyef.voyagers.util.CategoryIcons
 import com.natiqhaciyef.voyagers.util.ContactList
 import com.natiqhaciyef.voyagers.util.Services
 import com.natiqhaciyef.voyagers.view.components.*
+import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.*
 import com.natiqhaciyef.voyagers.view.viewmodel.HomeViewModel
 
-@Preview
+//@Preview
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    navController: NavController
 ) {
     val list = CategoryIcons.list
     val places = viewModel.placesList
@@ -60,7 +63,7 @@ fun HomeScreen(
                     .background(Color.Transparent)
             ) {
                 HomeTopView(selectedCategory, list)
-                HomeMainPartView(places, viewModel.isLoading)
+                HomeMainPartView(places, viewModel.isLoading, navController)
                 Spacer(modifier = Modifier.height(60.dp))
             }
         }
@@ -143,11 +146,12 @@ fun HomeTopView(
 
 
 @OptIn(ExperimentalPagerApi::class)
-@Preview
+//@Preview
 @Composable
 fun HomeMainPartView(
     list: MutableState<List<PlaceModel>> = mutableStateOf(mutableListOf()),
-    isLoading: MutableState<Boolean> = mutableStateOf(true)
+    isLoading: MutableState<Boolean> = mutableStateOf(true),
+    navController: NavController
 ) {
     Column {
         Spacer(modifier = Modifier.height(15.dp))
@@ -169,24 +173,9 @@ fun HomeMainPartView(
             }
         }
 
+
         Spacer(modifier = Modifier.height(15.dp))
-        Text(
-            text = "Xidmətlər",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp)
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-
-        ServiceCardItem(serviceModel = Services.services[0])
-        Spacer(modifier = Modifier.height(5.dp))
-        ServiceCardItem(serviceModel = Services.services[1])
-        Spacer(modifier = Modifier.height(5.dp))
-        ServiceCardItem(serviceModel = Services.services[2])
-
+        Line7()
         Spacer(modifier = Modifier.height(15.dp))
         Text(
             text = "Əlaqə",
