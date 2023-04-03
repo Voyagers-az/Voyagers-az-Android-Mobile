@@ -1,14 +1,30 @@
 package com.natiqhaciyef.voyagers.util
 
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import com.natiqhaciyef.voyagers.data.model.CampModel
-import com.natiqhaciyef.voyagers.data.model.PlaceModel
-import com.natiqhaciyef.voyagers.data.model.TourModel
+import com.natiqhaciyef.voyagers.data.model.*
+import com.natiqhaciyef.voyagers.data.model.enums.Luggage
 import com.natiqhaciyef.voyagers.data.model.enums.RegionSide
 import com.natiqhaciyef.voyagers.data.model.enums.TourScope
+import java.text.SimpleDateFormat
+import java.util.*
 
 object DefaultModelImplementations {
+    var data = Any()
+    val selectedIndex = mutableStateOf(0)   // nav index
+
+    val userModel = UserModel(
+        id = 0,
+        name = "Natiq",
+        email = "natiq00h2272@gmail.com",
+        surname = "Haciyev",
+        dateOfBirth = "08.06.2003",
+        phone = "+994-55-386-0054",
+        idNumber = "923082F",
+        visaImage = "",
+        idImage = "",
+        password = "12345"
+    )
+
     var place: PlaceModel = PlaceModel(
         id = 0,
         name = "Baki",
@@ -52,8 +68,32 @@ object DefaultModelImplementations {
         location = "Şamaxı"
     )
 
-    var data = Any()
+    val flightTransfer = FlightTransfer(
+        id = 0,
+        landedPlace = "Istanbul, Türkiyə",
+        watingTime = 1.5,
+        arrivalDate = "07:40 07.06.2023",
+        departureDate = "09:20 07.06.2023"
+    )
 
-    // nav index
-    val selectedIndex = mutableStateOf(0)
+    val ticketModel = TicketModel(
+        id = 0,
+        price = 942.0,
+        info = "Airbus A321neo da uçuş 3s 10d. Dar gövdə",
+        userInfo = userModel,
+        departureDate = "05:35 07.06.2023",
+        arrivalDate = "11:15 07.06.2023",
+        from = "Bakı, Azərbaycan",
+        to = "Berlin, Almanya",
+        flightDate = 7.5,
+        companyNames = mutableListOf("Anadolu Jet"),
+        transfer = flightTransfer,
+        luggage = Luggage.Medium
+    )
+
+    private fun dateTime(): String {
+        val date = Calendar.getInstance().time
+        val sdf = SimpleDateFormat("HH:mm dd.MM.yyyy")
+        return sdf.format(date)
+    }
 }

@@ -175,7 +175,6 @@ fun HomeMainPartView(
 
 
         Spacer(modifier = Modifier.height(15.dp))
-        Line7()
         Spacer(modifier = Modifier.height(15.dp))
         Text(
             text = "Əlaqə",
