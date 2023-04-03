@@ -5,5 +5,12 @@ data class TicketModel(
     var price: Double,
     var type: String,
     var info: String,
-    var userCount: Int
+    var userInfo : UserModel,
+    var departureDate: String,
+    var arrivalDate: String,
+    var from: String,               // country - city
+    var to: String,                 // country - city
+    var flightDate: String,
+    var companyName: String,
+    var transfer: FlightTransfer?,
 )
