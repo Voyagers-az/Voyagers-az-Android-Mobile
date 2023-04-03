@@ -13,5 +13,6 @@ data class TourModel(
     var scope: String,
     var location: String,
     var companyName: String,
+    var date: MutableMap<String, String>,
     var region: String = "Qeyd olunmayıb"
 )
