@@ -31,7 +31,8 @@ object DefaultModelImplementations {
         scope = TourScope.Global.scope,
         location = "Ispaniya, Kataloniya, Barselona",
         companyName = "Voyagers",
-        region = RegionSide.Europe.side
+        region = RegionSide.Europe.side,
+        date = mutableMapOf("21 June" to "24 June")
     )
 
 

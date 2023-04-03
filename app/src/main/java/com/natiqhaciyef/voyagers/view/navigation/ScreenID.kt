@@ -6,7 +6,7 @@ enum class ScreenID {
     Login,
     ResetPassword,
     Home,
-    ServiceAndContactDetails,
+    ContactDetails,
     TourScreen,
     TourDetails,
     UserProfile,
@@ -14,4 +14,5 @@ enum class ScreenID {
     RentBus,
     TrainTour,
     MainScreenLine,
+
 }
