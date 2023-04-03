@@ -715,11 +715,7 @@ fun CampCardItem(
 @Preview
 @Composable
 fun TicketCardView(
-    name: String = "Natiq",
-    surname: String = "Haciyev",
-    location: String = "Baki",
-    idNumber: String = "217805F",
-    phoneNumber: String = "+994-55-333-22-44"
+    ticketModel: TicketModel = DefaultModelImplementations.ticketModel
 ) {
     Box(
         modifier = Modifier
