@@ -367,14 +367,13 @@ fun PlaceItem(
         0f, 0f, 0f, 1f, 0f
     )
 
-    Card(
+    Box(
         modifier = Modifier
             .width(280.dp)
             .height(330.dp)
-            .padding(start = 5.dp, end = 5.dp, bottom = 10.dp),
-        shape = RoundedCornerShape(12.dp),
-        backgroundColor = White,
-        elevation = 5.dp
+            .padding(start = 5.dp, end = 5.dp, bottom = 10.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(White),
     ) {
 
         if (isLoading.value) {
@@ -390,11 +389,21 @@ fun PlaceItem(
         }
 
         Image(
-            painter = rememberImagePainter(data = item.image),
+            painter = rememberImagePainter(data = item.image[0]),
             contentDescription = "Place image",
             colorFilter = ColorFilter.colorMatrix(ColorMatrix(colorMatrix)),
             modifier = Modifier
                 .fillMaxSize(),
+            contentScale = ContentScale.Crop,
+        )
+
+        Image(
+            painter = rememberImagePainter(data = item.image[1]),
+            contentDescription = "Place map",
+            colorFilter = ColorFilter.colorMatrix(ColorMatrix(colorMatrix)),
+            modifier = Modifier
+                .size(100.dp)
+                .align(Alignment.TopEnd),
             contentScale = ContentScale.Crop,
         )
 
@@ -405,7 +414,6 @@ fun PlaceItem(
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.Start
         ) {
-
             Text(
                 text = item.name,
                 fontSize = 22.sp,
