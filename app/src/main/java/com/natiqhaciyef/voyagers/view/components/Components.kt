@@ -730,11 +730,21 @@ fun TicketCardView(
         modifier = Modifier
             .fillMaxWidth()
             .height(350.dp)
-            .padding(horizontal = 20.dp)
+            .padding(horizontal = 15.dp)
             .clip(shape = RoundedCornerShape(12.dp))
             .background(color = Color(0xffE8F2F6))
             .padding(start = 15.dp, end = 15.dp),
     ) {
+        Icon(
+            imageVector = Icons.Default.Flight,
+            contentDescription = "Direction",
+            tint = AppLightGray,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(start = 10.dp)
+                .align(Alignment.TopCenter),
+        )
+
         Icon(
             imageVector = Icons.Default.AirplaneTicket,
             contentDescription = "AirLine icon",
@@ -855,8 +865,19 @@ fun TicketCardView(
                 horizontalArrangement = Arrangement.Center
             ) {
                 TicketDepArrView()
+
             }
         }
+
+        Icon(
+            imageVector = Icons.Default.Alarm,
+            contentDescription = "Direction",
+            tint = Gray,
+            modifier = Modifier
+                .padding(bottom = 5.dp)
+                .size(45.dp)
+                .align(Alignment.BottomCenter),
+        )
     }
 }
 
@@ -874,7 +895,7 @@ fun TicketDepArrView(
         Text(
             text = ticketModel.fromCity,
             fontWeight = FontWeight.Bold,
-            fontSize = 20.sp,
+            fontSize = 17.sp,
             modifier = Modifier
                 .fillMaxWidth(),
             color = Black,
@@ -889,7 +910,16 @@ fun TicketDepArrView(
                 .padding(end = 5.dp)
                 .align(Alignment.End)
                 .size(30.dp)
+        )
 
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Text(
+            text = ticketModel.departureDate,
+            fontWeight = FontWeight.Bold,
+            fontSize = 17.sp,
+            color = Gray,
+            textAlign = TextAlign.Start
         )
 
     }
@@ -915,7 +945,7 @@ fun TicketDepArrView(
         Text(
             text = ticketModel.toCity,
             fontWeight = FontWeight.Bold,
-            fontSize = 20.sp,
+            fontSize = 17.sp,
             modifier = Modifier
                 .fillMaxWidth(),
             color = Black,
@@ -932,12 +962,22 @@ fun TicketDepArrView(
                 .size(30.dp)
         )
 
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Text(
+            text = ticketModel.arrivalDate,
+            fontWeight = FontWeight.Bold,
+            fontSize = 17.sp,
+            color = Gray,
+            textAlign = TextAlign.End
+        )
+
     }
 }
 
 
 @Composable
-fun AboutUsView(){
+fun AboutUsView() {
     val context = LocalContext.current
     Spacer(modifier = Modifier.height(20.dp))
     Text(
