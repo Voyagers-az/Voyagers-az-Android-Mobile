@@ -83,12 +83,14 @@ object DefaultModelImplementations {
         userInfo = userModel,
         departureDate = "05:35 07.06.2023",
         arrivalDate = "11:15 07.06.2023",
-        from = "Bakı, Azərbaycan",
-        to = "Berlin, Almanya",
-        flightDate = 7.5,
+        fromCity = "Bakı",
+        toCity = "Berlin",
+        flightTime = 7.5,
         companyNames = mutableListOf("Anadolu Jet"),
         transfer = flightTransfer,
-        luggage = Luggage.Medium
+        luggage = Luggage.Medium,
+        fromCountry = "Azərbaycan",
+        toCountry = "Almanya"
     )
 
     private fun dateTime(): String {

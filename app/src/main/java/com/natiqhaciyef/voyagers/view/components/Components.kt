@@ -21,18 +21,17 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.PathParser
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,6 +44,7 @@ import kotlin.math.absoluteValue
 import com.natiqhaciyef.voyagers.R
 import com.natiqhaciyef.voyagers.util.classes.NavItemModel
 import androidx.compose.ui.util.lerp
+import androidx.constraintlayout.compose.HorizontalAlign
 import coil.compose.rememberImagePainter
 import com.google.accompanist.pager.*
 import com.natiqhaciyef.voyagers.data.model.*
@@ -54,6 +54,7 @@ import com.natiqhaciyef.voyagers.util.classes.DataTypes
 import com.natiqhaciyef.voyagers.util.DefaultModelImplementations
 import com.natiqhaciyef.voyagers.util.Services
 import com.natiqhaciyef.voyagers.util.classes.ContactModel
+import com.natiqhaciyef.voyagers.util.functions.fromDoubleToTimeLine
 import com.natiqhaciyef.voyagers.view.ui.theme.*
 import kotlin.math.ceil
 import kotlin.math.floor
@@ -352,7 +353,7 @@ fun RatingBar(
 }
 
 
-@Preview
+//@Preview
 @Composable
 fun PlaceItem(
     item: PlaceModel = DefaultModelImplementations.place,
@@ -423,7 +424,7 @@ fun PlaceItem(
 }
 
 
-@Preview
+//@Preview
 @Composable
 fun ServiceCardItem(
     serviceModel: ServiceModel = Services.services[0],
@@ -473,7 +474,7 @@ fun ServiceCardItem(
 }
 
 
-@Preview
+//@Preview
 @Composable
 fun ContactCardItem(contactModel: ContactModel = ContactList.list[0]) {
     Card(
@@ -506,7 +507,7 @@ fun ContactCardItem(contactModel: ContactModel = ContactList.list[0]) {
     }
 }
 
-@Preview
+//@Preview
 @Composable
 fun TourCardItem(
     tourModel: TourModel = DefaultModelImplementations.tourModel,
@@ -609,7 +610,7 @@ fun TourCardItem(
 }
 
 
-@Preview
+//@Preview
 @Composable
 fun CampCardItem(
     campModel: CampModel = DefaultModelImplementations.campModel,
@@ -722,10 +723,236 @@ fun TicketCardView(
             .fillMaxWidth()
             .height(350.dp)
             .padding(horizontal = 20.dp)
-            .clip(shape = RoundedCornerShape(10.dp))
-            .background(color = AppWhiteLightPurple)
+            .clip(shape = RoundedCornerShape(12.dp))
+            .background(color = Color(0xffE8F2F6))
+            .padding(start = 15.dp, end = 15.dp),
     ) {
+        Icon(
+            imageVector = Icons.Default.AirplaneTicket,
+            contentDescription = "AirLine icon",
+            modifier = Modifier
+                .padding(top = 10.dp, end = 5.dp)
+                .size(45.dp)
+                .align(Alignment.TopEnd)
+        )
+
+        Column(
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .padding(top = 35.dp),
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.Top
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = "Ad və Soyad : ",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Black,
+                )
+
+                Spacer(modifier = Modifier.width(15.dp))
+
+                Text(
+                    modifier = Modifier.fillMaxWidth(0.75f),
+                    text = "${ticketModel.userInfo.name} ${ticketModel.userInfo.surname}",
+                    fontSize = 15.sp,
+                    textAlign = TextAlign.Center,
+                    color = Black,
+                )
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = "Doğum tarixi : ",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Black,
+                )
+
+                Spacer(modifier = Modifier.width(15.dp))
+
+                Text(
+                    modifier = Modifier.fillMaxWidth(0.75f),
+                    text = "${ticketModel.userInfo.dateOfBirth}",
+                    fontSize = 15.sp,
+                    textAlign = TextAlign.Center,
+                    color = Black,
+                )
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = "FIN kod : ",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Black,
+                )
+
+                Spacer(modifier = Modifier.width(15.dp))
+
+                Text(
+                    modifier = Modifier.fillMaxWidth(0.85f),
+                    text = "${ticketModel.userInfo.idNumber}",
+                    fontSize = 15.sp,
+                    textAlign = TextAlign.Center,
+                    color = Black,
+                )
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = "Location : ",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Black,
+                )
+
+                Spacer(modifier = Modifier.width(15.dp))
+
+                Text(
+                    modifier = Modifier.fillMaxWidth(0.82f),
+                    text = "${ticketModel.fromCity}, ${ticketModel.fromCountry}",
+                    fontSize = 15.sp,
+                    textAlign = TextAlign.Center,
+                    color = Black,
+                )
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .background(Gray)
+            )
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                TicketDepArrView()
+            }
+        }
+    }
+}
+
+
+@Preview
+@Composable
+fun TicketDepArrView(
+    ticketModel: TicketModel = DefaultModelImplementations.ticketModel
+) {
+    Column(
+        modifier = Modifier
+            .width(100.dp)
+            .padding(top = 30.dp)
+    ) {
+        Text(
+            text = ticketModel.fromCity,
+            fontWeight = FontWeight.Bold,
+            fontSize = 20.sp,
+            modifier = Modifier
+                .fillMaxWidth(),
+            color = Black,
+            textAlign = TextAlign.Start
+        )
+
+
+        Icon(
+            imageVector = Icons.Default.FlightTakeoff,
+            contentDescription = "Flight Icon",
+            modifier = Modifier
+                .padding(end = 5.dp)
+                .align(Alignment.End)
+                .size(30.dp)
+
+        )
 
     }
+
+    Spacer(modifier = Modifier.width(15.dp))
+
+    Text(
+        text = fromDoubleToTimeLine(ticketModel.flightTime),
+        fontSize = 15.sp,
+        fontWeight = FontWeight.SemiBold,
+        textAlign = TextAlign.Center,
+        modifier = Modifier
+            .padding(top = 15.dp)
+    )
+
+    Spacer(modifier = Modifier.width(15.dp))
+
+    Column(
+        modifier = Modifier
+            .width(100.dp)
+            .padding(top = 30.dp)
+    ) {
+        Text(
+            text = ticketModel.toCity,
+            fontWeight = FontWeight.Bold,
+            fontSize = 20.sp,
+            modifier = Modifier
+                .fillMaxWidth(),
+            color = Black,
+            textAlign = TextAlign.End
+        )
+
+
+        Icon(
+            imageVector = Icons.Default.FlightLand,
+            contentDescription = "Flight Icon",
+            modifier = Modifier
+                .padding(start = 5.dp)
+                .align(Alignment.Start)
+                .size(30.dp)
+        )
+
+    }
+}
+
+
+@Composable
+fun AboutUsView(){
+    val context = LocalContext.current
+    Spacer(modifier = Modifier.height(20.dp))
+    Text(
+        text = "Haqqımızda qısa məlumat",
+        fontSize = 20.sp,
+        fontWeight = FontWeight.Bold,
+        color = Color.Black,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp)
+    )
+
+    Spacer(modifier = Modifier.height(10.dp))
+
+    Text(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 15.dp),
+        text = context.getString(R.string.info),
+        textAlign = TextAlign.Center,
+        fontSize = 17.sp,
+        fontWeight = FontWeight.Medium
+    )
+
 }
 

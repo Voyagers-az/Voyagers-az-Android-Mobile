@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import com.natiqhaciyef.voyagers.R
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -153,8 +154,11 @@ fun HomeMainPartView(
     isLoading: MutableState<Boolean> = mutableStateOf(true),
     navController: NavController
 ) {
+    val context = LocalContext.current
     Column {
-        Spacer(modifier = Modifier.height(15.dp))
+
+        Spacer(modifier = Modifier.height(10.dp))
+
         Text(
             text = "Məkanlar",
             fontSize = 20.sp,
@@ -174,8 +178,8 @@ fun HomeMainPartView(
         }
 
 
-        Spacer(modifier = Modifier.height(15.dp))
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(30.dp))
+
         Text(
             text = "Əlaqə",
             fontSize = 20.sp,
