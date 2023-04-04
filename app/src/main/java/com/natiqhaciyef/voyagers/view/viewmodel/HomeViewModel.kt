@@ -35,7 +35,7 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
                     for (doc in docs){
                         val id = doc.get("id").toString().toInt()
                         val name = doc.get("name") as String
-                        val image = doc.get("image") as String
+                        val image = doc.get("image") as MutableList<String>
                         val scope = doc.get("scope") as String
                         val side = doc.get("side") as String
                         val rating = doc.get("rating") as Double

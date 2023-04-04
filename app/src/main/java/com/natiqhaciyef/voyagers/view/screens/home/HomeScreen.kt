@@ -178,7 +178,7 @@ fun HomeMainPartView(
         }
 
 
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         Text(
             text = "Əlaqə",
@@ -206,5 +206,7 @@ fun HomeMainPartView(
             Spacer(modifier = Modifier.width(30.dp))
             ContactCardItem(contactModel = ContactList.list[2])
         }
+
+        Spacer(modifier = Modifier.height(10.dp))
     }
 }

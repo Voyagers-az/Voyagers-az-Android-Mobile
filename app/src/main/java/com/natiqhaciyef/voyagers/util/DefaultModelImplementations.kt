@@ -28,7 +28,7 @@ object DefaultModelImplementations {
     var place: PlaceModel = PlaceModel(
         id = 0,
         name = "Baki",
-        image = "",
+        image = mutableListOf(""),
         scope = TourScope.Global.scope,
         side = RegionSide.North.side,
         rating = 4.5
