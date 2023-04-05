@@ -165,7 +165,7 @@ fun NavBar(
 fun CustomViewPager(list: MutableList<TourModel> = mutableListOf()) {
     val pagerState = rememberPagerState(
         initialPage = 0,
-        pageCount = list.size
+//        pageCount = list.size
     )
 
     LaunchedEffect(key1 = Unit) {
@@ -182,7 +182,8 @@ fun CustomViewPager(list: MutableList<TourModel> = mutableListOf()) {
     HorizontalPager(
         state = pagerState,
         modifier = Modifier
-            .padding(horizontal = 40.dp)
+            .padding(horizontal = 40.dp),
+        count = list.size
     ) { page ->
 
         Card(
