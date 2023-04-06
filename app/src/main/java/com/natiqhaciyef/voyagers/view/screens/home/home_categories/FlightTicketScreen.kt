@@ -1,11 +1,17 @@
 package com.natiqhaciyef.voyagers.view.screens.home.home_categories
 
+import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.runtime.*
@@ -20,6 +26,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
+import com.natiqhaciyef.voyagers.data.model.TicketModel
+import com.natiqhaciyef.voyagers.util.DefaultModelImplementations
 import com.natiqhaciyef.voyagers.view.ui.theme.AppAquatic
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.AppGray
@@ -33,6 +41,12 @@ import java.time.format.DateTimeFormatter
 @Preview
 @Composable
 fun FlightTicketScreen() {
+    val from = remember { mutableStateOf("") }
+    val to = remember { mutableStateOf("") }
+    val dateFrom = remember { mutableStateOf("") }
+    val dateTo = remember { mutableStateOf("") }
+    var ticketsList = remember { mutableListOf<TicketModel>() }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -41,14 +55,22 @@ fun FlightTicketScreen() {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(220.dp)
+                .height(160.dp)
                 .background(AppAquatic),
         )
         Column(
             modifier = Modifier
         ) {
             Spacer(modifier = Modifier.height(30.dp))
-            FlightTicketTopView()
+            FlightTicketTopView(
+                from = from,
+                to = to,
+                dateFrom = dateFrom,
+                dateTo = dateTo
+            )
+
+            Spacer(modifier = Modifier.height(30.dp))
+
             FlightTicketMainPart()
         }
     }
@@ -59,7 +81,9 @@ fun FlightTicketScreen() {
 @Composable
 private fun FlightTicketTopView(
     from: MutableState<String> = mutableStateOf(""),
-    to: MutableState<String> = mutableStateOf("")
+    to: MutableState<String> = mutableStateOf(""),
+    dateFrom: MutableState<String> = mutableStateOf(""),
+    dateTo: MutableState<String> = mutableStateOf(""),
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -83,7 +107,7 @@ private fun FlightTicketTopView(
             ),
             label = {
                 Text(
-                    text = "Location",
+                    text = "Məkanım",
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -117,9 +141,9 @@ private fun FlightTicketTopView(
             modifier = Modifier
                 .width(165.dp)
                 .height(65.dp),
-            value = from.value,
+            value = to.value,
             onValueChange = {
-                from.value = it
+                to.value = it
             },
             enabled = true,
             readOnly = false,
@@ -130,7 +154,7 @@ private fun FlightTicketTopView(
             ),
             label = {
                 Text(
-                    text = "Destination",
+                    text = "İstiqamət",
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -159,20 +183,50 @@ private fun FlightTicketTopView(
         )
     }
 
-    Spacer(modifier = Modifier.height(20.dp))
+    Spacer(modifier = Modifier.height(30.dp))
 
+    DatePicker(
+        dateFrom = dateFrom,
+        dateTo = dateTo
+    )
 
 }
 
 
 @Composable
-private fun FlightTicketMainPart() {
+private fun FlightTicketMainPart(
+    ticketsList: MutableState<List<TicketModel>> =
+        mutableStateOf(mutableListOf(DefaultModelImplementations.ticketModel))
+) {
+    Text(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 15.dp),
+        text = "Aktiv biletlər",
+        color = Color.Black,
+        fontSize = 19.sp,
+        fontWeight = FontWeight.Bold
+    )
 
+    Spacer(modifier = Modifier.height(15.dp))
+
+    LazyColumn{
+        items(ticketsList.value){ ticket ->
+            // Ticket view without users creating
+        }
+    }
 }
 
 @Preview
 @Composable
-fun DatePicker() {
+fun DatePicker(
+    dateFrom: MutableState<String> = mutableStateOf(""),
+    dateTo: MutableState<String> = mutableStateOf(""),
+) {
+    val list = remember {
+        mutableStateListOf<String>()
+    }
+
     var dateSelector by remember {
         mutableStateOf(LocalDate.now())
     }
@@ -186,24 +240,63 @@ fun DatePicker() {
     }
 
     val dateDialogState = rememberMaterialDialogState()
-
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Button(onClick = {
-            dateDialogState.show()
-        }) {
-            Text(text = "Date Picker")
-        }
-
-        Text(
-            text = formattedDate,
-            fontWeight = FontWeight.Bold,
-            fontSize = 20.sp
-        )
+    if (list.size < 2) {
+        dateFrom.value = formattedDate
+    } else {
+        dateFrom.value = list[0]
+        dateTo.value = list[1]
     }
+
+    println("Date 1: ${dateFrom.value}")
+    println("Date 2: ${dateTo.value}")
+
+    OutlinedButton(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(60.dp)
+            .padding(horizontal = 30.dp),
+        enabled = true,
+        colors = ButtonDefaults.outlinedButtonColors(
+            backgroundColor = Color.White,
+        ),
+        border = BorderStroke(
+            width = 2.dp, color = AppDarkBlue
+        ),
+        shape = RoundedCornerShape(7.dp),
+        onClick = {
+            dateDialogState.show()
+        }
+    ) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            if (list.size < 2) {
+                Text(
+                    text = formattedDate,
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier
+                        .align(Alignment.CenterStart),
+                    color = Color.Black,
+                )
+            } else {
+                Text(
+                    text = "${list[0]} - ${list[1]}",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier
+                        .align(Alignment.CenterStart),
+                    color = Color.Black,
+                )
+            }
+            Icon(
+                imageVector = Icons.Default.CalendarMonth,
+                contentDescription = "Calendar",
+                tint = AppDarkBlue,
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+            )
+        }
+    }
+
 
     MaterialDialog(
         dialogState = dateDialogState,
@@ -211,13 +304,18 @@ fun DatePicker() {
         shape = RoundedCornerShape(12.dp),
         buttons = {
             positiveButton(text = "Select")
-        }
+        },
+        backgroundColor = AppWhiteLightPurple,
     ) {
         this.datepicker(
             initialDate = LocalDate.now(),
             title = "Pick date",
+            allowedDateValidator = {
+                it > dateSelector
+            }
         ) {
             dateSelector = it
+            list.add(formattedDate)
         }
     }
 }
