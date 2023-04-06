@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
 import com.natiqhaciyef.voyagers.data.model.TicketModel
 import com.natiqhaciyef.voyagers.util.DefaultModelImplementations
+import com.natiqhaciyef.voyagers.view.components.TicketCardView
 import com.natiqhaciyef.voyagers.view.ui.theme.AppAquatic
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.AppGray
@@ -72,6 +73,7 @@ fun FlightTicketScreen() {
             Spacer(modifier = Modifier.height(30.dp))
 
             FlightTicketMainPart()
+            Spacer(modifier = Modifier.height(15.dp))
         }
     }
 }
@@ -196,7 +198,11 @@ private fun FlightTicketTopView(
 @Composable
 private fun FlightTicketMainPart(
     ticketsList: MutableState<List<TicketModel>> =
-        mutableStateOf(mutableListOf(DefaultModelImplementations.ticketModel))
+        mutableStateOf(
+            mutableListOf(
+                DefaultModelImplementations.ticketModel,
+            )
+        )
 ) {
     Text(
         modifier = Modifier
@@ -208,11 +214,13 @@ private fun FlightTicketMainPart(
         fontWeight = FontWeight.Bold
     )
 
-    Spacer(modifier = Modifier.height(15.dp))
+    Spacer(modifier = Modifier.height(5.dp))
 
-    LazyColumn{
-        items(ticketsList.value){ ticket ->
+    LazyColumn {
+        items(ticketsList.value) { ticket ->
             // Ticket view without users creating
+            TicketCardView(ticketModel = ticket)
+            Spacer(modifier = Modifier.height(5.dp))
         }
     }
 }

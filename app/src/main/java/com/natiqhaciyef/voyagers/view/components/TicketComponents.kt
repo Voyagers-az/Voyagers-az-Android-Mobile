@@ -18,14 +18,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.natiqhaciyef.voyagers.data.model.TicketInfoModel
+import com.natiqhaciyef.voyagers.data.model.TicketModel
 import com.natiqhaciyef.voyagers.util.DefaultModelImplementations
 import com.natiqhaciyef.voyagers.util.functions.fromDoubleToTimeLine
-import com.natiqhaciyef.voyagers.view.ui.theme.AppLightGray
+import com.natiqhaciyef.voyagers.view.ui.theme.*
 
-@Preview
+//@Preview
 @Composable
 fun TicketDepArrView(
-    ticketInfoModel: TicketInfoModel = DefaultModelImplementations.ticketInfoModel
+    ticketModel: TicketModel // = DefaultModelImplementations.ticketInfoModel.ticketModel
 ) {
     Column(
         modifier = Modifier
@@ -33,12 +34,12 @@ fun TicketDepArrView(
             .padding(top = 30.dp)
     ) {
         Text(
-            text = ticketInfoModel.ticketModel.fromCity,
+            text = ticketModel.fromCity,
             fontWeight = FontWeight.Bold,
             fontSize = 17.sp,
             modifier = Modifier
                 .fillMaxWidth(),
-            color = Color.Black,
+            color = Color.White,
             textAlign = TextAlign.Start
         )
 
@@ -46,6 +47,7 @@ fun TicketDepArrView(
         Icon(
             imageVector = Icons.Default.FlightTakeoff,
             contentDescription = "Flight Icon",
+            tint = AppYellow,
             modifier = Modifier
                 .padding(end = 5.dp)
                 .align(Alignment.End)
@@ -55,10 +57,10 @@ fun TicketDepArrView(
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(
-            text = ticketInfoModel.ticketModel.departureDate,
+            text = ticketModel.departureDate,
             fontWeight = FontWeight.Bold,
             fontSize = 17.sp,
-            color = Color.Gray,
+            color = AppLightGray,
             textAlign = TextAlign.Start
         )
 
@@ -67,12 +69,13 @@ fun TicketDepArrView(
     Spacer(modifier = Modifier.width(15.dp))
 
     Text(
-        text = fromDoubleToTimeLine(ticketInfoModel.ticketModel.flightTime),
+        text = fromDoubleToTimeLine(ticketModel.flightTime),
         fontSize = 15.sp,
         fontWeight = FontWeight.SemiBold,
         textAlign = TextAlign.Center,
         modifier = Modifier
-            .padding(top = 15.dp)
+            .padding(top = 15.dp),
+        color = AppYellow
     )
 
     Spacer(modifier = Modifier.width(15.dp))
@@ -83,12 +86,12 @@ fun TicketDepArrView(
             .padding(top = 30.dp)
     ) {
         Text(
-            text = ticketInfoModel.ticketModel.toCity,
+            text = ticketModel.toCity,
             fontWeight = FontWeight.Bold,
             fontSize = 17.sp,
             modifier = Modifier
                 .fillMaxWidth(),
-            color = Color.Black,
+            color = Color.White,
             textAlign = TextAlign.End
         )
 
@@ -96,6 +99,7 @@ fun TicketDepArrView(
         Icon(
             imageVector = Icons.Default.FlightLand,
             contentDescription = "Flight Icon",
+            tint = AppYellow,
             modifier = Modifier
                 .padding(start = 5.dp)
                 .align(Alignment.Start)
@@ -105,10 +109,10 @@ fun TicketDepArrView(
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(
-            text = ticketInfoModel.ticketModel.arrivalDate,
+            text = ticketModel.arrivalDate,
             fontWeight = FontWeight.Bold,
             fontSize = 17.sp,
-            color = Color.Gray,
+            color = AppLightGray,
             textAlign = TextAlign.End
         )
 
@@ -119,7 +123,7 @@ fun TicketDepArrView(
 
 @Preview
 @Composable
-fun TicketCardView(
+fun TicketCardViewWithUserInfo(
     ticketInfoModel: TicketInfoModel = DefaultModelImplementations.ticketInfoModel
 ) {
     Box(
@@ -260,7 +264,7 @@ fun TicketCardView(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
-                TicketDepArrView()
+                TicketDepArrView(ticketInfoModel.ticketModel)
 
             }
         }
@@ -278,3 +282,70 @@ fun TicketCardView(
 }
 
 
+@Preview
+@Composable
+fun TicketCardView(
+    ticketModel: TicketModel = DefaultModelImplementations.ticketInfoModel.ticketModel
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(210.dp)
+            .padding(horizontal = 15.dp)
+            .clip(shape = RoundedCornerShape(12.dp))
+            .background(color = AppDarkBlue)
+            .padding(start = 15.dp, end = 15.dp),
+    ) {
+        Icon(
+            imageVector = Icons.Default.Flight,
+            contentDescription = "Direction",
+            tint = AppDarkBlueLight,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(start = 10.dp)
+                .align(Alignment.TopCenter),
+        )
+
+        Icon(
+            imageVector = Icons.Default.AirplaneTicket,
+            contentDescription = "AirLine icon",
+            tint = AppAquaticLight,
+            modifier = Modifier
+                .padding(top = 3.dp, end = 3.dp)
+                .size(45.dp)
+                .align(Alignment.TopEnd)
+        )
+
+        Column(
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .padding(top = 15.dp),
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.Top
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .background(Color.Gray)
+            )
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                TicketDepArrView(ticketModel = ticketModel)
+            }
+        }
+
+        Icon(
+            imageVector = Icons.Default.Alarm,
+            contentDescription = "Direction",
+            tint = AppYellow,
+            modifier = Modifier
+                .padding(bottom = 5.dp)
+                .size(45.dp)
+                .align(Alignment.BottomCenter),
+        )
+    }
+}

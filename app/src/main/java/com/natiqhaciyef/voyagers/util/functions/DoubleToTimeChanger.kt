@@ -7,7 +7,7 @@ fun fromDoubleToTimeLine(d: Double = 7.5): String{
     val hours = d.toInt()
     val minutes = (60 * (d - hours)).toInt()
 
-    return "$hours hours\n$minutes minutes"
+    return "$hours saat\n$minutes dəqiqə"
 }
 
 fun main() {
