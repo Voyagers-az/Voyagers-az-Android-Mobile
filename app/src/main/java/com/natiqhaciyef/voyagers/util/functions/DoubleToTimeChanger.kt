@@ -1,5 +1,6 @@
 package com.natiqhaciyef.voyagers.util.functions
 
+import com.natiqhaciyef.voyagers.util.DefaultModelImplementations.ticketInfoModel
 import com.natiqhaciyef.voyagers.util.DefaultModelImplementations.ticketModel
 
 fun fromDoubleToTimeLine(d: Double = 7.5): String{
@@ -10,5 +11,5 @@ fun fromDoubleToTimeLine(d: Double = 7.5): String{
 }
 
 fun main() {
-    println(fromDoubleToTimeLine(ticketModel.flightTime))
+    println(fromDoubleToTimeLine(ticketInfoModel.ticketModel.flightTime))
 }

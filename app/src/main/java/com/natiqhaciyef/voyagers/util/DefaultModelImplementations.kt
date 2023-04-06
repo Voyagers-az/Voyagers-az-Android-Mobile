@@ -76,11 +76,9 @@ object DefaultModelImplementations {
         departureDate = "09:20 07.06.2023"
     )
 
-    val ticketModel = TicketModel(
-        id = 0,
+    var ticketModel = TicketModel(
         price = 942.0,
         info = "Airbus A321neo da uçuş 3s 10d. Dar gövdə",
-        userInfo = userModel,
         departureDate = "05:35 07.06.2023",
         arrivalDate = "11:15 07.06.2023",
         fromCity = "Bakı",
@@ -93,6 +91,11 @@ object DefaultModelImplementations {
         toCountry = "Almanya"
     )
 
+    val ticketInfoModel = TicketInfoModel(
+        id = 0,
+        userInfo = userModel,
+        ticketModel = ticketModel
+    )
     private fun dateTime(): String {
         val date = Calendar.getInstance().time
         val sdf = SimpleDateFormat("HH:mm dd.MM.yyyy")
