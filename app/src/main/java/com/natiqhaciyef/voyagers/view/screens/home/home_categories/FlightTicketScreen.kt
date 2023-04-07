@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
 import com.natiqhaciyef.voyagers.data.model.TicketModel
 import com.natiqhaciyef.voyagers.util.DefaultModelImplementations
+import com.natiqhaciyef.voyagers.util.functions.dateToLocalTime
 import com.natiqhaciyef.voyagers.view.components.TicketCardView
 import com.natiqhaciyef.voyagers.view.ui.theme.AppAquatic
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
@@ -46,7 +47,7 @@ fun FlightTicketScreen() {
     val to = remember { mutableStateOf("") }
     val dateFrom = remember { mutableStateOf("") }
     val dateTo = remember { mutableStateOf("") }
-    var ticketsList = remember { mutableListOf<TicketModel>() }
+    var ticketsList = remember { mutableStateOf<List<TicketModel>>(mutableListOf()) }
 
     Box(
         modifier = Modifier
@@ -56,13 +57,13 @@ fun FlightTicketScreen() {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(160.dp)
+                .height(200.dp)
                 .background(AppAquatic),
         )
         Column(
             modifier = Modifier
         ) {
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(70.dp))
             FlightTicketTopView(
                 from = from,
                 to = to,
@@ -72,7 +73,7 @@ fun FlightTicketScreen() {
 
             Spacer(modifier = Modifier.height(30.dp))
 
-            FlightTicketMainPart()
+            FlightTicketMainPart(ticketsList)
             Spacer(modifier = Modifier.height(15.dp))
         }
     }
@@ -198,11 +199,7 @@ private fun FlightTicketTopView(
 @Composable
 private fun FlightTicketMainPart(
     ticketsList: MutableState<List<TicketModel>> =
-        mutableStateOf(
-            mutableListOf(
-                DefaultModelImplementations.ticketModel,
-            )
-        )
+        mutableStateOf(mutableListOf(DefaultModelImplementations.ticketModel))
 ) {
     Text(
         modifier = Modifier
@@ -247,6 +244,14 @@ fun DatePicker(
         }
     }
 
+    val today by remember {
+        derivedStateOf {
+            DateTimeFormatter
+                .ofPattern("dd.MM.yyyy")
+                .format(dateSelector)
+        }
+    }
+
     val dateDialogState = rememberMaterialDialogState()
     if (list.size < 2) {
         dateFrom.value = formattedDate
@@ -255,75 +260,107 @@ fun DatePicker(
         dateTo.value = list[1]
     }
 
-    println("Date 1: ${dateFrom.value}")
-    println("Date 2: ${dateTo.value}")
 
-    OutlinedButton(
+    Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .height(60.dp)
-            .padding(horizontal = 30.dp),
-        enabled = true,
-        colors = ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color.White,
-        ),
-        border = BorderStroke(
-            width = 2.dp, color = AppDarkBlue
-        ),
-        shape = RoundedCornerShape(7.dp),
-        onClick = {
-            dateDialogState.show()
-        }
+            .fillMaxWidth(),
     ) {
-        Box(modifier = Modifier.fillMaxSize()) {
-            if (list.size < 2) {
-                Text(
-                    text = formattedDate,
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier
-                        .align(Alignment.CenterStart),
-                    color = Color.Black,
-                )
-            } else {
-                Text(
-                    text = "${list[0]} - ${list[1]}",
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier
-                        .align(Alignment.CenterStart),
-                    color = Color.Black,
-                )
-            }
-            Icon(
-                imageVector = Icons.Default.CalendarMonth,
-                contentDescription = "Calendar",
-                tint = AppDarkBlue,
-                modifier = Modifier
-                    .align(Alignment.CenterEnd)
-            )
-        }
-    }
-
-
-    MaterialDialog(
-        dialogState = dateDialogState,
-        properties = DialogProperties(),
-        shape = RoundedCornerShape(12.dp),
-        buttons = {
-            positiveButton(text = "Select")
-        },
-        backgroundColor = AppWhiteLightPurple,
-    ) {
-        this.datepicker(
-            initialDate = LocalDate.now(),
-            title = "Pick date",
-            allowedDateValidator = {
-                it > dateSelector
+        OutlinedButton(
+            modifier = Modifier
+                .fillMaxWidth(0.45f)
+                .height(60.dp)
+                .padding(start = 20.dp)
+                .align(Alignment.CenterStart),
+            enabled = true,
+            colors = ButtonDefaults.outlinedButtonColors(
+                backgroundColor = Color.White,
+            ),
+            border = BorderStroke(
+                width = 2.dp, color = AppDarkBlue
+            ),
+            shape = RoundedCornerShape(7.dp),
+            onClick = {
+                dateDialogState.show()
             }
         ) {
-            dateSelector = it
-            list.add(formattedDate)
+            Box(modifier = Modifier.fillMaxSize()) {
+                Text(
+                    text = if (list.isNotEmpty()) dateToLocalTime(list[0]) else "Gediş",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier
+                        .align(Alignment.CenterStart),
+                    color = Color.Black,
+                )
+                Icon(
+                    imageVector = Icons.Default.CalendarMonth,
+                    contentDescription = "Calendar",
+                    tint = AppDarkBlue,
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                )
+            }
+        }
+
+
+
+        OutlinedButton(
+            modifier = Modifier
+                .fillMaxWidth(0.45f)
+                .height(60.dp)
+                .padding(end = 20.dp)
+                .align(Alignment.CenterEnd),
+            enabled = true,
+            colors = ButtonDefaults.outlinedButtonColors(
+                backgroundColor = Color.White,
+            ),
+            border = BorderStroke(
+                width = 2.dp, color = AppDarkBlue
+            ),
+            shape = RoundedCornerShape(7.dp),
+            onClick = {
+                dateDialogState.show()
+            }
+        ) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                Text(
+                    text = if (list.size >= 2) dateToLocalTime(list[1]) else "Dönüş",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier
+                        .align(Alignment.CenterStart),
+                    color = Color.Black,
+                )
+                Icon(
+                    imageVector = Icons.Default.CalendarMonth,
+                    contentDescription = "Calendar",
+                    tint = AppDarkBlue,
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                )
+            }
+        }
+
+        MaterialDialog(
+            dialogState = dateDialogState,
+            properties = DialogProperties(),
+            shape = RoundedCornerShape(12.dp),
+            buttons = {
+                positiveButton(text = "Select")
+            },
+            backgroundColor = AppWhiteLightPurple,
+        ) {
+            this.datepicker(
+                initialDate = LocalDate.now(),
+                title = "Pick date",
+                allowedDateValidator = {
+                    it > dateSelector
+                }
+            ) {
+                dateSelector = it
+                list.add(formattedDate)
+            }
         }
     }
+
 }
