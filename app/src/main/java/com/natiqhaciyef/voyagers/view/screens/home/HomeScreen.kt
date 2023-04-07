@@ -63,7 +63,7 @@ fun HomeScreen(
                     .fillMaxSize()
                     .background(Color.Transparent)
             ) {
-                HomeTopView(selectedCategory, list)
+                HomeTopView(navController, selectedCategory, list)
                 HomeMainPartView(places, viewModel.isLoading, navController)
                 Spacer(modifier = Modifier.height(60.dp))
             }
@@ -71,9 +71,10 @@ fun HomeScreen(
     }
 }
 
-@Preview
+//@Preview
 @Composable
 fun HomeTopView(
+    navController: NavController,
     selectedCategory: MutableState<ImageVector> = mutableStateOf(Icons.Default.DirectionsCar),
     list: MutableList<ImageVector> = mutableListOf()
 ) {
@@ -138,7 +139,7 @@ fun HomeTopView(
         ) {
             items(list) { item ->
                 Spacer(modifier = Modifier.width(25.dp))
-                CategoryCardView(item)
+                CategoryCardView(item, navController)
                 Spacer(modifier = Modifier.width(25.dp))
             }
         }
