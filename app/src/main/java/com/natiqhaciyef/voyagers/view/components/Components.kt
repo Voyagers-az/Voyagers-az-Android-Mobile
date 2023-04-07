@@ -291,30 +291,6 @@ fun CurvedRectangle(
 }
 
 
-//@Preview
-@Composable
-fun CategoryCardView(
-    icon: ImageVector = Icons.Default.DirectionsCar
-) {
-    Card(
-        modifier = Modifier.size(70.dp),
-        shape = RoundedCornerShape(10.dp),
-        backgroundColor = AppDarkBlue,
-        contentColor = White,
-        elevation = 5.dp
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = "Category",
-                modifier = Modifier.size(35.dp)
-            )
-        }
-    }
-}
 
 @Composable
 fun RatingBar(
@@ -398,39 +374,6 @@ fun ServiceCardItem(
     }
 }
 
-
-//@Preview
-@Composable
-fun ContactCardItem(contactModel: ContactModel = ContactList.list[0]) {
-    Card(
-        modifier = Modifier
-            .size(85.dp),
-        shape = RoundedCornerShape(10.dp),
-        elevation = 5.dp
-    ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Bottom,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Image(
-                imageVector = contactModel.icon,
-                contentDescription = "Contact icon",
-                modifier = Modifier.size(35.dp)
-            )
-
-            Spacer(modifier = Modifier.height(5.dp))
-            Text(
-                text = contactModel.name,
-                modifier = Modifier.fillMaxWidth(),
-                fontSize = 15.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
-            )
-            Spacer(modifier = Modifier.height(5.dp))
-        }
-    }
-}
 
 
 
