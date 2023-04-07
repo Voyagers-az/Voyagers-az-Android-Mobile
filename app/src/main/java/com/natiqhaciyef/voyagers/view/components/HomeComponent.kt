@@ -8,10 +8,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CarCrash
-import androidx.compose.material.icons.filled.DepartureBoard
-import androidx.compose.material.icons.filled.DirectionsCar
-import androidx.compose.material.icons.filled.Flight
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -91,8 +88,8 @@ fun ContactCardItem(contactModel: ContactModel = ContactList.list[0]) {
 }
 
 fun navigateChecker(icon: ImageVector, navController: NavController) = when(icon){
-    Icons.Default.CarCrash -> { navController.navigate(ScreenID.RentCar.name) }
-    Icons.Default.DepartureBoard -> { navController.navigate(ScreenID.TrainTour.name) }
+    Icons.Default.DirectionsCar -> { navController.navigate(ScreenID.RentCar.name) }
+    Icons.Default.Train, -> { navController.navigate(ScreenID.TrainTour.name) }
     Icons.Default.Flight -> { navController.navigate(ScreenID.FlightTickets.name) }
     else -> navController.navigate(ScreenID.MainScreenLine.name)
 }

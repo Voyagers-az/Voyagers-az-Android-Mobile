@@ -48,7 +48,6 @@ fun HomeScreen(
 ) {
     val list = CategoryIcons.list
     val places = viewModel.placesList
-    val selectedCategory = remember { mutableStateOf(Icons.Default.DirectionsCar) }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -63,8 +62,8 @@ fun HomeScreen(
                     .fillMaxSize()
                     .background(Color.Transparent)
             ) {
-                HomeTopView(navController, selectedCategory, list)
-                HomeMainPartView(places, viewModel.isLoading, navController)
+                HomeTopView(navController, list)
+                HomeMainPartView(places, viewModel.isLoading)
                 Spacer(modifier = Modifier.height(60.dp))
             }
         }
@@ -75,7 +74,6 @@ fun HomeScreen(
 @Composable
 fun HomeTopView(
     navController: NavController,
-    selectedCategory: MutableState<ImageVector> = mutableStateOf(Icons.Default.DirectionsCar),
     list: MutableList<ImageVector> = mutableListOf()
 ) {
     Column(
@@ -153,7 +151,6 @@ fun HomeTopView(
 fun HomeMainPartView(
     list: MutableState<List<PlaceModel>> = mutableStateOf(mutableListOf()),
     isLoading: MutableState<Boolean> = mutableStateOf(true),
-    navController: NavController
 ) {
     val context = LocalContext.current
     Column {
