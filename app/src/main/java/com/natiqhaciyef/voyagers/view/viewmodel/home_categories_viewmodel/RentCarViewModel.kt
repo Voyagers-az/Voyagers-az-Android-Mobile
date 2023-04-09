@@ -40,6 +40,7 @@ class RentCarViewModel @Inject constructor() : BaseViewModel() {
                         var car: CarModel =
                             CarModel.mapToCarModel(doc["car"] as Map<String, String>)
                         var dailyPrice: Double = doc["dailyPrice"].toString().toDouble()
+                        var priceType: String = doc["priceType"].toString()
                         var time: String = doc["time"].toString()
                         var ownerInfo: String = doc["ownerInfo"].toString()
 
@@ -48,6 +49,7 @@ class RentCarViewModel @Inject constructor() : BaseViewModel() {
                             place = place,
                             car = car,
                             dailyPrice = dailyPrice,
+                            priceType = priceType,
                             time = time,
                             ownerInfo = ownerInfo
                         )
@@ -69,6 +71,7 @@ class RentCarViewModel @Inject constructor() : BaseViewModel() {
             carMap["place"] = carModel.place
             carMap["car"] = carModel.car.carModelToMap()
             carMap["dailyPrice"] = carModel.dailyPrice
+            carMap["priceType"] = carModel.priceType
             carMap["time"] = carModel.time
             carMap["ownerInfo"] = carModel.ownerInfo
 
