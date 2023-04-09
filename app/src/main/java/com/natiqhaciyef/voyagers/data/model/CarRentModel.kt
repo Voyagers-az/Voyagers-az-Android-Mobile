@@ -2,9 +2,9 @@ package com.natiqhaciyef.voyagers.data.model
 
 data class CarRentModel(
     var id: Int,
-    var name: String,
+    var place: String,
     var car: CarModel,
-    var price: Double,
+    var dailyPrice: Double,
     var time: String,
-    var ownerName: String
+    var ownerInfo: String
 )

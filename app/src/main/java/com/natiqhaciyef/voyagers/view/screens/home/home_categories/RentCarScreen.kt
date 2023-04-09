@@ -29,24 +29,29 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.natiqhaciyef.voyagers.data.model.CarModel
+import com.natiqhaciyef.voyagers.data.model.CarRentModel
 import com.natiqhaciyef.voyagers.util.CarBrands
 import com.natiqhaciyef.voyagers.util.CityList
 import com.natiqhaciyef.voyagers.util.CurrencyList
 import com.natiqhaciyef.voyagers.view.components.CurrencyDropDownMenu
 import com.natiqhaciyef.voyagers.view.components.CustomDropDownMenu
 import com.natiqhaciyef.voyagers.view.ui.theme.*
+import com.natiqhaciyef.voyagers.view.viewmodel.home_categories_viewmodel.RentCarViewModel
 
 @Preview
 @Composable
-fun RentCarScreen() {
+fun RentCarScreen(
+    viewModel: RentCarViewModel = hiltViewModel()
+) {
     val currency = remember { mutableStateOf("") }
     val brand = remember { mutableStateOf("") }
     val city = remember { mutableStateOf("") }
     val minPrice = remember { mutableStateOf(0.0) }
     val maxPrice = remember { mutableStateOf(0.0) }
     val dayCount = remember { mutableStateOf(0) }
-    val list = remember { mutableListOf<CarModel>() }
+    val list = remember { viewModel.carsList }
 
     Box(
         modifier = Modifier
@@ -203,10 +208,10 @@ private fun RentCarTopView(
 
 @Composable
 fun RentCarMainPart(
-    list: List<CarModel>
+    list: MutableState<List<CarRentModel>>
 ){
     LazyVerticalGrid(columns = GridCells.Adaptive(minSize = 125.dp)){
-        items(list) { car ->
+        items(list.value) { car ->
             // car model
         }
     }
