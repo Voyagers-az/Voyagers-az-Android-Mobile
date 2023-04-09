@@ -105,7 +105,7 @@ private fun FlightTicketTopView(
             readOnly = false,
             textStyle = TextStyle.Default.copy(
                 color = Color.Black,
-                fontSize = 16.sp,
+                fontSize = 15.sp,
                 fontWeight = FontWeight.SemiBold
             ),
             label = {
@@ -259,7 +259,6 @@ fun DatePicker(
         dateFrom.value = list[0]
         dateTo.value = list[1]
     }
-
 
     Box(
         modifier = Modifier
