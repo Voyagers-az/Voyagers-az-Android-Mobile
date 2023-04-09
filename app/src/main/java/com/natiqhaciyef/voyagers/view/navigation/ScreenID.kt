@@ -11,7 +11,7 @@ enum class ScreenID {
     TourDetails,
     UserProfile,
     RentCar,
-    RentBus,
+    FlightTickets,
     TrainTour,
     MainScreenLine,
 

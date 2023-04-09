@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import com.natiqhaciyef.voyagers.R
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -47,7 +48,6 @@ fun HomeScreen(
 ) {
     val list = CategoryIcons.list
     val places = viewModel.placesList
-    val selectedCategory = remember { mutableStateOf(Icons.Default.DirectionsCar) }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -62,18 +62,18 @@ fun HomeScreen(
                     .fillMaxSize()
                     .background(Color.Transparent)
             ) {
-                HomeTopView(selectedCategory, list)
-                HomeMainPartView(places, viewModel.isLoading, navController)
+                HomeTopView(navController, list)
+                HomeMainPartView(places, viewModel.isLoading)
                 Spacer(modifier = Modifier.height(60.dp))
             }
         }
     }
 }
 
-@Preview
+//@Preview
 @Composable
 fun HomeTopView(
-    selectedCategory: MutableState<ImageVector> = mutableStateOf(Icons.Default.DirectionsCar),
+    navController: NavController,
     list: MutableList<ImageVector> = mutableListOf()
 ) {
     Column(
@@ -137,7 +137,7 @@ fun HomeTopView(
         ) {
             items(list) { item ->
                 Spacer(modifier = Modifier.width(25.dp))
-                CategoryCardView(item)
+                CategoryCardView(item, navController)
                 Spacer(modifier = Modifier.width(25.dp))
             }
         }
@@ -151,10 +151,12 @@ fun HomeTopView(
 fun HomeMainPartView(
     list: MutableState<List<PlaceModel>> = mutableStateOf(mutableListOf()),
     isLoading: MutableState<Boolean> = mutableStateOf(true),
-    navController: NavController
 ) {
+    val context = LocalContext.current
     Column {
-        Spacer(modifier = Modifier.height(15.dp))
+
+        Spacer(modifier = Modifier.height(10.dp))
+
         Text(
             text = "Məkanlar",
             fontSize = 20.sp,
@@ -174,8 +176,8 @@ fun HomeMainPartView(
         }
 
 
-        Spacer(modifier = Modifier.height(15.dp))
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(20.dp))
+
         Text(
             text = "Əlaqə",
             fontSize = 20.sp,
@@ -202,5 +204,7 @@ fun HomeMainPartView(
             Spacer(modifier = Modifier.width(30.dp))
             ContactCardItem(contactModel = ContactList.list[2])
         }
+
+        Spacer(modifier = Modifier.height(10.dp))
     }
 }

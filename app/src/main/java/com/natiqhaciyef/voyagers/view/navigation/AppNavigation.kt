@@ -7,6 +7,9 @@ import androidx.navigation.compose.rememberNavController
 import com.natiqhaciyef.voyagers.util.DefaultModelImplementations
 import com.natiqhaciyef.voyagers.view.screens.*
 import com.natiqhaciyef.voyagers.view.screens.home.MainScreenLine
+import com.natiqhaciyef.voyagers.view.screens.home.home_categories.FlightTicketScreen
+import com.natiqhaciyef.voyagers.view.screens.home.home_categories.RentCarScreen
+import com.natiqhaciyef.voyagers.view.screens.home.home_categories.TrainScreen
 import com.natiqhaciyef.voyagers.view.screens.home.tours.TourDetailsScreen
 import com.natiqhaciyef.voyagers.view.screens.registration.LoginScreen
 import com.natiqhaciyef.voyagers.view.screens.registration.RegisterScreen
@@ -39,6 +42,18 @@ fun AppNavigation() {
 
         composable(route = ScreenID.TourDetails.name) {
             TourDetailsScreen(data = DefaultModelImplementations.data, navController = navController)
+        }
+
+        composable(route = ScreenID.FlightTickets.name){
+            FlightTicketScreen()
+        }
+
+        composable(route = ScreenID.TrainTour.name){
+            TrainScreen()
+        }
+
+        composable(route = ScreenID.RentCar.name){
+            RentCarScreen()
         }
 
         composable(route = ScreenID.ContactDetails.name){}

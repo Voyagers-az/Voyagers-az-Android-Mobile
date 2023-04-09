@@ -1,14 +1,12 @@
 package com.natiqhaciyef.voyagers.util
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DepartureBoard
-import androidx.compose.material.icons.filled.DirectionsCar
-import androidx.compose.material.icons.filled.Train
+import androidx.compose.material.icons.filled.*
 
 object CategoryIcons {
     val list = mutableListOf(
         Icons.Default.DirectionsCar,
-        Icons.Default.DepartureBoard,
-        Icons.Default.Train
+        Icons.Default.Train,
+        Icons.Default.Flight
     )
 }

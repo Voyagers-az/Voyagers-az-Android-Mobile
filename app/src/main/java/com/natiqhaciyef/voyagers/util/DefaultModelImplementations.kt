@@ -28,7 +28,7 @@ object DefaultModelImplementations {
     var place: PlaceModel = PlaceModel(
         id = 0,
         name = "Baki",
-        image = "",
+        image = mutableListOf(""),
         scope = TourScope.Global.scope,
         side = RegionSide.North.side,
         rating = 4.5
@@ -76,21 +76,26 @@ object DefaultModelImplementations {
         departureDate = "09:20 07.06.2023"
     )
 
-    val ticketModel = TicketModel(
-        id = 0,
+    var ticketModel = TicketModel(
         price = 942.0,
         info = "Airbus A321neo da uçuş 3s 10d. Dar gövdə",
-        userInfo = userModel,
         departureDate = "05:35 07.06.2023",
         arrivalDate = "11:15 07.06.2023",
-        from = "Bakı, Azərbaycan",
-        to = "Berlin, Almanya",
-        flightDate = 7.5,
+        fromCity = "Bakı",
+        toCity = "Berlin",
+        flightTime = 7.5,
         companyNames = mutableListOf("Anadolu Jet"),
         transfer = flightTransfer,
-        luggage = Luggage.Medium
+        luggage = Luggage.Medium,
+        fromCountry = "Azərbaycan",
+        toCountry = "Almanya"
     )
 
+    val ticketInfoModel = TicketInfoModel(
+        id = 0,
+        userInfo = userModel,
+        ticketModel = ticketModel
+    )
     private fun dateTime(): String {
         val date = Calendar.getInstance().time
         val sdf = SimpleDateFormat("HH:mm dd.MM.yyyy")
