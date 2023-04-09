@@ -12,6 +12,24 @@ object DefaultModelImplementations {
     var data = Any()
     val selectedIndex = mutableStateOf(0)   // nav index
 
+    val carModel = CarModel(
+        id = 0,
+        name = "Audi",
+        brand = "A8 Long",
+        engine = 4.3,
+        description = "Audi A8 is the best car in the world"
+    )
+
+    val carRentModel = CarRentModel(
+        id = 1,
+        place = "Bakı",
+        car = carModel,
+        dailyPrice = 76.0,
+        time = "2 gün",
+        ownerInfo = "Natiq Haciyev"
+    )
+
+
     val userModel = UserModel(
         id = 0,
         name = "Natiq",
@@ -71,7 +89,7 @@ object DefaultModelImplementations {
     val flightTransfer = FlightTransfer(
         id = 0,
         landedPlace = "Istanbul, Türkiyə",
-        watingTime = 1.5,
+        waitingTime = 1.5,
         arrivalDate = "07:40 07.06.2023",
         departureDate = "09:20 07.06.2023"
     )
@@ -86,7 +104,7 @@ object DefaultModelImplementations {
         flightTime = 7.5,
         companyNames = mutableListOf("Anadolu Jet"),
         transfer = flightTransfer,
-        luggage = Luggage.Medium,
+        luggage = Luggage.Medium.name.lowercase(),
         fromCountry = "Azərbaycan",
         toCountry = "Almanya"
     )
