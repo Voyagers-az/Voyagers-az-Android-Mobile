@@ -35,6 +35,7 @@ import com.natiqhaciyef.voyagers.data.model.CarRentModel
 import com.natiqhaciyef.voyagers.util.CarBrands
 import com.natiqhaciyef.voyagers.util.CityList
 import com.natiqhaciyef.voyagers.util.CurrencyList
+import com.natiqhaciyef.voyagers.view.components.CarCardItem
 import com.natiqhaciyef.voyagers.view.components.CurrencyDropDownMenu
 import com.natiqhaciyef.voyagers.view.components.CustomDropDownMenu
 import com.natiqhaciyef.voyagers.view.ui.theme.*
@@ -72,7 +73,7 @@ fun RentCarScreen(
         ) {
             Spacer(modifier = Modifier.height(60.dp))
             RentCarTopView(currency, brand, city, minPrice, maxPrice, dayCount)
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(50.dp))
             RentCarMainPart(list)
         }
     }
@@ -210,9 +211,9 @@ private fun RentCarTopView(
 fun RentCarMainPart(
     list: MutableState<List<CarRentModel>>
 ){
-    LazyVerticalGrid(columns = GridCells.Adaptive(minSize = 125.dp)){
+    LazyVerticalGrid(columns = GridCells.Fixed(2)){
         items(list.value) { car ->
-            // car model
+            CarCardItem(car)
         }
     }
 }
