@@ -7,5 +7,6 @@ data class CarModel(
     var place: String,
     var engine: Double,
     var description: String,
-    var dailyPrice: Double
+    var dailyPrice: Double,
+    var dateRange: Int
 )

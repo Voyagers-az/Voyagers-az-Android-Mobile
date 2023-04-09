@@ -5,6 +5,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -26,9 +29,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.natiqhaciyef.voyagers.data.model.CarModel
 import com.natiqhaciyef.voyagers.util.CarBrands
 import com.natiqhaciyef.voyagers.util.CityList
 import com.natiqhaciyef.voyagers.util.CurrencyList
+import com.natiqhaciyef.voyagers.view.components.CurrencyDropDownMenu
 import com.natiqhaciyef.voyagers.view.components.CustomDropDownMenu
 import com.natiqhaciyef.voyagers.view.ui.theme.*
 
@@ -41,6 +46,7 @@ fun RentCarScreen() {
     val minPrice = remember { mutableStateOf(0.0) }
     val maxPrice = remember { mutableStateOf(0.0) }
     val dayCount = remember { mutableStateOf(0) }
+    val list = remember { mutableListOf<CarModel>() }
 
     Box(
         modifier = Modifier
@@ -50,7 +56,7 @@ fun RentCarScreen() {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(300.dp)
+                .height(250.dp)
                 .background(AppAquatic)
         )
 
@@ -61,6 +67,8 @@ fun RentCarScreen() {
         ) {
             Spacer(modifier = Modifier.height(60.dp))
             RentCarTopView(currency, brand, city, minPrice, maxPrice, dayCount)
+            Spacer(modifier = Modifier.height(30.dp))
+            RentCarMainPart(list)
         }
     }
 }
@@ -190,118 +198,19 @@ private fun RentCarTopView(
     }
 
     Spacer(modifier = Modifier.height(10.dp))
-
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center
-    ) {
-        OutlinedTextField(
-            modifier = Modifier,
-            value = "${dayCount.value}",
-            onValueChange = {
-                dayCount.value = it.toInt()
-            },
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                backgroundColor = Color.White,
-                textColor = Color.Black,
-                focusedBorderColor = AppDarkBlue,
-                unfocusedBorderColor = Color.Black,
-                cursorColor = AppDarkBlue
-            ),
-            textStyle = TextStyle.Default.copy(),
-            label = {
-
-            },
-            keyboardOptions = KeyboardOptions.Default.copy(
-                imeAction = ImeAction.Done,
-                keyboardType = KeyboardType.Decimal
-            ),
-            enabled = true,
-            readOnly = false,
-            singleLine = true,
-            shape = RoundedCornerShape(7.dp),
-            trailingIcon = {
-                Icon(
-                    imageVector = Icons.Default.CalendarMonth,
-                    contentDescription = ""
-                )
-            }
-        )
-
-    }
 }
 
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CurrencyDropDownMenu(
-    name: String,
-    width: Dp,
-    padding: Dp,
-    list: List<String>,
-    selectedOption: MutableState<String>
-) {
-    var expanded by remember { mutableStateOf(false) }
-
-    ExposedDropdownMenuBox(modifier = Modifier
-        .width(width)
-        .height(60.dp)
-        .padding(top = padding)
-        .border(
-            1.dp, AppDarkBlue,
-            shape = RoundedCornerShape(10.dp)
-        ),
-        expanded = expanded, onExpandedChange = {
-            expanded = !expanded
-        }) {
-        TextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(7.dp)),
-            value = selectedOption.value,
-            onValueChange = { },
-            textStyle = TextStyle.Default.copy(
-                color = AppDarkBlue,
-                fontSize = 15.sp,
-                fontWeight = FontWeight.SemiBold,
-            ),
-            readOnly = true,
-            label = {
-                Text(
-                    text = name,
-                    color = AppGray,
-                    fontWeight = FontWeight.SemiBold
-                )
-            },
-            trailingIcon = {
-                ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
-            },
-            colors = ExposedDropdownMenuDefaults.textFieldColors(
-                backgroundColor = Color.White,
-                textColor = AppDarkBlue
-            )
-        )
-
-        ExposedDropdownMenu(
-            expanded = expanded, onDismissRequest = {
-                expanded = false
-            }) {
-            list.forEach { option ->
-                DropdownMenuItem(
-                    onClick = {
-                        selectedOption.value = option
-                        expanded = false
-                    }) {
-                    Text(
-                        text = option,
-                        color = AppDarkBlue,
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        textAlign = TextAlign.Center
-                    )
-                }
-            }
+fun RentCarMainPart(
+    list: List<CarModel>
+){
+    LazyVerticalGrid(columns = GridCells.Adaptive(minSize = 125.dp)){
+        items(list) { car ->
+            // car model
         }
-
     }
 }
+
+
+
