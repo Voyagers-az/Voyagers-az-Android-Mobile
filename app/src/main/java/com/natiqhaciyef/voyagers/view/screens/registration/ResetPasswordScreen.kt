@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagers.view.screens
+package com.natiqhaciyef.voyagers.view.screens.registration
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -130,6 +130,8 @@ private fun ResetPasswordMainPart(
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     backgroundColor = Color.White,
                     textColor = Color.Black,
+                    focusedBorderColor = AppDarkBlue,
+                    unfocusedBorderColor = Color.Gray
                 ),
                 shape = RoundedCornerShape(10.dp),
                 textStyle = TextStyle.Default.copy(

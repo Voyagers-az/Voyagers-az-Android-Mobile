@@ -5,7 +5,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.natiqhaciyef.voyagers.util.DefaultModelImplementations
-import com.natiqhaciyef.voyagers.view.screens.*
 import com.natiqhaciyef.voyagers.view.screens.home.MainScreenLine
 import com.natiqhaciyef.voyagers.view.screens.home.home_categories.FlightTicketScreen
 import com.natiqhaciyef.voyagers.view.screens.home.home_categories.RentCarScreen
@@ -13,6 +12,7 @@ import com.natiqhaciyef.voyagers.view.screens.home.home_categories.TrainScreen
 import com.natiqhaciyef.voyagers.view.screens.home.tours.TourDetailsScreen
 import com.natiqhaciyef.voyagers.view.screens.registration.LoginScreen
 import com.natiqhaciyef.voyagers.view.screens.registration.RegisterScreen
+import com.natiqhaciyef.voyagers.view.screens.registration.ResetPasswordScreen
 import com.natiqhaciyef.voyagers.view.screens.registration.SplashScreen
 
 

@@ -144,6 +144,8 @@ private fun LoginMainPart(
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     backgroundColor = Color.White,
                     textColor = Color.Black,
+                    focusedBorderColor = AppDarkBlue,
+                    unfocusedBorderColor = Color.Gray
                 ),
                 shape = RoundedCornerShape(10.dp),
                 textStyle = TextStyle.Default.copy(
@@ -186,7 +188,9 @@ private fun LoginMainPart(
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     backgroundColor = Color.White,
                     textColor = Color.Black,
-                    trailingIconColor = Color.Black
+                    trailingIconColor = Color.Black,
+                    focusedBorderColor = AppDarkBlue,
+                    unfocusedBorderColor = Color.Gray
                 ),
                 shape = RoundedCornerShape(10.dp),
                 textStyle = TextStyle.Default.copy(

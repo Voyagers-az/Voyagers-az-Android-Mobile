@@ -116,7 +116,7 @@ fun CurrencyDropDownMenu(
         .padding(top = padding)
         .border(
             1.dp, AppDarkBlue,
-            shape = RoundedCornerShape(10.dp)
+            shape = RoundedCornerShape(7.dp)
         ),
         expanded = expanded, onExpandedChange = {
             expanded = !expanded
