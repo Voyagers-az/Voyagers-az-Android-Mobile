@@ -6,6 +6,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.natiqhaciyef.voyagers.data.model.CarModel
 import com.natiqhaciyef.voyagers.data.model.CarRentModel
+import com.natiqhaciyef.voyagers.util.CurrencyList
 import com.natiqhaciyef.voyagers.util.DefaultModelImplementations
 import com.natiqhaciyef.voyagers.view.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +22,25 @@ class RentCarViewModel @Inject constructor() : BaseViewModel() {
 
     init {
         getCarsFromFirebase()
-//        insertCarModelToFirestore(DefaultModelImplementations.carRentModel)
+//        insertCarModelToFirestore(
+//            CarRentModel(
+//                id = 2,
+//                place = "Bakı",
+//                car = CarModel(
+//                    id = 0,
+//                    name = "BMW",
+//                    brand = "M5",
+//                    image = "https://cdn3.riastatic.com/photosnew/auto/photo/bmw_m5__488945092fx.jpg",
+//                    engine = 4.4,
+//                    year = 2018,
+//                    description = "BMW M5 ən yaxşı seçimlərdəndir."
+//                ),
+//                dailyPrice = 70.0,
+//                priceType = "AZN",
+//                time = "4 gün",
+//                ownerInfo = "Sadiq Hacıyev"
+//            )
+//        )
     }
 
     private fun getCarsFromFirebase() {

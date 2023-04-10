@@ -130,7 +130,6 @@ fun TicketDepArrView(
 }
 
 
-
 @Preview
 @Composable
 fun TicketCardViewWithUserInfo(
@@ -363,13 +362,10 @@ fun TicketCardView(
 
 @Preview
 @Composable
-fun DatePicker(
+fun DatePicker1(
     dateFrom: MutableState<String> = mutableStateOf(""),
-    dateTo: MutableState<String> = mutableStateOf(""),
 ) {
-    val list = remember {
-        mutableStateListOf<String>()
-    }
+    val state = remember { mutableStateOf(false) }
 
     var dateSelector by remember {
         mutableStateOf(LocalDate.now())
@@ -384,92 +380,43 @@ fun DatePicker(
     }
 
     val dateDialogState = rememberMaterialDialogState()
-    if (list.size < 2) {
-        dateFrom.value = formattedDate
-    } else {
-        dateFrom.value = list[0]
-        dateTo.value = list[1]
-    }
+    dateFrom.value = formattedDate
 
-    Box(
+    OutlinedButton(
         modifier = Modifier
-            .fillMaxWidth(),
+            .width(160.dp)
+            .height(60.dp),
+        enabled = true,
+        colors = ButtonDefaults.outlinedButtonColors(
+            backgroundColor = Color.White,
+        ),
+        border = BorderStroke(
+            width = 2.dp, color = AppDarkBlue
+        ),
+        shape = RoundedCornerShape(7.dp),
+        onClick = {
+            dateDialogState.show()
+        }
     ) {
-        OutlinedButton(
-            modifier = Modifier
-                .fillMaxWidth(0.45f)
-                .height(60.dp)
-                .padding(start = 20.dp)
-                .align(Alignment.CenterStart),
-            enabled = true,
-            colors = ButtonDefaults.outlinedButtonColors(
-                backgroundColor = Color.White,
-            ),
-            border = BorderStroke(
-                width = 2.dp, color = AppDarkBlue
-            ),
-            shape = RoundedCornerShape(7.dp),
-            onClick = {
-                dateDialogState.show()
-            }
-        ) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                Text(
-                    text = if (list.isNotEmpty()) dateToLocalTime(list[0]) else "Gediş",
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier
-                        .align(Alignment.CenterStart),
-                    color = Color.Black,
-                )
-                Icon(
-                    imageVector = Icons.Default.CalendarMonth,
-                    contentDescription = "Calendar",
-                    tint = AppDarkBlue,
-                    modifier = Modifier
-                        .align(Alignment.CenterEnd)
-                )
-            }
+        Box(modifier = Modifier.fillMaxSize()) {
+            Text(
+                text = if (dateFrom.value.isNotEmpty() && state.value) dateFrom.value else "Gediş",
+                fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier
+                    .align(Alignment.CenterStart),
+                color = Color.Black,
+            )
+            Icon(
+                imageVector = Icons.Default.CalendarMonth,
+                contentDescription = "Calendar",
+                tint = AppDarkBlue,
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+            )
         }
 
 
-
-        OutlinedButton(
-            modifier = Modifier
-                .fillMaxWidth(0.45f)
-                .height(60.dp)
-                .padding(end = 20.dp)
-                .align(Alignment.CenterEnd),
-            enabled = true,
-            colors = ButtonDefaults.outlinedButtonColors(
-                backgroundColor = Color.White,
-            ),
-            border = BorderStroke(
-                width = 2.dp, color = AppDarkBlue
-            ),
-            shape = RoundedCornerShape(7.dp),
-            onClick = {
-                dateDialogState.show()
-            }
-        ) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                Text(
-                    text = if (list.size >= 2) dateToLocalTime(list[1]) else "Dönüş",
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier
-                        .align(Alignment.CenterStart),
-                    color = Color.Black,
-                )
-                Icon(
-                    imageVector = Icons.Default.CalendarMonth,
-                    contentDescription = "Calendar",
-                    tint = AppDarkBlue,
-                    modifier = Modifier
-                        .align(Alignment.CenterEnd)
-                )
-            }
-        }
 
         MaterialDialog(
             dialogState = dateDialogState,
@@ -488,9 +435,90 @@ fun DatePicker(
                 }
             ) {
                 dateSelector = it
-                list.add(formattedDate)
+                state.value = true
             }
         }
     }
 
+}
+
+
+@Preview
+@Composable
+fun DatePicker2(
+    dateTo: MutableState<String> = mutableStateOf(""),
+) {
+    val state = remember { mutableStateOf(false) }
+    var dateSelector by remember {
+        mutableStateOf(LocalDate.now())
+    }
+
+    val formattedDate by remember {
+        derivedStateOf {
+            DateTimeFormatter
+                .ofPattern("dd.MM.yyyy")
+                .format(dateSelector)
+        }
+    }
+
+    val dateDialogState = rememberMaterialDialogState()
+    dateTo.value = formattedDate
+
+
+    OutlinedButton(
+        modifier = Modifier
+            .width(160.dp)
+            .height(60.dp),
+        enabled = true,
+        colors = ButtonDefaults.outlinedButtonColors(
+            backgroundColor = Color.White,
+        ),
+        border = BorderStroke(
+            width = 2.dp, color = AppDarkBlue
+        ),
+        shape = RoundedCornerShape(7.dp),
+        onClick = {
+            dateDialogState.show()
+        }
+    ) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            Text(
+                text = if (dateTo.value.isNotEmpty() && state.value) dateTo.value else "Gediş",
+                fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier
+                    .align(Alignment.CenterStart),
+                color = Color.Black,
+            )
+            Icon(
+                imageVector = Icons.Default.CalendarMonth,
+                contentDescription = "Calendar",
+                tint = AppDarkBlue,
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+            )
+        }
+
+
+        MaterialDialog(
+            dialogState = dateDialogState,
+            properties = DialogProperties(),
+            shape = RoundedCornerShape(12.dp),
+            buttons = {
+                positiveButton(text = "Select")
+            },
+            backgroundColor = AppWhiteLightPurple,
+        ) {
+            this.datepicker(
+                initialDate = LocalDate.now(),
+                title = "Pick date",
+                allowedDateValidator = {
+                    it > dateSelector
+                }
+            ) {
+                dateSelector = it
+                state.value = true
+            }
+        }
+    }
 }

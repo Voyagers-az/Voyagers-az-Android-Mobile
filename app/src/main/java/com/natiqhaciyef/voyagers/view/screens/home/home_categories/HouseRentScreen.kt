@@ -1,6 +1,5 @@
 package com.natiqhaciyef.voyagers.view.screens.home.home_categories
 
-import android.widget.Space
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
@@ -15,12 +14,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.natiqhaciyef.voyagers.view.ui.theme.AppAquatic
-import com.natiqhaciyef.voyagers.view.ui.theme.AppGray
 import com.natiqhaciyef.voyagers.view.ui.theme.AppLightGray
 
 @Composable
-fun TrainScreen() {
+fun HouseRentScreen() {
     Box(modifier = Modifier.fillMaxSize()) {
         Icon(
             imageVector = Icons.Default.Autorenew,

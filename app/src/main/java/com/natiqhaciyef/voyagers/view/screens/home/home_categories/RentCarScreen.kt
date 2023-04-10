@@ -62,7 +62,7 @@ fun RentCarScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(250.dp)
+                .height(270.dp)
                 .background(AppAquatic)
         )
 
@@ -71,9 +71,20 @@ fun RentCarScreen(
                 .fillMaxSize()
                 .background(Color.Transparent)
         ) {
-            Spacer(modifier = Modifier.height(60.dp))
+            Spacer(modifier = Modifier.height(45.dp))
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp),
+                textAlign = TextAlign.Center,
+                text = "Avtomobil və ya digər nəqliyyat növlərinin icarələnməsi",
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp,
+                color = Color.White
+            )
+            Spacer(modifier = Modifier.height(10.dp))
             RentCarTopView(currency, brand, city, minPrice, maxPrice, dayCount)
-            Spacer(modifier = Modifier.height(50.dp))
+            Spacer(modifier = Modifier.height(25.dp))
             RentCarMainPart(list)
         }
     }

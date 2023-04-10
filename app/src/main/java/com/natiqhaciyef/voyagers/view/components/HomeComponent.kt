@@ -28,6 +28,7 @@ import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 @Composable
 fun CategoryCardView(
     icon: ImageVector = Icons.Default.DirectionsCar,
+    name: String = "Icarə",
     navController: NavController
 ) {
     Card(
@@ -89,7 +90,7 @@ fun ContactCardItem(contactModel: ContactModel = ContactList.list[0]) {
 
 fun navigateChecker(icon: ImageVector, navController: NavController) = when(icon){
     Icons.Default.DirectionsCar -> { navController.navigate(ScreenID.RentCar.name) }
-    Icons.Default.Train, -> { navController.navigate(ScreenID.TrainTour.name) }
+    Icons.Default.KingBed, -> { navController.navigate(ScreenID.HouseRent.name) }
     Icons.Default.Flight -> { navController.navigate(ScreenID.FlightTickets.name) }
     else -> navController.navigate(ScreenID.MainScreenLine.name)
 }

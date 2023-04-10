@@ -137,7 +137,7 @@ fun HomeTopView(
         ) {
             items(list) { item ->
                 Spacer(modifier = Modifier.width(25.dp))
-                CategoryCardView(item, navController)
+                CategoryCardView(icon = item, navController = navController)
                 Spacer(modifier = Modifier.width(25.dp))
             }
         }
