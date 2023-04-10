@@ -85,5 +85,4 @@ class RentCarViewModel @Inject constructor() : BaseViewModel() {
                 }
         }
     }
-
 }

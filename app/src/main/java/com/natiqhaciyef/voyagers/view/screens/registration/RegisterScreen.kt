@@ -52,8 +52,6 @@ fun RegisterScreen(
     val phone = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
     val user by remember { viewModel.userState }
-    val allUserState by remember { viewModel.allUsersState }
-    val list = allUserState.associateBy { user -> user.email }
 
     Column(
         modifier = Modifier
@@ -162,7 +160,9 @@ private fun RegisterMainPart(
                     .padding(horizontal = 20.dp),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     backgroundColor = Color.White,
-                    textColor = colorResource(id = MaterialTheme.colors.textInputColor)
+                    textColor = colorResource(id = MaterialTheme.colors.textInputColor),
+                    focusedBorderColor = AppDarkBlue,
+                    unfocusedBorderColor = Color.Gray
                 ),
                 shape = RoundedCornerShape(10.dp),
                 textStyle = TextStyle.Default.copy(
@@ -204,6 +204,8 @@ private fun RegisterMainPart(
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     backgroundColor = Color.White,
                     textColor = colorResource(id = MaterialTheme.colors.textInputColor),
+                    focusedBorderColor = AppDarkBlue,
+                    unfocusedBorderColor = Color.Gray
                 ),
                 shape = RoundedCornerShape(10.dp),
                 textStyle = TextStyle.Default.copy(
@@ -245,6 +247,8 @@ private fun RegisterMainPart(
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     backgroundColor = Color.White,
                     textColor = Color.Black,
+                    focusedBorderColor = AppDarkBlue,
+                    unfocusedBorderColor = Color.Gray
                 ),
                 shape = RoundedCornerShape(10.dp),
                 textStyle = TextStyle.Default.copy(
@@ -287,7 +291,9 @@ private fun RegisterMainPart(
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     backgroundColor = Color.White,
                     textColor = Color.Black,
-                    trailingIconColor = Color.Black
+                    trailingIconColor = Color.Black,
+                    focusedBorderColor = AppDarkBlue,
+                    unfocusedBorderColor = Color.Gray
                 ),
                 shape = RoundedCornerShape(10.dp),
                 textStyle = TextStyle.Default.copy(
