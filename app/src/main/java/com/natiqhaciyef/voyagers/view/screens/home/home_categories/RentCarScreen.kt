@@ -51,7 +51,6 @@ fun RentCarScreen(
     val city = remember { mutableStateOf("") }
     val minPrice = remember { mutableStateOf(0.0) }
     val maxPrice = remember { mutableStateOf(0.0) }
-    val dayCount = remember { mutableStateOf(0) }
     val list = remember { viewModel.carsList }
 
     Box(
@@ -83,9 +82,9 @@ fun RentCarScreen(
                 color = Color.White
             )
             Spacer(modifier = Modifier.height(10.dp))
-            RentCarTopView(currency, brand, city, minPrice, maxPrice, dayCount)
+            RentCarTopView(currency, brand, city, minPrice, maxPrice)
             Spacer(modifier = Modifier.height(25.dp))
-            RentCarMainPart(list)
+            RentCarMainPart(list, currency, brand, city, minPrice, maxPrice)
         }
     }
 }
@@ -99,7 +98,6 @@ private fun RentCarTopView(
     city: MutableState<String> = mutableStateOf(""),
     minPrice: MutableState<Double> = mutableStateOf(0.0),
     maxPrice: MutableState<Double> = mutableStateOf(0.0),
-    dayCount: MutableState<Int> = mutableStateOf(0),
 ) {
 
     Row(modifier = Modifier.fillMaxWidth()) {
@@ -220,10 +218,28 @@ private fun RentCarTopView(
 
 @Composable
 fun RentCarMainPart(
-    list: MutableState<List<CarRentModel>>
-){
-    LazyVerticalGrid(columns = GridCells.Fixed(2)){
-        items(list.value) { car ->
+    list: MutableState<List<CarRentModel>>,
+    currency: MutableState<String>,
+    brand: MutableState<String>,
+    city: MutableState<String>,
+    minPrice: MutableState<Double>,
+    maxPrice: MutableState<Double>,
+) {
+    val cars = list.value
+        .filter { it.car.brand.contains(brand.value) || it.car.name.contains(brand.value) }
+        .filter { it.place.contains(city.value) }
+        .filter { it.priceType.contains(currency.value) }
+        .filter {
+            if (minPrice.value.toInt() != 0 || maxPrice.value.toInt() != 0) {
+                minPrice.value.toInt() <= it.dailyPrice
+                        || maxPrice.value.toInt() >= it.dailyPrice
+                        && minPrice.value.toInt() < maxPrice.value.toInt()
+            } else
+                true
+        }
+
+    LazyVerticalGrid(columns = GridCells.Fixed(2)) {
+        items(cars) { car ->
             CarCardItem(car)
         }
     }
