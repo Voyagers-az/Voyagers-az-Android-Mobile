@@ -1,6 +1,7 @@
 package com.natiqhaciyef.voyagers.view.screens.home.home_categories
 
 import android.inputmethodservice.Keyboard
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -50,7 +51,7 @@ fun RentCarScreen(
     val brand = remember { mutableStateOf("") }
     val city = remember { mutableStateOf("") }
     val minPrice = remember { mutableStateOf(0.0) }
-    val maxPrice = remember { mutableStateOf(0.0) }
+    val maxPrice = remember { mutableStateOf(1000.0) }
     val list = remember { viewModel.carsList }
 
     Box(
@@ -167,7 +168,7 @@ private fun RentCarTopView(
                 .padding(start = 5.dp)
                 .width(115.dp)
                 .height(60.dp),
-            value = if (maxPrice.value > 0.0) "${maxPrice.value}" else "",
+            value = if (maxPrice.value != 0.0 && maxPrice.value != 1000.0) "${maxPrice.value}" else "",
             onValueChange = {
                 maxPrice.value = it.toDouble()
             },
@@ -232,12 +233,12 @@ fun RentCarMainPart(
         .filter {
             if (minPrice.value.toInt() != 0 || maxPrice.value.toInt() != 0) {
                 minPrice.value.toInt() <= it.dailyPrice
-                        || maxPrice.value.toInt() >= it.dailyPrice
-                        && minPrice.value.toInt() < maxPrice.value.toInt()
+                        && maxPrice.value.toInt() >= it.dailyPrice
             } else
                 true
         }
 
+    Log.d("MYLOG - CAR", "$cars")
     LazyVerticalGrid(columns = GridCells.Fixed(2)) {
         items(cars) { car ->
             CarCardItem(car)
