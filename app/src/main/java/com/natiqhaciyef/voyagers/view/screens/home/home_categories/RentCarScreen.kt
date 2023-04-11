@@ -1,6 +1,7 @@
 package com.natiqhaciyef.voyagers.view.screens.home.home_categories
 
 import android.inputmethodservice.Keyboard
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -8,14 +9,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CalendarMonth
-import androidx.compose.material.icons.filled.ExpandLess
-import androidx.compose.material.icons.filled.ExpandMore
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -50,42 +49,70 @@ fun RentCarScreen(
     val brand = remember { mutableStateOf("") }
     val city = remember { mutableStateOf("") }
     val minPrice = remember { mutableStateOf(0.0) }
-    val maxPrice = remember { mutableStateOf(0.0) }
+    val maxPrice = remember { mutableStateOf(1000.0) }
     val list = remember { viewModel.carsList }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(AppWhiteLightPurple)
+    Scaffold(
+        floatingActionButton = {
+            if (brand.value.isNotEmpty() || city.value.isNotEmpty()) {
+                FloatingActionButton(
+                    onClick = {
+                        brand.value = ""
+                        city.value = ""
+                    },
+                    shape = CircleShape,
+                    backgroundColor = AppDarkBlue,
+                    modifier = Modifier
+                        .size(60.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Refresh,
+                        contentDescription = "Refresh filters",
+                        tint = AppWhiteLightPurple,
+                        modifier = Modifier
+                            .size(25.dp)
+                    )
+                }
+            }
+        }
     ) {
+        it.calculateBottomPadding()
+
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(270.dp)
-                .background(AppAquatic)
-        )
-
-        Column(
-            modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Transparent)
+                .background(AppWhiteLightPurple)
         ) {
-            Spacer(modifier = Modifier.height(45.dp))
-            Text(
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 10.dp),
-                textAlign = TextAlign.Center,
-                text = "Avtomobil və ya digər nəqliyyat növlərinin icarələnməsi",
-                fontWeight = FontWeight.Bold,
-                fontSize = 18.sp,
-                color = Color.White
+                    .height(270.dp)
+                    .background(AppAquatic)
             )
-            Spacer(modifier = Modifier.height(10.dp))
-            RentCarTopView(currency, brand, city, minPrice, maxPrice)
-            Spacer(modifier = Modifier.height(25.dp))
-            RentCarMainPart(list, currency, brand, city, minPrice, maxPrice)
+
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Transparent)
+            ) {
+                Spacer(modifier = Modifier.height(45.dp))
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp),
+                    textAlign = TextAlign.Center,
+                    text = "Avtomobil və ya digər nəqliyyat növlərinin icarələnməsi",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
+                    color = Color.White
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                RentCarTopView(currency, brand, city, minPrice, maxPrice)
+                Spacer(modifier = Modifier.height(25.dp))
+                RentCarMainPart(list, currency, brand, city, minPrice, maxPrice)
+            }
         }
+
     }
 }
 
@@ -167,7 +194,7 @@ private fun RentCarTopView(
                 .padding(start = 5.dp)
                 .width(115.dp)
                 .height(60.dp),
-            value = if (maxPrice.value > 0.0) "${maxPrice.value}" else "",
+            value = if (maxPrice.value != 0.0 && maxPrice.value != 1000.0) "${maxPrice.value}" else "",
             onValueChange = {
                 maxPrice.value = it.toDouble()
             },
@@ -232,12 +259,12 @@ fun RentCarMainPart(
         .filter {
             if (minPrice.value.toInt() != 0 || maxPrice.value.toInt() != 0) {
                 minPrice.value.toInt() <= it.dailyPrice
-                        || maxPrice.value.toInt() >= it.dailyPrice
-                        && minPrice.value.toInt() < maxPrice.value.toInt()
+                        && maxPrice.value.toInt() >= it.dailyPrice
             } else
                 true
         }
 
+    Log.d("MYLOG - CAR", "$cars")
     LazyVerticalGrid(columns = GridCells.Fixed(2)) {
         items(cars) { car ->
             CarCardItem(car)
