@@ -54,14 +54,14 @@ class RentCarViewModel @Inject constructor() : BaseViewModel() {
                     list.clear()
 
                     for (doc in docs) {
-                        var id: Int = doc["id"].toString().toInt()
-                        var place: String = doc["place"].toString()
-                        var car: CarModel =
+                        val id: Int = doc["id"].toString().toInt()
+                        val place: String = doc["place"].toString()
+                        val car: CarModel =
                             CarModel.mapToCarModel(doc["car"] as Map<String, String>)
-                        var dailyPrice: Double = doc["dailyPrice"].toString().toDouble()
-                        var priceType: String = doc["priceType"].toString()
-                        var time: String = doc["time"].toString()
-                        var ownerInfo: String = doc["ownerInfo"].toString()
+                        val dailyPrice: Double = doc["dailyPrice"].toString().toDouble()
+                        val priceType: String = doc["priceType"].toString()
+                        val time: String = doc["time"].toString()
+                        val ownerInfo: String = doc["ownerInfo"].toString()
 
                         val carRentModel = CarRentModel(
                             id = id,
