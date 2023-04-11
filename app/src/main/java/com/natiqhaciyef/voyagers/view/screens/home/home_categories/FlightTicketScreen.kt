@@ -1,5 +1,6 @@
 package com.natiqhaciyef.voyagers.view.screens.home.home_categories
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -31,6 +32,8 @@ import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.AppGray
 import com.natiqhaciyef.voyagers.view.ui.theme.AppWhiteLightPurple
 import com.natiqhaciyef.voyagers.view.viewmodel.home_categories_viewmodel.FlightTicketViewModel
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @Preview
 @Composable
@@ -77,7 +80,13 @@ fun FlightTicketScreen(
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            FlightTicketMainPart(ticketsList)
+            FlightTicketMainPart(
+                from = from,
+                to = to,
+                dateFrom = dateFrom,
+                dateTo = dateTo,
+                ticketsList = ticketsList
+            )
             Spacer(modifier = Modifier.height(15.dp))
         }
     }
@@ -196,22 +205,21 @@ private fun FlightTicketTopView(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Center
     ) {
-        DatePicker1(
-            dateFrom = dateFrom,
-        )
+        DatePicker1(dateFrom = dateFrom)
 
         Spacer(modifier = Modifier.width(20.dp))
 
-        DatePicker2(
-            dateTo = dateTo
-        )
-
+        DatePicker2(dateTo = dateTo)
     }
 }
 
 
 @Composable
 private fun FlightTicketMainPart(
+    from: MutableState<String> = mutableStateOf(""),
+    to: MutableState<String> = mutableStateOf(""),
+    dateFrom: MutableState<String> = mutableStateOf(""),
+    dateTo: MutableState<String> = mutableStateOf(""),
     ticketsList: MutableState<List<TicketModel>>
 ) {
     Text(
@@ -226,9 +234,15 @@ private fun FlightTicketMainPart(
 
     Spacer(modifier = Modifier.height(5.dp))
 
+    val tickets = ticketsList.value
+        .filter { it.toCity.contains(to.value) || it.toCountry.contains(to.value) }
+        .filter { it.fromCity.contains(from.value) || it.fromCountry.contains(from.value) }
+        .filter { (it.departureDate.contains(dateFrom.value) || it.arrivalDate.contains(dateTo.value)) }
+
     LazyColumn {
-        items(ticketsList.value) { ticket ->
+        items(tickets) { ticket ->
             // Ticket view without users creating
+
             TicketCardView(ticketModel = ticket)
             Spacer(modifier = Modifier.height(5.dp))
         }

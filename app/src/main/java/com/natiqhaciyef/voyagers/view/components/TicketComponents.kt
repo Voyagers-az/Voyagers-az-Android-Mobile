@@ -380,7 +380,8 @@ fun DatePicker1(
     }
 
     val dateDialogState = rememberMaterialDialogState()
-    dateFrom.value = formattedDate
+    if (state.value)
+        dateFrom.value = formattedDate
 
     OutlinedButton(
         modifier = Modifier
@@ -462,7 +463,8 @@ fun DatePicker2(
     }
 
     val dateDialogState = rememberMaterialDialogState()
-    dateTo.value = formattedDate
+    if (state.value)
+        dateTo.value = formattedDate
 
 
     OutlinedButton(
