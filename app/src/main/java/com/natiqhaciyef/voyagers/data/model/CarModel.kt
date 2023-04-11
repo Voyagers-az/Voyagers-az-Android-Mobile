@@ -4,7 +4,9 @@ data class CarModel(
     var id: Int,
     var name: String,
     var brand: String,
+    var image: String,
     var engine: Double,
+    var year: Int,
     var description: String,
 ){
 
@@ -13,7 +15,9 @@ data class CarModel(
             "id" to "$id",
             "name" to "$name",
             "brand" to "$brand",
+            "image" to "$image",
             "engine" to "$engine",
+            "year" to "$year",
             "description" to "$description"
         )
     }
@@ -25,7 +29,9 @@ data class CarModel(
                 id = map["id"]!!.toInt(),
                 name = map["name"]!!.toString(),
                 brand = map["brand"]!!.toString(),
+                image = map["image"]!!.toString(),
                 engine = map["engine"]!!.toDouble(),
+                year = map["year"]!!.toInt(),
                 description = map["description"].toString()
             )
         }

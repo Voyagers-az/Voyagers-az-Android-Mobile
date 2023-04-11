@@ -12,7 +12,7 @@ enum class ScreenID {
     UserProfile,
     RentCar,
     FlightTickets,
-    TrainTour,
+    HouseRent,
     MainScreenLine,
 
 }

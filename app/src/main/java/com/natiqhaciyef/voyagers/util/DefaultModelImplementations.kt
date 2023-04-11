@@ -16,7 +16,9 @@ object DefaultModelImplementations {
         id = 0,
         name = "Audi",
         brand = "A8 Long",
+        image = "https://gaycarboys.com/wp-content/uploads/2020/08/all-new-2020-Audi-S8-1-scaled.jpg",
         engine = 4.3,
+        year = 2021,
         description = "Audi A8 is the best car in the world"
     )
 
@@ -25,6 +27,7 @@ object DefaultModelImplementations {
         place = "Bakı",
         car = carModel,
         dailyPrice = 76.0,
+        priceType = "AZN",
         time = "2 gün",
         ownerInfo = "Natiq Haciyev"
     )
@@ -114,6 +117,7 @@ object DefaultModelImplementations {
         userInfo = userModel,
         ticketModel = ticketModel
     )
+
     private fun dateTime(): String {
         val date = Calendar.getInstance().time
         val sdf = SimpleDateFormat("HH:mm dd.MM.yyyy")

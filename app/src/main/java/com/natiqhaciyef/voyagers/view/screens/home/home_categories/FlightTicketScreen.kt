@@ -17,12 +17,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.natiqhaciyef.voyagers.data.model.TicketModel
-import com.natiqhaciyef.voyagers.view.components.DatePicker
+import com.natiqhaciyef.voyagers.view.components.DatePicker1
+import com.natiqhaciyef.voyagers.view.components.DatePicker2
 import com.natiqhaciyef.voyagers.view.components.TicketCardView
 import com.natiqhaciyef.voyagers.view.ui.theme.AppAquatic
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
@@ -49,13 +51,23 @@ fun FlightTicketScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(200.dp)
+                .height(255.dp)
                 .background(AppAquatic),
         )
         Column(
             modifier = Modifier
         ) {
-            Spacer(modifier = Modifier.height(70.dp))
+            Spacer(modifier = Modifier.height(45.dp))
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                text = "Avia biletlərin online alınması platforması",
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 18.sp,
+                textAlign = TextAlign.Center,
+                color = Color.White
+            )
+            Spacer(modifier = Modifier.height(10.dp))
             FlightTicketTopView(
                 from = from,
                 to = to,
@@ -63,7 +75,7 @@ fun FlightTicketScreen(
                 dateTo = dateTo
             )
 
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(40.dp))
 
             FlightTicketMainPart(ticketsList)
             Spacer(modifier = Modifier.height(15.dp))
@@ -180,11 +192,21 @@ private fun FlightTicketTopView(
 
     Spacer(modifier = Modifier.height(30.dp))
 
-    DatePicker(
-        dateFrom = dateFrom,
-        dateTo = dateTo
-    )
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.Center
+    ) {
+        DatePicker1(
+            dateFrom = dateFrom,
+        )
 
+        Spacer(modifier = Modifier.width(20.dp))
+
+        DatePicker2(
+            dateTo = dateTo
+        )
+
+    }
 }
 
 
