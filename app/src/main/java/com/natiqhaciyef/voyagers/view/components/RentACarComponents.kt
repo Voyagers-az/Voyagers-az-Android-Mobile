@@ -62,7 +62,8 @@ fun CustomDropDownMenu(
                 Text(
                     text = name,
                     color = AppGray,
-                    fontWeight = FontWeight.SemiBold
+                    fontWeight = FontWeight.SemiBold,
+                    textAlign = TextAlign.Center
                 )
             },
             trailingIcon = {
