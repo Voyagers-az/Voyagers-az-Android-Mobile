@@ -5,11 +5,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.natiqhaciyef.voyagers.util.DefaultModelImplementations
+import com.natiqhaciyef.voyagers.view.screens.home.ContactScreen
 import com.natiqhaciyef.voyagers.view.screens.home.MainScreenLine
+import com.natiqhaciyef.voyagers.view.screens.home.PersonalInformationScreen
+import com.natiqhaciyef.voyagers.view.screens.home.card.PaymentDetailsScreen
+import com.natiqhaciyef.voyagers.view.screens.home.card.PaymentScreen
 import com.natiqhaciyef.voyagers.view.screens.home.home_categories.FlightTicketScreen
 import com.natiqhaciyef.voyagers.view.screens.home.home_categories.RentCarScreen
 import com.natiqhaciyef.voyagers.view.screens.home.home_categories.HouseRentScreen
-import com.natiqhaciyef.voyagers.view.screens.home.tours.TourDetailsScreen
+import com.natiqhaciyef.voyagers.view.screens.home.main.tours.TourDetailsScreen
 import com.natiqhaciyef.voyagers.view.screens.registration.LoginScreen
 import com.natiqhaciyef.voyagers.view.screens.registration.RegisterScreen
 import com.natiqhaciyef.voyagers.view.screens.registration.ResetPasswordScreen
@@ -56,6 +60,20 @@ fun AppNavigation() {
             RentCarScreen()
         }
 
-        composable(route = ScreenID.ContactDetails.name){}
+        composable(route = ScreenID.ContactDetails.name){
+            ContactScreen()
+        }
+
+        composable(route = ScreenID.Payment.name){
+            PaymentScreen()
+        }
+
+        composable(route = ScreenID.PaymentDetails.name){
+            PaymentDetailsScreen()
+        }
+
+        composable(route = ScreenID.PersonalInformation.name){
+            PersonalInformationScreen()
+        }
     }
 }
