@@ -1,6 +1,7 @@
-package com.natiqhaciyef.voyagers.view.viewmodel
+package com.natiqhaciyef.voyagers.view.viewmodel.tour
 
 import com.natiqhaciyef.voyagers.util.classes.DataTypes
+import com.natiqhaciyef.voyagers.view.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
