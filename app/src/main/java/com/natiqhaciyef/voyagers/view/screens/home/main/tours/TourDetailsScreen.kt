@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagers.view.screens.home.tours
+package com.natiqhaciyef.voyagers.view.screens.home.main.tours
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
