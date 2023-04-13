@@ -49,16 +49,18 @@ fun RentCarScreen(
     val brand = remember { mutableStateOf("") }
     val city = remember { mutableStateOf("") }
     val minPrice = remember { mutableStateOf(0.0) }
-    val maxPrice = remember { mutableStateOf(1000.0) }
+    val maxPrice = remember { mutableStateOf(10000.0) }
     val list = remember { viewModel.carsList }
 
     Scaffold(
         floatingActionButton = {
-            if (brand.value.isNotEmpty() || city.value.isNotEmpty()) {
+            if (brand.value.isNotEmpty() || city.value.isNotEmpty() || minPrice.value != 0.0 || maxPrice.value != 1000.0) {
                 FloatingActionButton(
                     onClick = {
                         brand.value = ""
                         city.value = ""
+                        minPrice.value = 0.0
+                        maxPrice.value = 10000.0
                     },
                     shape = CircleShape,
                     backgroundColor = AppDarkBlue,
@@ -194,7 +196,7 @@ private fun RentCarTopView(
                 .padding(start = 5.dp)
                 .width(115.dp)
                 .height(60.dp),
-            value = if (maxPrice.value != 0.0 && maxPrice.value != 1000.0) "${maxPrice.value}" else "",
+            value = if (maxPrice.value != 0.0 && maxPrice.value != 10000.0) "${maxPrice.value}" else "",
             onValueChange = {
                 maxPrice.value = it.toDouble()
             },
@@ -264,7 +266,6 @@ fun RentCarMainPart(
                 true
         }
 
-    Log.d("MYLOG - CAR", "$cars")
     LazyVerticalGrid(columns = GridCells.Fixed(2)) {
         items(cars) { car ->
             CarCardItem(car)

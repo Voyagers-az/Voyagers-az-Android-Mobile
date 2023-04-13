@@ -20,14 +20,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.natiqhaciyef.voyagers.data.model.PaymentChoiceModel
 import com.natiqhaciyef.voyagers.util.PaymentMethodList
+import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.AppWhiteLightPurple
 
-@Preview
+//@Preview
 @Composable
-fun PaymentScreen() {
+fun PaymentScreen(
+    navController: NavController
+) {
     val visaSelected = remember { mutableStateOf(false) }
     val masterCardSelected = remember { mutableStateOf(false) }
     val paypalSelected = remember { mutableStateOf(false) }
@@ -41,7 +45,7 @@ fun PaymentScreen() {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 20.dp)
+                .padding(top = 50.dp)
                 .height(280.dp)
                 .padding(horizontal = 20.dp),
             shape = RoundedCornerShape(12.dp),
@@ -112,10 +116,13 @@ fun PaymentScreen() {
             onClick = {
                 if (visaSelected.value) {
                     // send visa details
+                    navController.navigate("${ScreenID.PaymentDetails.name}/${PaymentMethodList.list[0].type.mainName}")
                 } else if (masterCardSelected.value) {
                     // send master card details
+                    navController.navigate("${ScreenID.PaymentDetails.name}/${PaymentMethodList.list[1].type.mainName}")
                 } else if (paypalSelected.value) {
                     // send paypal details
+                    navController.navigate("${ScreenID.PaymentDetails.name}/${PaymentMethodList.list[2].type.mainName}")
                 }
             }
         ) {
