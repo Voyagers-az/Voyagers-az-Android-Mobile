@@ -26,8 +26,10 @@ import com.natiqhaciyef.voyagers.view.screens.registration.SplashScreen
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
-    NavHost(navController = navController,
-        startDestination = ScreenID.SplashScreen.name) {
+    NavHost(
+        navController = navController,
+        startDestination = ScreenID.SplashScreen.name
+    ) {
 
         composable(route = ScreenID.SplashScreen.name) {
             SplashScreen(navController = navController)
@@ -79,7 +81,7 @@ fun AppNavigation() {
         composable(
             route = "${ScreenID.PaymentDetails.name}/{paymentMethod}",
             arguments = listOf(
-                navArgument(name = "paymentMethod"){
+                navArgument(name = "paymentMethod") {
                     type = NavType.StringType
                 }
             )
