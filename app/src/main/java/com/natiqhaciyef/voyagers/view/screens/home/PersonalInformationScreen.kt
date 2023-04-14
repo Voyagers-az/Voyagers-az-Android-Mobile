@@ -91,7 +91,7 @@ fun PersonalInformationScreen() {
                 .background(AppWhiteLightPurple),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.padding(top = 50.dp))
+            Spacer(modifier = Modifier.padding(top = 40.dp))
             PersonalInformationTopView(
                 context = context,
                 permissionLauncher = permissionLauncher,
@@ -105,8 +105,7 @@ fun PersonalInformationScreen() {
                 finCode = findCode,
                 phone = phone
             )
-
-
+            PersonalInformationBottomView()
         }
     }
 }
@@ -150,9 +149,9 @@ fun PersonalInformationMainPart(
 ) {
     Card(
         modifier = Modifier
-            .padding(top = 30.dp, start = 20.dp, end = 20.dp, bottom = 30.dp)
+            .padding(top = 20.dp, start = 20.dp, end = 20.dp, bottom = 20.dp)
             .fillMaxWidth()
-            .fillMaxHeight(),
+            .height(440.dp),
         shape = RoundedCornerShape(10.dp)
     ) {
         Column(
@@ -323,6 +322,31 @@ fun PersonalInformationMainPart(
                 )
             )
         }
+    }
+}
+
+@Composable
+fun PersonalInformationBottomView() {
+    Button(
+        modifier = Modifier
+            .padding(bottom = 20.dp)
+            .width(200.dp)
+            .height(55.dp),
+        onClick = {
+
+        },
+        shape = RoundedCornerShape(7.dp),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = AppDarkBlue
+        )
+    ) {
+        Text(
+            modifier = Modifier,
+            text = "Təsdiqlə",
+            color = Color.White,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 16.sp
+        )
     }
 }
 
