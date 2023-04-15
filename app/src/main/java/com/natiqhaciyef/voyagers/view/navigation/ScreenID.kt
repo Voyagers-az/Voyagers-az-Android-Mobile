@@ -1,18 +1,26 @@
 package com.natiqhaciyef.voyagers.view.navigation
 
 enum class ScreenID {
+    // register
     SplashScreen,
     Register,
     Login,
     ResetPassword,
+
+    // main line
     Home,
-    ContactDetails,
     TourScreen,
-    TourDetails,
     UserProfile,
+    MainScreenLine,
+
+    // home categories
     RentCar,
     FlightTickets,
     HouseRent,
-    MainScreenLine,
 
+    Payment,
+    PaymentDetails,
+    PersonalInformation,
+    TourDetails,
+    ContactDetails,
 }

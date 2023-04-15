@@ -1,16 +1,18 @@
-package com.natiqhaciyef.voyagers.view.screens.home.home_categories
+package com.natiqhaciyef.voyagers.view.screens.home.main.home_categories
 
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -46,48 +48,77 @@ fun FlightTicketScreen(
     val dateTo = remember { mutableStateOf("") }
     val ticketsList = remember { viewModel.ticketList }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(AppWhiteLightPurple)
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        floatingActionButton = {
+            if (dateFrom.value.isNotEmpty() || dateTo.value.isNotEmpty() || from.value.isNotEmpty() || to.value.isNotEmpty()) {
+                FloatingActionButton(
+                    onClick = {
+                        to.value = ""
+                        from.value = ""
+                        dateFrom.value = ""
+                        dateTo.value = ""
+                    },
+                    shape = CircleShape,
+                    backgroundColor = AppDarkBlue,
+                    modifier = Modifier
+                        .size(60.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Refresh,
+                        contentDescription = "Refresh filters",
+                        tint = AppWhiteLightPurple,
+                        modifier = Modifier
+                            .size(25.dp)
+                    )
+                }
+            }
+        }
     ) {
+        it.calculateBottomPadding()
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(255.dp)
-                .background(AppAquatic),
-        )
-        Column(
-            modifier = Modifier
+                .fillMaxSize()
+                .background(AppWhiteLightPurple)
         ) {
-            Spacer(modifier = Modifier.height(45.dp))
-            Text(
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth(),
-                text = "Avia biletlərin online alınması platforması",
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 18.sp,
-                textAlign = TextAlign.Center,
-                color = Color.White
+                    .fillMaxWidth()
+                    .height(255.dp)
+                    .background(AppAquatic),
             )
-            Spacer(modifier = Modifier.height(10.dp))
-            FlightTicketTopView(
-                from = from,
-                to = to,
-                dateFrom = dateFrom,
-                dateTo = dateTo
-            )
+            Column(
+                modifier = Modifier
+            ) {
+                Spacer(modifier = Modifier.height(45.dp))
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    text = "Avia biletlərin online alınması platforması",
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.Center,
+                    color = Color.White
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                FlightTicketTopView(
+                    from = from,
+                    to = to,
+                    dateFrom = dateFrom,
+                    dateTo = dateTo
+                )
 
-            Spacer(modifier = Modifier.height(40.dp))
+                Spacer(modifier = Modifier.height(40.dp))
 
-            FlightTicketMainPart(
-                from = from,
-                to = to,
-                dateFrom = dateFrom,
-                dateTo = dateTo,
-                ticketsList = ticketsList
-            )
-            Spacer(modifier = Modifier.height(15.dp))
+                FlightTicketMainPart(
+                    from = from,
+                    to = to,
+                    dateFrom = dateFrom,
+                    dateTo = dateTo,
+                    ticketsList = ticketsList
+                )
+                Spacer(modifier = Modifier.height(15.dp))
+            }
         }
     }
 }

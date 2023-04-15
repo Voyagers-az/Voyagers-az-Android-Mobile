@@ -1,1 +1,2 @@
-Task - Bütün input alınan hissələrin onFocuse colorlarını dəyişmək
+Task - Turların filterlənməsi. CustomView ilə ExpandedCardAnimation yaradaraq içini inputlarla doldurub mutableState ilə
+əlaqə qurmaq.

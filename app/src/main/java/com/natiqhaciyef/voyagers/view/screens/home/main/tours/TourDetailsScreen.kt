@@ -1,18 +1,14 @@
-package com.natiqhaciyef.voyagers.view.screens.home.tours
+package com.natiqhaciyef.voyagers.view.screens.home.main.tours
 
-import android.util.Log
-import android.widget.Space
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.KeyboardBackspace
 import androidx.compose.material.icons.filled.KeyboardCommandKey
 import androidx.compose.material.icons.filled.PinDrop
 import androidx.compose.material.icons.outlined.Favorite
-import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,7 +16,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,28 +23,28 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberImagePainter
 import com.natiqhaciyef.voyagers.data.model.CampModel
-import com.natiqhaciyef.voyagers.data.model.PlaceModel
 import com.natiqhaciyef.voyagers.data.model.TourModel
 import com.natiqhaciyef.voyagers.util.classes.DataTypes
 import com.natiqhaciyef.voyagers.view.ui.theme.AppAquatic
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.AppWhiteLightPurple
-import com.natiqhaciyef.voyagers.view.viewmodel.TourDetailsViewModel
-import com.natiqhaciyef.voyagers.R
-import com.natiqhaciyef.voyagers.util.DefaultModelImplementations
+import com.natiqhaciyef.voyagers.view.viewmodel.tour.TourDetailsViewModel
 import com.natiqhaciyef.voyagers.util.FontList
 import com.natiqhaciyef.voyagers.view.components.RatingBar
+import com.natiqhaciyef.voyagers.view.navigation.NavigationData
+import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.DarkYellow
 
 
-//@Preview
+@Preview
 @Composable
 fun TourDetailsScreen(
     data: Any = Any(),
     viewModel: TourDetailsViewModel = hiltViewModel(),
-    navController: NavController
+    navController: NavController = rememberNavController()
 ) {
     val item = viewModel.dataTypeCaster(data)
     Box(
@@ -69,7 +64,7 @@ fun TourDetailsScreen(
                 .fillMaxSize()
         ) {
             TourDetailsTopView(item, data, navController)
-            TourDetailsMainView(data)
+            TourDetailsMainView(data, navController)
         }
     }
 }
@@ -158,9 +153,12 @@ fun TourDetailsTopView(
     }
 }
 
-@Preview
+//@Preview
 @Composable
-fun TourDetailsMainView(data: Any = Any()) {
+fun TourDetailsMainView(
+    data: Any = Any(),
+    navController: NavController
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth(),
@@ -230,7 +228,6 @@ fun TourDetailsMainView(data: Any = Any()) {
                 )
             }
         }
-
         Spacer(modifier = Modifier.height(20.dp))
         Card(
             modifier = Modifier
@@ -250,6 +247,17 @@ fun TourDetailsMainView(data: Any = Any()) {
             )
         }
 
+        Spacer(modifier = Modifier.height(20.dp))
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
+            text = if (data is TourModel) "Qiymət : ${data.price.toInt()} AZN" else if(data is CampModel) "Qiymət : ${data.price.toInt()} AZN" else "",
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 18.sp,
+            color = Color.Black
+        )
+
         Spacer(modifier = Modifier.height(25.dp))
 
         Button(
@@ -258,6 +266,11 @@ fun TourDetailsMainView(data: Any = Any()) {
                 .height(55.dp),
             onClick = {
                 // go to cart and details screen
+                if (data is TourModel)
+                    NavigationData.tourModel = data
+                else if (data is CampModel)
+                    NavigationData.campModel = data
+                navController.navigate(ScreenID.Payment.name)
             },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = AppDarkBlue

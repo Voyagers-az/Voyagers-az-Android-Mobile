@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagers.view.screens.home.home_categories
+package com.natiqhaciyef.voyagers.view.screens.home.main.home_categories
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -37,7 +37,7 @@ fun HouseRentScreen() {
             Text(
                 modifier = Modifier
                     .fillMaxWidth(),
-                text = "Hal-hazırda qatarların izlənilməsi aktiv deyil",
+                text = "Hal-hazırda evlərin kirayələnməsi və hotel xidməti aktiv deyil",
                 textAlign = TextAlign.Center,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,

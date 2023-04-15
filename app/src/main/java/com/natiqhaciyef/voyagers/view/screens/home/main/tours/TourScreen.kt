@@ -1,6 +1,7 @@
-package com.natiqhaciyef.voyagers.view.screens.home.tours
+package com.natiqhaciyef.voyagers.view.screens.home.main.tours
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -38,7 +39,7 @@ import com.natiqhaciyef.voyagers.view.components.TourCardItem
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.AppAquatic
 import com.natiqhaciyef.voyagers.view.ui.theme.*
-import com.natiqhaciyef.voyagers.view.viewmodel.TourViewModel
+import com.natiqhaciyef.voyagers.view.viewmodel.tour.TourViewModel
 
 //@Preview
 @Composable
@@ -49,6 +50,11 @@ fun TourScreen(
     val search = remember { mutableStateOf("") }
     val tours = viewModel.toursList
     val camps = viewModel.campList
+    val filterState = remember { mutableStateOf(false) }
+    val maxPrice = remember { mutableStateOf(0) }
+    val minPrice = remember { mutableStateOf(0) }
+
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -58,27 +64,31 @@ fun TourScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(210.dp)
+//                .height(if (filterState.value) 370.dp else 210.dp)
+                .height(200.dp)
                 .background(AppAquatic)
         )
-
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color.Transparent)
         ) {
-            TourTopView(search)
+            TourTopView(search, filterState, maxPrice, minPrice)
             TourMainView(search, navController, tours, camps)
         }
     }
 }
 
-@Preview
+//@Preview
 @Composable
 fun TourTopView(
-    search: MutableState<String> = mutableStateOf("")
+    search: MutableState<String> = mutableStateOf(""),
+    filterState: MutableState<Boolean>,
+    maxPrice: MutableState<Int>,
+    minPrice: MutableState<Int>
 ) {
+
     Column(
         modifier = Modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -129,7 +139,10 @@ fun TourTopView(
             trailingIcon = {
                 Icon(
                     imageVector = Icons.Default.Tune,
-                    contentDescription = "Filter icon"
+                    contentDescription = "Filter icon",
+                    modifier = Modifier.clickable {
+                        filterState.value = !filterState.value
+                    }
                 )
             },
             keyboardOptions = KeyboardOptions(
@@ -138,7 +151,20 @@ fun TourTopView(
             )
         )
 
-        Spacer(modifier = Modifier.height(15.dp))
+//        if (filterState.value) {
+//            Spacer(modifier = Modifier.height(5.dp))
+//            Column(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .height(170.dp)
+//                    .padding(horizontal = 25.dp)
+//                    .background(Color.White),
+//            ) {
+//                Spacer(modifier = Modifier.height(5.dp))
+//            }
+//        } else {
+//            Spacer(modifier = Modifier.height(15.dp))
+//        }
     }
 }
 
@@ -149,8 +175,6 @@ fun TourMainView(
     tours: MutableState<List<TourModel>> = mutableStateOf(mutableListOf()),
     camps: MutableState<List<CampModel>> = mutableStateOf(mutableListOf())
 ) {
-
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -224,7 +248,7 @@ fun TourMainView(
                         || it.region.lowercase().contains(search.value.lowercase())
             }
 
-        if(globalTours.isEmpty()){
+        if (globalTours.isEmpty()) {
             Text(
                 text = "Tur tapılmadı",
                 fontSize = 20.sp,
@@ -236,7 +260,7 @@ fun TourMainView(
                     .padding(vertical = 20.dp, horizontal = 20.dp),
                 textAlign = TextAlign.Center
             )
-        }else{
+        } else {
             LazyRow {
                 items(globalTours) { tour ->
                     Spacer(modifier = Modifier.width(5.dp))
@@ -272,7 +296,7 @@ fun TourMainView(
                         || it.region.lowercase().contains(search.value.lowercase())
             }
 
-        if (campList.isEmpty()){
+        if (campList.isEmpty()) {
             Text(
                 text = "Düşərgə tapılmadı",
                 fontSize = 20.sp,
@@ -284,7 +308,7 @@ fun TourMainView(
                     .padding(vertical = 20.dp, horizontal = 20.dp),
                 textAlign = TextAlign.Center
             )
-        }else{
+        } else {
             LazyRow {
                 items(campList) { camp ->
                     Spacer(modifier = Modifier.width(5.dp))
