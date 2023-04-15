@@ -291,6 +291,12 @@ fun PaymentDetailsScreen(
                     .height(55.dp),
                 shape = RoundedCornerShape(7.dp),
                 onClick = {
+                    if (
+                        numberOnCard.value.isNotEmpty()
+                        && nameOnCard.value.isNotEmpty()
+                        && cvvCode.value.isNotEmpty()
+                        && expirationDate.value.isNotEmpty()
+                    )
                     navController.navigate(ScreenID.PersonalInformation.name)
                 },
                 colors = ButtonDefaults.buttonColors(

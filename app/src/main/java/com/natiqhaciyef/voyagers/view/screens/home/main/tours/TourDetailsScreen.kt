@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberImagePainter
 import com.natiqhaciyef.voyagers.data.model.CampModel
 import com.natiqhaciyef.voyagers.data.model.TourModel
@@ -38,12 +39,12 @@ import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.DarkYellow
 
 
-//@Preview
+@Preview
 @Composable
 fun TourDetailsScreen(
     data: Any = Any(),
     viewModel: TourDetailsViewModel = hiltViewModel(),
-    navController: NavController
+    navController: NavController = rememberNavController()
 ) {
     val item = viewModel.dataTypeCaster(data)
     Box(
@@ -227,7 +228,6 @@ fun TourDetailsMainView(
                 )
             }
         }
-
         Spacer(modifier = Modifier.height(20.dp))
         Card(
             modifier = Modifier
@@ -246,6 +246,17 @@ fun TourDetailsMainView(
                     .padding(vertical = 10.dp, horizontal = 25.dp)
             )
         }
+
+        Spacer(modifier = Modifier.height(20.dp))
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
+            text = if (data is TourModel) "Qiymət : ${data.price.toInt()} AZN" else if(data is CampModel) "Qiymət : ${data.price.toInt()} AZN" else "",
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 18.sp,
+            color = Color.Black
+        )
 
         Spacer(modifier = Modifier.height(25.dp))
 
