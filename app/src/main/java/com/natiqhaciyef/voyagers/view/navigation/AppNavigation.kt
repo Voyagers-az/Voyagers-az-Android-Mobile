@@ -13,9 +13,9 @@ import com.natiqhaciyef.voyagers.view.screens.home.MainScreenLine
 import com.natiqhaciyef.voyagers.view.screens.home.PersonalInformationScreen
 import com.natiqhaciyef.voyagers.view.screens.home.card.PaymentDetailsScreen
 import com.natiqhaciyef.voyagers.view.screens.home.card.PaymentScreen
-import com.natiqhaciyef.voyagers.view.screens.home.home_categories.FlightTicketScreen
-import com.natiqhaciyef.voyagers.view.screens.home.home_categories.RentCarScreen
-import com.natiqhaciyef.voyagers.view.screens.home.home_categories.HouseRentScreen
+import com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.FlightTicketScreen
+import com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.RentCarScreen
+import com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.HouseRentScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.tours.TourDetailsScreen
 import com.natiqhaciyef.voyagers.view.screens.registration.LoginScreen
 import com.natiqhaciyef.voyagers.view.screens.registration.RegisterScreen
@@ -88,7 +88,10 @@ fun AppNavigation() {
         ) {
             val paymentType = remember { it.arguments?.getString("paymentMethod") }
 
-            PaymentDetailsScreen(paymentType ?: "")
+            PaymentDetailsScreen(
+                paymentMethod = paymentType ?: "",
+                navController = navController
+            )
         }
 
         composable(route = ScreenID.PersonalInformation.name) {

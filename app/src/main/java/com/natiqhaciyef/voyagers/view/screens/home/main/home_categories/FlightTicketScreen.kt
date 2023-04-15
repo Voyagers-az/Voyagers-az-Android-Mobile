@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagers.view.screens.home.home_categories
+package com.natiqhaciyef.voyagers.view.screens.home.main.home_categories
 
 import android.util.Log
 import androidx.compose.foundation.background
