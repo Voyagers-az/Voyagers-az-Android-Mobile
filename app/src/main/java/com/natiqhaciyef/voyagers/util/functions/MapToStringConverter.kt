@@ -15,7 +15,7 @@ fun Map<String, String>.toSQLiteString(): String{
         str += key
         str += ":"
         str += this[key]
-        str += "%"
+        str += "#"
     }
     return str
 }
@@ -30,7 +30,7 @@ fun String.toSQLiteMutableMap(): MutableMap<String, String>{
 
 
     for (char in this){
-        if (char != '%')
+        if (char != '#')
             vanishData += char
         else{
             list.add(vanishData)

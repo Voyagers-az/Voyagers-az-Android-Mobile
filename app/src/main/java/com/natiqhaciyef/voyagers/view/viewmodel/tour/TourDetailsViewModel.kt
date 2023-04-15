@@ -1,5 +1,8 @@
 package com.natiqhaciyef.voyagers.view.viewmodel.tour
 
+import android.annotation.SuppressLint
+import android.util.Log
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.natiqhaciyef.voyagers.data.local.repository.TourRepository
@@ -18,10 +21,11 @@ import javax.inject.Inject
 class TourDetailsViewModel @Inject constructor(
     var tr: TourRepository
 ) : BaseViewModel() {
+
     val savedTours = mutableStateOf<MutableList<TourModel>>(mutableListOf())
     val savedCamps = mutableStateOf<MutableList<CampModel>>(mutableListOf())
-    val savedToursDatabase = mutableStateOf<List<TourModelDatabase>>(mutableListOf())
-    val savedCampsDatabase = mutableStateOf<List<CampModelDatabase>>(mutableListOf())
+    private val savedToursDatabase = mutableStateOf<List<TourModelDatabase>>(mutableListOf())
+    private val savedCampsDatabase = mutableStateOf<List<CampModelDatabase>>(mutableListOf())
 
     init {
         getSavedTours()
@@ -30,15 +34,16 @@ class TourDetailsViewModel @Inject constructor(
 
     private fun getSavedTours(){
         viewModelScope.launch(Dispatchers.Main) {
-            savedToursDatabase.value = tr.getTours().toMutableList()
+            savedToursDatabase.value = tr.getTours()
             typeCasterTourModel()
         }
     }
 
     private fun typeCasterTourModel(){
+        val list = mutableListOf<TourModel>()
         viewModelScope.launch(Dispatchers.Main) {
             for (element in savedToursDatabase.value){
-                savedTours.value.add(
+                list.add(
                     TourModel(
                         id = element.id,
                         name = element.name,
@@ -57,6 +62,8 @@ class TourDetailsViewModel @Inject constructor(
                     )
                 )
             }
+            savedTours.value = list
+            Log.d("MyLog - 4","${savedTours.value}")
         }
     }
 
@@ -160,9 +167,10 @@ class TourDetailsViewModel @Inject constructor(
     }
 
     private fun typeCasterCampModel(){
+        val list = mutableListOf<CampModel>()
         viewModelScope.launch(Dispatchers.Main) {
             for (element in savedCampsDatabase.value){
-                savedCamps.value.add(
+                list.add(
                     CampModel(
                         id = element.id,
                         name = element.name,
@@ -180,9 +188,9 @@ class TourDetailsViewModel @Inject constructor(
                     )
                 )
             }
+            savedCamps.value = list
         }
     }
-
 
 
     fun dataTypeCaster(data: Any): DataTypes = when (data) {
