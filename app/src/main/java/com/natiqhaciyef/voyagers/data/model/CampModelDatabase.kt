@@ -3,7 +3,10 @@ package com.natiqhaciyef.voyagers.data.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-data class CampModel(
+
+@Entity(tableName = "camp_model")
+data class CampModelDatabase(
+    @PrimaryKey(autoGenerate = true)
     var id: Int,
     var name: String,
     var info: String,
@@ -16,5 +19,5 @@ data class CampModel(
     var personCount: Int,
     var region: String,
     var rating: Double,
-    var date: MutableMap<String, String>
+    var date: String
 )
