@@ -33,6 +33,8 @@ import com.natiqhaciyef.voyagers.view.ui.theme.AppWhiteLightPurple
 import com.natiqhaciyef.voyagers.view.viewmodel.tour.TourDetailsViewModel
 import com.natiqhaciyef.voyagers.util.FontList
 import com.natiqhaciyef.voyagers.view.components.RatingBar
+import com.natiqhaciyef.voyagers.view.navigation.NavigationData
+import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.DarkYellow
 
 
@@ -61,7 +63,7 @@ fun TourDetailsScreen(
                 .fillMaxSize()
         ) {
             TourDetailsTopView(item, data, navController)
-            TourDetailsMainView(data)
+            TourDetailsMainView(data, navController)
         }
     }
 }
@@ -150,9 +152,12 @@ fun TourDetailsTopView(
     }
 }
 
-@Preview
+//@Preview
 @Composable
-fun TourDetailsMainView(data: Any = Any()) {
+fun TourDetailsMainView(
+    data: Any = Any(),
+    navController: NavController
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth(),
@@ -250,6 +255,11 @@ fun TourDetailsMainView(data: Any = Any()) {
                 .height(55.dp),
             onClick = {
                 // go to cart and details screen
+                if (data is TourModel)
+                    NavigationData.tourModel = data
+                else if (data is CampModel)
+                    NavigationData.campModel = data
+                navController.navigate(ScreenID.Payment.name)
             },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = AppDarkBlue

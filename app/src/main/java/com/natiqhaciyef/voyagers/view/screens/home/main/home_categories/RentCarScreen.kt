@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagers.view.screens.home.home_categories
+package com.natiqhaciyef.voyagers.view.screens.home.main.home_categories
 
 import android.inputmethodservice.Keyboard
 import android.util.Log
@@ -54,7 +54,7 @@ fun RentCarScreen(
 
     Scaffold(
         floatingActionButton = {
-            if (brand.value.isNotEmpty() || city.value.isNotEmpty() || minPrice.value != 0.0 || maxPrice.value != 1000.0) {
+            if (brand.value.isNotEmpty() || city.value.isNotEmpty() || minPrice.value != 0.0 || maxPrice.value != 10000.0) {
                 FloatingActionButton(
                     onClick = {
                         brand.value = ""
