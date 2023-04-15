@@ -39,7 +39,7 @@ class TourViewModel @Inject constructor(
                     list.clear()
 
                     for (doc in docs) {
-                        val id = doc["id"].toString()
+                        val id = doc["id"].toString().toInt()
                         var name = doc["name"] as String
                         var image = doc["image"] as MutableList<String>
                         var info = doc["info"] as String

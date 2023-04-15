@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.KeyboardCommandKey
 import androidx.compose.material.icons.filled.PinDrop
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -47,6 +48,7 @@ fun TourDetailsScreen(
     navController: NavController = rememberNavController()
 ) {
     val item = viewModel.dataTypeCaster(data)
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -63,7 +65,7 @@ fun TourDetailsScreen(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            TourDetailsTopView(item, data, navController)
+            TourDetailsTopView(item, data, navController, viewModel)
             TourDetailsMainView(data, navController)
         }
     }
@@ -74,7 +76,8 @@ fun TourDetailsScreen(
 fun TourDetailsTopView(
     type: DataTypes = DataTypes.PlaceModel,
     data: Any = Any(),
-    navController: NavController
+    navController: NavController,
+    viewModel: TourDetailsViewModel
 ) {
     val colorMatrix = floatArrayOf(
         0.8f, 0f, 0f, 0f, 0f,
@@ -137,7 +140,11 @@ fun TourDetailsTopView(
                     imageVector = Icons.Outlined.Favorite,
                     contentDescription = "Like",
                     modifier = Modifier
-                        .size(30.dp),
+                        .size(30.dp)
+                        .clickable {
+                            if (data is TourModel)
+                                viewModel.saveTourModel(data)
+                        },
                     tint = AppWhiteLightPurple
                 )
 
@@ -252,7 +259,7 @@ fun TourDetailsMainView(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp),
-            text = if (data is TourModel) "Qiymət : ${data.price.toInt()} AZN" else if(data is CampModel) "Qiymət : ${data.price.toInt()} AZN" else "",
+            text = if (data is TourModel) "Qiymət : ${data.price.toInt()} AZN" else if (data is CampModel) "Qiymət : ${data.price.toInt()} AZN" else "",
             fontWeight = FontWeight.SemiBold,
             fontSize = 18.sp,
             color = Color.Black
