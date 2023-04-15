@@ -21,7 +21,7 @@ fun Map<String, String>.toSQLiteString(): String{
 }
 
 
-fun String.toSQLiteMutableMap(): Map<String, String>{
+fun String.toSQLiteMutableMap(): MutableMap<String, String>{
     var map = mutableMapOf<String, String>()
     val list = mutableListOf<String>()
     var vanishData = ""
