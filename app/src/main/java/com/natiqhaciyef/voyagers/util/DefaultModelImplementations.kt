@@ -56,7 +56,7 @@ object DefaultModelImplementations {
     )
 
     var tourModel: TourModel = TourModel(
-        id = "4",
+        id = 4,
         name = "Barselona turu",
         image = mutableListOf("https://firebasestorage.googleapis.com/v0/b/voyagers-666fb.appspot.com/o/Tour%2Fglobal%2Fbarcelona.jpg?alt=media&token=bd9aeb35-77bb-41a8-b930-1c4fe1d06d41"),
         info = "Barselona şəhəri İspaniyanın Kataloniya bölgəsinin ən məşhur şəhəridir. Barselona tarixi tikililəri, şəhər quruluşu və futbol mədəniyyəti ilə məşhurdur. Həmçinin liman şəhəri olması ilə bir çox mədəniyyətin qarışdığı şəhər halını almışdır. Artıq Barselona turu əlçatandır, elə isə fürsəti dəyərləndir...\n" + "Toplam 3 gün, 4 gecə olmaqla Barselonada gəzmək şansı. Tura daxildir : Otel xərcləri, Səhər yeməyi, Bələdçi və gəziləcək yerlərin qiyməti",
