@@ -1,15 +1,11 @@
-package com.natiqhaciyef.voyagers.view.screens.home
+package com.natiqhaciyef.voyagers.view.screens.home.card
 
 import android.Manifest
-import android.app.Activity
-import android.app.Instrumentation
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.MediaStore
-import android.util.Log
-import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -38,23 +34,28 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.AppGray
 import com.natiqhaciyef.voyagers.view.ui.theme.AppWhiteLightPurple
 
-@Preview
+//@Preview
 @Composable
-fun PersonalInformationScreen() {
+fun PersonalInformationScreen(
+    navController: NavController
+) {
+    val scaffoldState = rememberScaffoldState()
+    val permissionGrantBoolean = remember { mutableStateOf(true) }
+
     val isPermissionGranted = remember { mutableStateOf(false) }
     val imageData = remember { mutableStateOf<Uri?>(null) }
 
     val email = remember { mutableStateOf("") }
     val nameSurname = remember { mutableStateOf("") }
     val phone = remember { mutableStateOf("") }
-    val findCode = remember { mutableStateOf("") }
+    val finCode = remember { mutableStateOf("") }
 
     val activityResultLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
@@ -73,15 +74,19 @@ fun PersonalInformationScreen() {
             // Permission Accepted: Do something
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             activityResultLauncher.launch(intent)
+            permissionGrantBoolean.value = true
         } else {
             // Permission Denied: Do something
+            permissionGrantBoolean.value = false
         }
     }
     val context = LocalContext.current
 
 
     Scaffold(
-        modifier = Modifier.fillMaxSize()
+        scaffoldState = scaffoldState,
+        modifier = Modifier.fillMaxSize(),
+        snackbarHost = {}
     ) {
         it.calculateBottomPadding()
         Column(
@@ -102,10 +107,17 @@ fun PersonalInformationScreen() {
             PersonalInformationMainPart(
                 email = email,
                 nameSurname = nameSurname,
-                finCode = findCode,
+                finCode = finCode,
                 phone = phone
             )
-            PersonalInformationBottomView()
+            PersonalInformationBottomView(
+                nameSurname = nameSurname,
+                email = email,
+                phone = phone,
+                finCode = finCode,
+                imageData = imageData,
+                navController = navController
+            )
         }
     }
 }
@@ -326,14 +338,29 @@ fun PersonalInformationMainPart(
 }
 
 @Composable
-fun PersonalInformationBottomView() {
+fun PersonalInformationBottomView(
+    nameSurname: MutableState<String>,
+    email: MutableState<String>,
+    phone: MutableState<String>,
+    finCode: MutableState<String>,
+    imageData: MutableState<Uri?>,
+    navController: NavController
+) {
     Button(
         modifier = Modifier
             .padding(bottom = 20.dp)
             .width(200.dp)
             .height(55.dp),
         onClick = {
+            // save in firebase with viewModel 
+            if (nameSurname.value.isNotEmpty()
+                && email.value.isNotEmpty()
+                && phone.value.isNotEmpty()
+                && finCode.value.isNotEmpty()
+                && imageData.value != null
+            ) {
 
+            }
         },
         shape = RoundedCornerShape(7.dp),
         colors = ButtonDefaults.buttonColors(
