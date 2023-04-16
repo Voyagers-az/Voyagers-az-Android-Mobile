@@ -35,11 +35,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
+import com.natiqhaciyef.voyagers.data.model.UserModel
+import com.natiqhaciyef.voyagers.util.functions.nameSurnameSplitter
+import com.natiqhaciyef.voyagers.view.navigation.NavigationData
+import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.AppGray
 import com.natiqhaciyef.voyagers.view.ui.theme.AppWhiteLightPurple
+import com.natiqhaciyef.voyagers.view.viewmodel.payment.PaymentViewModel
 
 //@Preview
 @Composable
@@ -175,7 +181,7 @@ fun PersonalInformationMainPart(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 15.dp),
-                text = "Ad, Soyad və Ata adı",
+                text = "Ad və Soyad",
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 18.sp,
                 color = Color.Black
@@ -344,7 +350,8 @@ fun PersonalInformationBottomView(
     phone: MutableState<String>,
     finCode: MutableState<String>,
     imageData: MutableState<Uri?>,
-    navController: NavController
+    navController: NavController,
+    viewModel: PaymentViewModel = hiltViewModel()
 ) {
     Button(
         modifier = Modifier
@@ -359,7 +366,19 @@ fun PersonalInformationBottomView(
                 && finCode.value.isNotEmpty()
                 && imageData.value != null
             ) {
-
+                NavigationData.userModel = UserModel(
+                    id = 0,
+                    name = nameSurname.value.nameSurnameSplitter()["name"]?: nameSurname.value,
+                    surname = nameSurname.value.nameSurnameSplitter()["surname"]?: nameSurname.value,
+                    dateOfBirth = "",
+                    email = email.value,
+                    phone = phone.value,
+                    idNumber = finCode.value,
+                    visaImage = "",
+                    idImage = "${imageData.value}",
+                    password = ""
+                )
+                navController.navigate(ScreenID.Payment.name)
             }
         },
         shape = RoundedCornerShape(7.dp),

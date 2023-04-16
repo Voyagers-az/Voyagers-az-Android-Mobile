@@ -23,8 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
 import com.natiqhaciyef.voyagers.data.model.TicketInfoModel
 import com.natiqhaciyef.voyagers.data.model.TicketModel
-import com.natiqhaciyef.voyagers.util.DefaultModelImplementations
-import com.natiqhaciyef.voyagers.util.functions.dateToLocalTime
+import com.natiqhaciyef.voyagers.util.obj.DefaultModelImplementations
 import com.natiqhaciyef.voyagers.util.functions.fromDoubleToTimeLine
 import com.natiqhaciyef.voyagers.view.ui.theme.*
 import com.vanpra.composematerialdialogs.MaterialDialog

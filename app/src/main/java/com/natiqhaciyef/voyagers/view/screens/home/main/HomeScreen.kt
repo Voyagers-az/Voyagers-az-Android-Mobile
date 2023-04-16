@@ -8,12 +8,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DirectionsCar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,18 +22,15 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.*
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.natiqhaciyef.voyagers.data.model.PlaceModel
-import com.natiqhaciyef.voyagers.util.CategoryIcons
-import com.natiqhaciyef.voyagers.util.ContactList
-import com.natiqhaciyef.voyagers.util.Services
+import com.natiqhaciyef.voyagers.util.obj.CategoryIcons
+import com.natiqhaciyef.voyagers.util.obj.ContactList
 import com.natiqhaciyef.voyagers.view.components.*
-import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.*
 import com.natiqhaciyef.voyagers.view.viewmodel.HomeViewModel
 

@@ -1,6 +1,5 @@
 package com.natiqhaciyef.voyagers.view.screens.home.card
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -11,7 +10,6 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Help
-import androidx.compose.material.icons.filled.QuestionMark
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -24,22 +22,25 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.*
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.natiqhaciyef.voyagers.data.model.PaymentDataModel
 import com.natiqhaciyef.voyagers.data.model.enums.PaymentTypes
-import com.natiqhaciyef.voyagers.util.PaymentMethodList
+import com.natiqhaciyef.voyagers.util.obj.PaymentMethodList
+import com.natiqhaciyef.voyagers.view.navigation.NavigationData
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.AppGray
 import com.natiqhaciyef.voyagers.view.ui.theme.AppWhiteLightPurple
+import com.natiqhaciyef.voyagers.view.viewmodel.payment.PaymentViewModel
 
 //@Preview
 @Composable
 fun PaymentDetailsScreen(
     paymentMethod: String = "Visa",
+    viewModel: PaymentViewModel = hiltViewModel(),
     navController: NavController
 ) {
     val nameOnCard = remember { mutableStateOf("") }
@@ -296,8 +297,29 @@ fun PaymentDetailsScreen(
                         && nameOnCard.value.isNotEmpty()
                         && cvvCode.value.isNotEmpty()
                         && expirationDate.value.isNotEmpty()
-                    )
-                    navController.navigate(ScreenID.PersonalInformation.name)
+                    ) {
+                        if (NavigationData.userModel != null) {
+                            val paymentDataModel = PaymentDataModel(
+                                paymentType = paymentMethod,
+                                nameOnCard = nameOnCard.value,
+                                numberOnCard = numberOnCard.value,
+                                expirationDate = expirationDate.value,
+                                cvvCode = 0,
+                                userModel = NavigationData.userModel!!
+                            )
+                            val paymentDataModelForLocalDb = PaymentDataModel(
+                                paymentType = paymentMethod,
+                                nameOnCard = nameOnCard.value,
+                                numberOnCard = numberOnCard.value,
+                                expirationDate = expirationDate.value,
+                                cvvCode = cvvCode.value.toInt(),
+                                userModel = NavigationData.userModel!!
+                            )
+
+                            viewModel.sendPaymentInfoToFirebase(paymentDataModel)
+                            navController.navigate(ScreenID.Waiting.name)
+                        }
+                    }
                 },
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = AppDarkBlue,

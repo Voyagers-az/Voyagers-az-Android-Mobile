@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagers.util
+package com.natiqhaciyef.voyagers.util.obj
 
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily

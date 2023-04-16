@@ -10,7 +10,6 @@ import androidx.compose.material.icons.filled.KeyboardCommandKey
 import androidx.compose.material.icons.filled.PinDrop
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,7 +32,7 @@ import com.natiqhaciyef.voyagers.view.ui.theme.AppAquatic
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.AppWhiteLightPurple
 import com.natiqhaciyef.voyagers.view.viewmodel.tour.TourDetailsViewModel
-import com.natiqhaciyef.voyagers.util.FontList
+import com.natiqhaciyef.voyagers.util.obj.FontList
 import com.natiqhaciyef.voyagers.view.components.RatingBar
 import com.natiqhaciyef.voyagers.view.navigation.NavigationData
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID
@@ -277,7 +276,7 @@ fun TourDetailsMainView(
                     NavigationData.tourModel = data
                 else if (data is CampModel)
                     NavigationData.campModel = data
-                navController.navigate(ScreenID.Payment.name)
+                navController.navigate(ScreenID.PersonalInformation.name)
             },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = AppDarkBlue
