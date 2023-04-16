@@ -10,7 +10,7 @@ import androidx.navigation.navArgument
 import com.natiqhaciyef.voyagers.util.DefaultModelImplementations
 import com.natiqhaciyef.voyagers.view.screens.home.ContactScreen
 import com.natiqhaciyef.voyagers.view.screens.home.MainScreenLine
-import com.natiqhaciyef.voyagers.view.screens.home.PersonalInformationScreen
+import com.natiqhaciyef.voyagers.view.screens.home.card.PersonalInformationScreen
 import com.natiqhaciyef.voyagers.view.screens.home.card.PaymentDetailsScreen
 import com.natiqhaciyef.voyagers.view.screens.home.card.PaymentScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.FlightTicketScreen
@@ -96,7 +96,7 @@ fun AppNavigation() {
         }
 
         composable(route = ScreenID.PersonalInformation.name) {
-            PersonalInformationScreen()
+            PersonalInformationScreen(navController)
         }
 
         composable(route = ScreenID.SavedTours.name){
