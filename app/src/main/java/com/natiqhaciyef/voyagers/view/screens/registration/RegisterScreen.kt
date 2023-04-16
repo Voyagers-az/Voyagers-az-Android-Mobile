@@ -1,6 +1,5 @@
 package com.natiqhaciyef.voyagers.view.screens.registration
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -32,7 +31,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.natiqhaciyef.voyagers.R
 import com.natiqhaciyef.voyagers.data.model.UserModel
-import com.natiqhaciyef.voyagers.util.FontList
+import com.natiqhaciyef.voyagers.util.obj.FontList
 import com.natiqhaciyef.voyagers.view.components.BottomShadow
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.AppBrown

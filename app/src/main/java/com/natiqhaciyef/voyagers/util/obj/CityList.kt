@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagers.util
+package com.natiqhaciyef.voyagers.util.obj
 
 object CityList {
     val list = mutableListOf<String>(

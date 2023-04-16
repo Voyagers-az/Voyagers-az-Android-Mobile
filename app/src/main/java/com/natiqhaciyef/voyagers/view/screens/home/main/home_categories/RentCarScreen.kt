@@ -1,10 +1,6 @@
 package com.natiqhaciyef.voyagers.view.screens.home.main.home_categories
 
-import android.inputmethodservice.Keyboard
-import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -17,23 +13,19 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.natiqhaciyef.voyagers.data.model.CarModel
 import com.natiqhaciyef.voyagers.data.model.CarRentModel
-import com.natiqhaciyef.voyagers.util.CarBrands
-import com.natiqhaciyef.voyagers.util.CityList
-import com.natiqhaciyef.voyagers.util.CurrencyList
+import com.natiqhaciyef.voyagers.util.obj.CarBrands
+import com.natiqhaciyef.voyagers.util.obj.CityList
+import com.natiqhaciyef.voyagers.util.obj.CurrencyList
 import com.natiqhaciyef.voyagers.view.components.CarCardItem
 import com.natiqhaciyef.voyagers.view.components.CurrencyDropDownMenu
 import com.natiqhaciyef.voyagers.view.components.CustomDropDownMenu
