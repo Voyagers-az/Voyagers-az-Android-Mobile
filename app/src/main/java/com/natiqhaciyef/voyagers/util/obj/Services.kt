@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagers.util
+package com.natiqhaciyef.voyagers.util.obj
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddBox

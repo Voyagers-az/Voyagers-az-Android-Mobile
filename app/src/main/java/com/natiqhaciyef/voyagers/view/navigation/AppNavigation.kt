@@ -7,12 +7,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.natiqhaciyef.voyagers.util.DefaultModelImplementations
+import com.natiqhaciyef.voyagers.util.obj.DefaultModelImplementations
 import com.natiqhaciyef.voyagers.view.screens.home.ContactScreen
 import com.natiqhaciyef.voyagers.view.screens.home.MainScreenLine
 import com.natiqhaciyef.voyagers.view.screens.home.card.PersonalInformationScreen
 import com.natiqhaciyef.voyagers.view.screens.home.card.PaymentDetailsScreen
 import com.natiqhaciyef.voyagers.view.screens.home.card.PaymentScreen
+import com.natiqhaciyef.voyagers.view.screens.home.card.WaitingScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.FlightTicketScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.RentCarScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.HouseRentScreen
@@ -101,6 +102,10 @@ fun AppNavigation() {
 
         composable(route = ScreenID.SavedTours.name){
             SavedToursScreen()
+        }
+
+        composable(route = ScreenID.Waiting.name){
+            WaitingScreen()
         }
     }
 }

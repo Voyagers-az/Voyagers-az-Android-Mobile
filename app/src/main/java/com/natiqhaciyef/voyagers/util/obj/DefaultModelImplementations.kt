@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagers.util
+package com.natiqhaciyef.voyagers.util.obj
 
 import androidx.compose.runtime.mutableStateOf
 import com.natiqhaciyef.voyagers.data.model.*

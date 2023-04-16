@@ -19,7 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.natiqhaciyef.voyagers.util.ContactList
+import com.natiqhaciyef.voyagers.util.obj.ContactList
 import com.natiqhaciyef.voyagers.util.classes.ContactModel
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue

@@ -24,7 +24,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -32,8 +31,8 @@ import androidx.navigation.NavController
 import com.natiqhaciyef.voyagers.data.model.CampModel
 import com.natiqhaciyef.voyagers.data.model.TourModel
 import com.natiqhaciyef.voyagers.data.model.enums.TourScope
-import com.natiqhaciyef.voyagers.util.DefaultModelImplementations
-import com.natiqhaciyef.voyagers.util.FontList
+import com.natiqhaciyef.voyagers.util.obj.DefaultModelImplementations
+import com.natiqhaciyef.voyagers.util.obj.FontList
 import com.natiqhaciyef.voyagers.view.components.CampCardItem
 import com.natiqhaciyef.voyagers.view.components.TourCardItem
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID

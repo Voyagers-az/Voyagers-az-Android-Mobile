@@ -1,7 +1,6 @@
 package com.natiqhaciyef.voyagers.util.functions
 
-import com.natiqhaciyef.voyagers.util.DefaultModelImplementations.ticketInfoModel
-import com.natiqhaciyef.voyagers.util.DefaultModelImplementations.ticketModel
+import com.natiqhaciyef.voyagers.util.obj.DefaultModelImplementations.ticketInfoModel
 
 fun fromDoubleToTimeLine(d: Double = 7.5): String{
     val hours = d.toInt()
