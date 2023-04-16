@@ -10,7 +10,7 @@ import com.natiqhaciyef.voyagers.data.model.TourModelDatabase
 interface TourDao {
 
     @Query("SELECT * FROM tour_model")
-    suspend fun getTourModels(): List<TourModelDatabase>
+    suspend fun getTourModels(): MutableList<TourModelDatabase>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertTourModel(tourModel: TourModelDatabase)

@@ -23,4 +23,7 @@ enum class ScreenID {
     PersonalInformation,
     TourDetails,
     ContactDetails,
+
+    // settings ui
+    SavedTours,
 }

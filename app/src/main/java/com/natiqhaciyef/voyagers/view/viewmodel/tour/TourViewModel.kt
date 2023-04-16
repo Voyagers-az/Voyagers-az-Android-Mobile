@@ -149,7 +149,6 @@ class TourViewModel @Inject constructor(
                             rating = rating
                         )
 
-                        Log.d("MYLOG", "${campModel}")
                         list.add(campModel)
                     }
 
