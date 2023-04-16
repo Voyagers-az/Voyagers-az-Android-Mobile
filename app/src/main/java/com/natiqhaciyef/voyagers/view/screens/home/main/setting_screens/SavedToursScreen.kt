@@ -41,10 +41,7 @@ import com.natiqhaciyef.voyagers.view.viewmodel.tour.TourDetailsViewModel
 fun SavedToursScreen(
     tourDetailsViewModel: TourDetailsViewModel = hiltViewModel()
 ) {
-
     val savedTours = remember { tourDetailsViewModel.savedTours }
-    Log.d("MYLOG - 1", "${savedTours.value}")
-
 
     Box(
         modifier = Modifier
@@ -86,7 +83,6 @@ fun SavedToursMainPart(
         modifier = Modifier.fillMaxWidth()
     ) {
         items(list.value) { tourModel ->
-            Log.d("MYLOG - 2", "${list.value}")
             TourCardComponent(
                 tourModel = tourModel,
             )
@@ -98,8 +94,6 @@ fun SavedToursMainPart(
 private fun TourCardComponent(
     tourModel: TourModel,
 ) {
-    Log.d("MYLOG - 3", "$tourModel")
-
     val colorMatrix = floatArrayOf(
         0.7f, 0f, 0f, 0f, 0f,
         0f, 0.7f, 0f, 0f, 0f,
