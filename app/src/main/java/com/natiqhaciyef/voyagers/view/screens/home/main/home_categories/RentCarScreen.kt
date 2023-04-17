@@ -158,7 +158,6 @@ private fun RentCarTopView(
                     text = "Min qiymət",
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 15.sp,
-                    color = AppGray
                 )
             },
             textStyle = TextStyle.Default.copy(
@@ -176,6 +175,8 @@ private fun RentCarTopView(
                 cursorColor = AppDarkBlue,
                 focusedBorderColor = AppDarkBlue,
                 unfocusedBorderColor = Color.Black,
+                focusedLabelColor = Color.Black,
+                unfocusedLabelColor = AppGray,
                 textColor = if (minPrice.value > 0) Color.Black else AppGray
             ),
             shape = RoundedCornerShape(7.dp)
@@ -197,7 +198,6 @@ private fun RentCarTopView(
                     text = "Max qiymət",
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 15.sp,
-                    color = AppGray
                 )
             },
             textStyle = TextStyle.Default.copy(
@@ -215,6 +215,8 @@ private fun RentCarTopView(
                 cursorColor = AppDarkBlue,
                 focusedBorderColor = AppDarkBlue,
                 unfocusedBorderColor = Color.Black,
+                unfocusedLabelColor = AppGray,
+                focusedLabelColor = Color.Black,
                 textColor = if (maxPrice.value > 0) Color.Black else AppGray
             ),
             shape = RoundedCornerShape(7.dp)

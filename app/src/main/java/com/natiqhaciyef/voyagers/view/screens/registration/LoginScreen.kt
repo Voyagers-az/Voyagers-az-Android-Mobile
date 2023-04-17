@@ -46,9 +46,6 @@ fun LoginScreen(
 ) {
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
-    val users by remember { viewModel.allUsersState }
-
-//    Log.d("MYLOG", "${}")
 
     Column(
         modifier = Modifier
@@ -145,7 +142,8 @@ private fun LoginMainPart(
                     backgroundColor = Color.White,
                     textColor = Color.Black,
                     focusedBorderColor = AppDarkBlue,
-                    unfocusedBorderColor = Color.Gray
+                    unfocusedBorderColor = Color.Gray,
+                    cursorColor = AppDarkBlue,
                 ),
                 shape = RoundedCornerShape(10.dp),
                 textStyle = TextStyle.Default.copy(
@@ -190,7 +188,8 @@ private fun LoginMainPart(
                     textColor = Color.Black,
                     trailingIconColor = Color.Black,
                     focusedBorderColor = AppDarkBlue,
-                    unfocusedBorderColor = Color.Gray
+                    unfocusedBorderColor = Color.Gray,
+                    cursorColor = AppDarkBlue
                 ),
                 shape = RoundedCornerShape(10.dp),
                 textStyle = TextStyle.Default.copy(

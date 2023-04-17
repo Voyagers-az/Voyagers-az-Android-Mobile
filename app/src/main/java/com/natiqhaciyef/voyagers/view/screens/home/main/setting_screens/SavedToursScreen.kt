@@ -1,5 +1,6 @@
 package com.natiqhaciyef.voyagers.view.screens.home.main.setting_screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -74,6 +75,7 @@ fun SavedToursScreen(
 fun SavedToursMainPart(
     list: MutableState<MutableList<TourModel>>
 ) {
+    Log.d("NyLog - n", "$list")
     LazyColumn(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -89,6 +91,8 @@ fun SavedToursMainPart(
 private fun TourCardComponent(
     tourModel: TourModel,
 ) {
+    Log.d("NyLog - x", "$tourModel")
+
     val colorMatrix = floatArrayOf(
         0.7f, 0f, 0f, 0f, 0f,
         0f, 0.7f, 0f, 0f, 0f,
