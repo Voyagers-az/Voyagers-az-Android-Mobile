@@ -10,6 +10,9 @@ import androidx.compose.material.icons.filled.KeyboardCommandKey
 import androidx.compose.material.icons.filled.PinDrop
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,15 +31,12 @@ import coil.compose.rememberImagePainter
 import com.natiqhaciyef.voyagers.data.model.CampModel
 import com.natiqhaciyef.voyagers.data.model.TourModel
 import com.natiqhaciyef.voyagers.util.classes.DataTypes
-import com.natiqhaciyef.voyagers.view.ui.theme.AppAquatic
-import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
-import com.natiqhaciyef.voyagers.view.ui.theme.AppWhiteLightPurple
 import com.natiqhaciyef.voyagers.view.viewmodel.tour.TourDetailsViewModel
 import com.natiqhaciyef.voyagers.util.obj.FontList
 import com.natiqhaciyef.voyagers.view.components.RatingBar
 import com.natiqhaciyef.voyagers.view.navigation.NavigationData
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID
-import com.natiqhaciyef.voyagers.view.ui.theme.DarkYellow
+import com.natiqhaciyef.voyagers.view.ui.theme.*
 
 
 @Preview
@@ -46,6 +46,7 @@ fun TourDetailsScreen(
     viewModel: TourDetailsViewModel = hiltViewModel(),
     navController: NavController = rememberNavController()
 ) {
+    val isLiked = remember { mutableStateOf(false) }
     val item = viewModel.dataTypeCaster(data)
 
     Box(
@@ -64,7 +65,7 @@ fun TourDetailsScreen(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            TourDetailsTopView(item, data, navController, viewModel)
+            TourDetailsTopView(item, data, navController, viewModel, isLiked)
             TourDetailsMainView(data, navController)
         }
     }
@@ -76,7 +77,8 @@ fun TourDetailsTopView(
     type: DataTypes = DataTypes.PlaceModel,
     data: Any = Any(),
     navController: NavController,
-    viewModel: TourDetailsViewModel
+    viewModel: TourDetailsViewModel,
+    isLiked: MutableState<Boolean>
 ) {
     val colorMatrix = floatArrayOf(
         0.8f, 0f, 0f, 0f, 0f,
@@ -135,17 +137,35 @@ fun TourDetailsTopView(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(
-                    imageVector = Icons.Outlined.Favorite,
-                    contentDescription = "Like",
-                    modifier = Modifier
-                        .size(30.dp)
-                        .clickable {
-                            if (data is TourModel)
-                                viewModel.saveTourModel(data)
-                        },
-                    tint = AppWhiteLightPurple
-                )
+                if (!isLiked.value) {
+                    Icon(
+                        imageVector = Icons.Outlined.Favorite,
+                        contentDescription = "Like",
+                        modifier = Modifier
+                            .size(30.dp)
+                            .clickable {
+                                isLiked.value = !isLiked.value
+                                if (data is TourModel) {
+                                    viewModel.saveTourModel(data)
+                                }
+                            },
+                        tint = AppWhiteLightPurple
+                    )
+                }else{
+                    Icon(
+                        imageVector = Icons.Outlined.Favorite,
+                        contentDescription = "Like",
+                        modifier = Modifier
+                            .size(30.dp)
+                            .clickable {
+                                isLiked.value = !isLiked.value
+                                if (data is TourModel) {
+                                    viewModel.deleteTourModel(data)
+                                }
+                            },
+                        tint = Red
+                    )
+                }
 
                 Spacer(modifier = Modifier.width(30.dp))
                 Icon(

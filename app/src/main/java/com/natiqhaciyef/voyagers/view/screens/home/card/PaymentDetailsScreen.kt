@@ -300,6 +300,7 @@ fun PaymentDetailsScreen(
                     ) {
                         if (NavigationData.userModel != null) {
                             val paymentDataModel = PaymentDataModel(
+                                id = 0,
                                 paymentType = paymentMethod,
                                 nameOnCard = nameOnCard.value,
                                 numberOnCard = numberOnCard.value,
@@ -308,6 +309,7 @@ fun PaymentDetailsScreen(
                                 userModel = NavigationData.userModel!!
                             )
                             val paymentDataModelForLocalDb = PaymentDataModel(
+                                id = 0,
                                 paymentType = paymentMethod,
                                 nameOnCard = nameOnCard.value,
                                 numberOnCard = numberOnCard.value,

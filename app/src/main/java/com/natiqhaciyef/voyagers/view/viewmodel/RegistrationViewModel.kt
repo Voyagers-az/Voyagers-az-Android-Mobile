@@ -27,7 +27,7 @@ class RegistrationViewModel @Inject constructor(
     }
 
     fun getUser(email: String) = viewModelScope.launch(Dispatchers.Main) {
-        val user = repository.getUser(email)
+        val user = repository.getUserByEmail(email)
         if (user != null) {
             userState.value = user
         } else {

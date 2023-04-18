@@ -1,10 +1,8 @@
 package com.natiqhaciyef.voyagers.data.local.repository
 
 import com.natiqhaciyef.voyagers.data.local.source.TourDataSource
-import com.natiqhaciyef.voyagers.data.model.CampModel
-import com.natiqhaciyef.voyagers.data.model.CampModelDatabase
-import com.natiqhaciyef.voyagers.data.model.TourModel
-import com.natiqhaciyef.voyagers.data.model.TourModelDatabase
+import com.natiqhaciyef.voyagers.data.model.db.CampModelDatabase
+import com.natiqhaciyef.voyagers.data.model.db.TourModelDatabase
 
 class TourRepository(var ds: TourDataSource) {
 
