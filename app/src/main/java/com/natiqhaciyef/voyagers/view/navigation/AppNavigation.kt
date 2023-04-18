@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.natiqhaciyef.voyagers.util.obj.DefaultModelImplementations
-import com.natiqhaciyef.voyagers.view.screens.home.ContactScreen
+import com.natiqhaciyef.voyagers.view.screens.home.main.ContactScreen
 import com.natiqhaciyef.voyagers.view.screens.home.MainScreenLine
 import com.natiqhaciyef.voyagers.view.screens.home.card.PersonalInformationScreen
 import com.natiqhaciyef.voyagers.view.screens.home.card.PaymentDetailsScreen
@@ -73,7 +73,7 @@ fun AppNavigation() {
         }
 
         composable(route = ScreenID.ContactDetails.name) {
-            ContactScreen()
+            ContactScreen(navController)
         }
 
         composable(route = ScreenID.Payment.name) {

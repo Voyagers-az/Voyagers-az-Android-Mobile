@@ -32,7 +32,8 @@ fun CategoryCardView(
     navController: NavController
 ) {
     Card(
-        modifier = Modifier.size(70.dp)
+        modifier = Modifier
+            .size(70.dp)
             .clickable {
                 navigateChecker(icon, navController)
             },
@@ -57,10 +58,16 @@ fun CategoryCardView(
 
 //@Preview
 @Composable
-fun ContactCardItem(contactModel: ContactModel = ContactList.list[0]) {
+fun ContactCardItem(
+    contactModel: ContactModel = ContactList.list[0],
+    navController: NavController
+) {
     Card(
         modifier = Modifier
-            .size(85.dp),
+            .size(85.dp)
+            .clickable {
+                navController.navigate(ScreenID.ContactDetails.name)
+            },
         shape = RoundedCornerShape(10.dp),
         elevation = 5.dp
     ) {
@@ -88,9 +95,15 @@ fun ContactCardItem(contactModel: ContactModel = ContactList.list[0]) {
     }
 }
 
-fun navigateChecker(icon: ImageVector, navController: NavController) = when(icon){
-    Icons.Default.DirectionsCar -> { navController.navigate(ScreenID.RentCar.name) }
-    Icons.Default.KingBed, -> { navController.navigate(ScreenID.HouseRent.name) }
-    Icons.Default.Flight -> { navController.navigate(ScreenID.FlightTickets.name) }
+fun navigateChecker(icon: ImageVector, navController: NavController) = when (icon) {
+    Icons.Default.DirectionsCar -> {
+        navController.navigate(ScreenID.RentCar.name)
+    }
+    Icons.Default.KingBed -> {
+        navController.navigate(ScreenID.HouseRent.name)
+    }
+    Icons.Default.Flight -> {
+        navController.navigate(ScreenID.FlightTickets.name)
+    }
     else -> navController.navigate(ScreenID.MainScreenLine.name)
 }
