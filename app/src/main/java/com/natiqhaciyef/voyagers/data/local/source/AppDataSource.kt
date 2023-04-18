@@ -8,8 +8,12 @@ import kotlinx.coroutines.withContext
 
 class AppDataSource(val dao: AppDao) {
 
-    suspend fun getUser(email: String) = withContext(Dispatchers.IO){
-        dao.getUser(email)
+    suspend fun getUserByEmail(email: String) = withContext(Dispatchers.IO){
+        dao.getUserByEmail(email)
+    }
+
+    suspend fun getUserByName(usernmae: String) = withContext(Dispatchers.IO){
+        dao.getUserByName(usernmae)
     }
 
     suspend fun getAllUsers() = withContext(Dispatchers.IO){

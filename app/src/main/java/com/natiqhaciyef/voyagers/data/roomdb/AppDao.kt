@@ -7,7 +7,8 @@ import com.natiqhaciyef.voyagers.data.model.UserModel
 interface AppDao {
 
     @Query("SELECT * FROM user_model WHERE email = :email")
-    suspend fun getUser(email: String): UserModel?
+    suspend fun getUserByEmail(email: String): UserModel?
+
     @Query("SELECT * FROM user_model")
     fun getAllUsers(): List<UserModel>
 
@@ -16,4 +17,7 @@ interface AppDao {
 
     @Delete
     suspend fun deleteUser(userModel: UserModel)
+
+    @Query("SELECT * FROM user_model WHERE name = :username")
+    suspend fun getUserByName(username: String): UserModel?
 }

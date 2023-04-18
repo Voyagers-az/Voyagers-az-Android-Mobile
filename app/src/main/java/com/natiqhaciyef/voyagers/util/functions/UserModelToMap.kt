@@ -2,9 +2,9 @@ package com.natiqhaciyef.voyagers.util.functions
 
 import com.natiqhaciyef.voyagers.data.model.UserModel
 
-fun UserModel.toMapForFirebase(): Map<String, Any> {
-    val map = mutableMapOf<String, Any>()
-    map["id"] = this.id
+fun UserModel.toMapForFirebase(): Map<String, String> {
+    val map = mutableMapOf<String, String>()
+    map["id"] = this.id.toString()
     map["name"] = this.name
     map["surname"] = this.surname
     map["dateOfBirth"] = this.dateOfBirth
@@ -19,7 +19,7 @@ fun UserModel.toMapForFirebase(): Map<String, Any> {
 }
 
 
-fun Map<String, Any>.toUserModelForFirebase(): UserModel {
+fun Map<String, String>.toUserModelForFirebase(): UserModel {
     return UserModel(
         id = this["id"].toString().toInt(),
         name = this["name"].toString(),

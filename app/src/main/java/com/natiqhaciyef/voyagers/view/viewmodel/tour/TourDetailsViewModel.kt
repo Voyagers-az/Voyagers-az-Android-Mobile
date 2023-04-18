@@ -1,12 +1,12 @@
 package com.natiqhaciyef.voyagers.view.viewmodel.tour
 
-import android.annotation.SuppressLint
 import android.util.Log
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.natiqhaciyef.voyagers.data.local.repository.TourRepository
 import com.natiqhaciyef.voyagers.data.model.*
+import com.natiqhaciyef.voyagers.data.model.db.CampModelDatabase
+import com.natiqhaciyef.voyagers.data.model.db.TourModelDatabase
 import com.natiqhaciyef.voyagers.util.classes.DataTypes
 import com.natiqhaciyef.voyagers.util.functions.toSQLiteMutableList
 import com.natiqhaciyef.voyagers.util.functions.toSQLiteMutableMap

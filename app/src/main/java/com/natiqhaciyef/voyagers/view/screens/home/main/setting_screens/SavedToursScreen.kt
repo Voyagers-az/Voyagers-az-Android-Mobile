@@ -1,17 +1,15 @@
 package com.natiqhaciyef.voyagers.view.screens.home.main.setting_screens
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,9 +22,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ExperimentalMotionApi
+import androidx.constraintlayout.compose.SwipeDirection
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
 import com.natiqhaciyef.voyagers.data.model.TourModel
+import com.natiqhaciyef.voyagers.util.obj.DefaultModelImplementations
 import com.natiqhaciyef.voyagers.view.components.RatingBar
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.AppWhiteLightPurple
@@ -66,23 +67,40 @@ fun SavedToursScreen(
             )
 
             Spacer(modifier = Modifier.height(55.dp))
-            SavedToursMainPart(savedTours)
+            SavedToursMainPart(savedTours, tourDetailsViewModel)
         }
     }
 }
 
+
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SavedToursMainPart(
-    list: MutableState<MutableList<TourModel>>
+    list: MutableState<MutableList<TourModel>>,
+    viewModel: TourDetailsViewModel
 ) {
-    Log.d("NyLog - n", "$list")
     LazyColumn(
         modifier = Modifier.fillMaxWidth()
     ) {
         items(list.value) { tourModel ->
-            TourCardComponent(
-                tourModel = tourModel,
+            val dismissState = rememberDismissState(
+                confirmStateChange = {
+                    if (it == DismissValue.DismissedToStart) {
+                        viewModel.deleteTourModel(tourModel)
+                    }
+                    true
+                }
             )
+            SwipeToDismiss(
+                state = dismissState,
+                background = {},
+                directions = setOf(DismissDirection.EndToStart),
+            ) {
+                TourCardComponent(
+                    tourModel = tourModel,
+                )
+            }
+
         }
     }
 }
@@ -91,8 +109,6 @@ fun SavedToursMainPart(
 private fun TourCardComponent(
     tourModel: TourModel,
 ) {
-    Log.d("NyLog - x", "$tourModel")
-
     val colorMatrix = floatArrayOf(
         0.7f, 0f, 0f, 0f, 0f,
         0f, 0.7f, 0f, 0f, 0f,
