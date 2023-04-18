@@ -161,7 +161,8 @@ private fun RegisterMainPart(
                     backgroundColor = Color.White,
                     textColor = colorResource(id = MaterialTheme.colors.textInputColor),
                     focusedBorderColor = AppDarkBlue,
-                    unfocusedBorderColor = Color.Gray
+                    unfocusedBorderColor = Color.Gray,
+                    cursorColor = AppDarkBlue
                 ),
                 shape = RoundedCornerShape(10.dp),
                 textStyle = TextStyle.Default.copy(
@@ -204,7 +205,8 @@ private fun RegisterMainPart(
                     backgroundColor = Color.White,
                     textColor = colorResource(id = MaterialTheme.colors.textInputColor),
                     focusedBorderColor = AppDarkBlue,
-                    unfocusedBorderColor = Color.Gray
+                    unfocusedBorderColor = Color.Gray,
+                    cursorColor = AppDarkBlue
                 ),
                 shape = RoundedCornerShape(10.dp),
                 textStyle = TextStyle.Default.copy(
@@ -247,7 +249,8 @@ private fun RegisterMainPart(
                     backgroundColor = Color.White,
                     textColor = Color.Black,
                     focusedBorderColor = AppDarkBlue,
-                    unfocusedBorderColor = Color.Gray
+                    unfocusedBorderColor = Color.Gray,
+                    cursorColor = AppDarkBlue
                 ),
                 shape = RoundedCornerShape(10.dp),
                 textStyle = TextStyle.Default.copy(
@@ -292,7 +295,8 @@ private fun RegisterMainPart(
                     textColor = Color.Black,
                     trailingIconColor = Color.Black,
                     focusedBorderColor = AppDarkBlue,
-                    unfocusedBorderColor = Color.Gray
+                    unfocusedBorderColor = Color.Gray,
+                    cursorColor = AppDarkBlue
                 ),
                 shape = RoundedCornerShape(10.dp),
                 textStyle = TextStyle.Default.copy(

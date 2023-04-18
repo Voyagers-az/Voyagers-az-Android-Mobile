@@ -139,7 +139,7 @@ fun PersonalInformationTopView(
 ) {
     Image(
         painter = if (imageData.value != null) rememberImagePainter(data = imageData.value)
-        else painterResource(id = R.drawable.id_card_icon),
+        else painterResource(id = R.drawable.id_card),
         contentDescription = "Image",
         modifier = Modifier
             .width(300.dp)
@@ -173,8 +173,10 @@ fun PersonalInformationMainPart(
         shape = RoundedCornerShape(10.dp)
     ) {
         Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier
+                .fillMaxSize()
+                .background(AppDarkBlue),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(modifier = Modifier.height(20.dp))
             Text(
@@ -184,7 +186,7 @@ fun PersonalInformationMainPart(
                 text = "Ad və Soyad",
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 18.sp,
-                color = Color.Black
+                color = Color.White
             )
             Spacer(modifier = Modifier.height(5.dp))
             OutlinedTextField(
@@ -192,6 +194,7 @@ fun PersonalInformationMainPart(
                     .fillMaxWidth()
                     .height(55.dp)
                     .padding(horizontal = 20.dp),
+                shape = RoundedCornerShape(8.dp),
                 value = nameSurname.value,
                 onValueChange = { nameSurname.value = it },
                 keyboardOptions = KeyboardOptions.Default.copy(
@@ -213,7 +216,8 @@ fun PersonalInformationMainPart(
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     backgroundColor = Color.White,
                     focusedBorderColor = AppDarkBlue,
-                    unfocusedBorderColor = AppGray
+                    unfocusedBorderColor = AppGray,
+                    cursorColor = AppDarkBlue
                 )
             )
 
@@ -225,7 +229,7 @@ fun PersonalInformationMainPart(
                 text = "E-poçt (qeydiyyatdan keçdiyiniz)",
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 18.sp,
-                color = Color.Black
+                color = Color.White
             )
             Spacer(modifier = Modifier.height(5.dp))
             OutlinedTextField(
@@ -233,6 +237,7 @@ fun PersonalInformationMainPart(
                     .fillMaxWidth()
                     .height(55.dp)
                     .padding(horizontal = 20.dp),
+                shape = RoundedCornerShape(8.dp),
                 value = email.value,
                 onValueChange = { email.value = it },
                 keyboardOptions = KeyboardOptions.Default.copy(
@@ -254,7 +259,8 @@ fun PersonalInformationMainPart(
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     backgroundColor = Color.White,
                     focusedBorderColor = AppDarkBlue,
-                    unfocusedBorderColor = AppGray
+                    unfocusedBorderColor = AppGray,
+                    cursorColor = AppDarkBlue
                 )
             )
 
@@ -266,7 +272,7 @@ fun PersonalInformationMainPart(
                 text = "Əlaqə nömrəsi",
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 18.sp,
-                color = Color.Black
+                color = Color.White
             )
             Spacer(modifier = Modifier.height(5.dp))
             OutlinedTextField(
@@ -274,6 +280,7 @@ fun PersonalInformationMainPart(
                     .fillMaxWidth()
                     .height(55.dp)
                     .padding(horizontal = 20.dp),
+                shape = RoundedCornerShape(8.dp),
                 value = phone.value,
                 onValueChange = { phone.value = it },
                 keyboardOptions = KeyboardOptions.Default.copy(
@@ -307,7 +314,7 @@ fun PersonalInformationMainPart(
                 text = "Fərdi identifikasiya nömrəsi (FIN kod)",
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 18.sp,
-                color = Color.Black
+                color = Color.White
             )
             Spacer(modifier = Modifier.height(5.dp))
             OutlinedTextField(
@@ -315,6 +322,7 @@ fun PersonalInformationMainPart(
                     .fillMaxWidth()
                     .height(55.dp)
                     .padding(horizontal = 20.dp),
+                shape = RoundedCornerShape(8.dp),
                 value = finCode.value,
                 onValueChange = { finCode.value = it },
                 keyboardOptions = KeyboardOptions.Default.copy(
@@ -336,7 +344,8 @@ fun PersonalInformationMainPart(
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     backgroundColor = Color.White,
                     focusedBorderColor = AppDarkBlue,
-                    unfocusedBorderColor = AppGray
+                    unfocusedBorderColor = AppGray,
+                    cursorColor = AppDarkBlue
                 )
             )
         }
@@ -368,8 +377,9 @@ fun PersonalInformationBottomView(
             ) {
                 NavigationData.userModel = UserModel(
                     id = 0,
-                    name = nameSurname.value.nameSurnameSplitter()["name"]?: nameSurname.value,
-                    surname = nameSurname.value.nameSurnameSplitter()["surname"]?: nameSurname.value,
+                    name = nameSurname.value.nameSurnameSplitter()["name"] ?: nameSurname.value,
+                    surname = nameSurname.value.nameSurnameSplitter()["surname"]
+                        ?: nameSurname.value,
                     dateOfBirth = "",
                     email = email.value,
                     phone = phone.value,

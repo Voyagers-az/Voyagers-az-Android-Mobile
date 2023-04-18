@@ -57,7 +57,7 @@ fun HomeScreen(
                     .background(Color.Transparent)
             ) {
                 HomeTopView(navController, list)
-                HomeMainPartView(places, viewModel.isLoading)
+                HomeMainPartView(places, viewModel.isLoading, navController)
                 Spacer(modifier = Modifier.height(60.dp))
             }
         }
@@ -145,6 +145,7 @@ fun HomeTopView(
 fun HomeMainPartView(
     list: MutableState<List<PlaceModel>> = mutableStateOf(mutableListOf()),
     isLoading: MutableState<Boolean> = mutableStateOf(true),
+    navController: NavController
 ) {
     val context = LocalContext.current
     Column {
@@ -192,11 +193,20 @@ fun HomeMainPartView(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            ContactCardItem(contactModel = ContactList.list[0])
+            ContactCardItem(
+                contactModel = ContactList.list[0],
+                navController = navController
+            )
             Spacer(modifier = Modifier.width(30.dp))
-            ContactCardItem(contactModel = ContactList.list[1])
+            ContactCardItem(
+                contactModel = ContactList.list[1],
+                navController = navController
+            )
             Spacer(modifier = Modifier.width(30.dp))
-            ContactCardItem(contactModel = ContactList.list[2])
+            ContactCardItem(
+                contactModel = ContactList.list[2],
+                navController = navController
+            )
         }
 
         Spacer(modifier = Modifier.height(10.dp))
