@@ -22,8 +22,6 @@ class PaymentViewModel @Inject constructor(
     var users = mutableStateOf<List<UserModel>>(mutableListOf())
     val firestore = Firebase.firestore
 
-
-
     init {
         getAllUsers()
     }
@@ -43,6 +41,7 @@ class PaymentViewModel @Inject constructor(
     fun sendPaymentInfoToFirebase(paymentDataModel: PaymentDataModel) {
         viewModelScope.launch(Dispatchers.IO) {
             val paymentMap = hashMapOf<String, Any>()
+            paymentMap["id"] = paymentDataModel.id
             paymentMap["paymentType"] = paymentDataModel.paymentType
             paymentMap["cvvCode"] = paymentDataModel.cvvCode
             paymentMap["expirationDate"] = paymentDataModel.expirationDate
@@ -54,7 +53,7 @@ class PaymentViewModel @Inject constructor(
                 .document(paymentDataModel.nameOnCard)
                 .set(paymentMap)
                 .addOnSuccessListener {
-
+                    // send data to room db
                 }.addOnFailureListener {
                     Log.d("MYLOG", "${it.message} -> Error coused")
                 }

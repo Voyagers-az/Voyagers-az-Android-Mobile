@@ -6,7 +6,9 @@ import com.natiqhaciyef.voyagers.data.roomdb.AppDatabase
 
 class LocalRepository(val ds: AppDataSource) {
 
-    suspend fun getUser(email: String) = ds.getUser(email)
+    suspend fun getUserByEmail(email: String) = ds.getUserByEmail(email)
+
+    suspend fun getUserByName(username: String) = ds.getUserByName(username)
 
     suspend fun getAllUsers() = ds.getAllUsers()
 

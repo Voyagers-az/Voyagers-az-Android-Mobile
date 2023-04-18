@@ -1,10 +1,8 @@
 package com.natiqhaciyef.voyagers.data.roomdb
 
 import androidx.room.*
-import com.natiqhaciyef.voyagers.data.model.CampModel
-import com.natiqhaciyef.voyagers.data.model.CampModelDatabase
-import com.natiqhaciyef.voyagers.data.model.TourModel
-import com.natiqhaciyef.voyagers.data.model.TourModelDatabase
+import com.natiqhaciyef.voyagers.data.model.db.CampModelDatabase
+import com.natiqhaciyef.voyagers.data.model.db.TourModelDatabase
 
 @Dao
 interface TourDao {

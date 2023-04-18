@@ -1,8 +1,7 @@
 package com.natiqhaciyef.voyagers.data.local.source
 
-import com.natiqhaciyef.voyagers.data.model.CampModelDatabase
-import com.natiqhaciyef.voyagers.data.model.TourModel
-import com.natiqhaciyef.voyagers.data.model.TourModelDatabase
+import com.natiqhaciyef.voyagers.data.model.db.CampModelDatabase
+import com.natiqhaciyef.voyagers.data.model.db.TourModelDatabase
 import com.natiqhaciyef.voyagers.data.roomdb.TourDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

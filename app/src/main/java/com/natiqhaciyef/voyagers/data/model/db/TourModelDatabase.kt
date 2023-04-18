@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagers.data.model
+package com.natiqhaciyef.voyagers.data.model.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

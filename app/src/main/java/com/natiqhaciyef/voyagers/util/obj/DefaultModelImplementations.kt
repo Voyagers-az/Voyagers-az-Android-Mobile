@@ -2,6 +2,7 @@ package com.natiqhaciyef.voyagers.util.obj
 
 import androidx.compose.runtime.mutableStateOf
 import com.natiqhaciyef.voyagers.data.model.*
+import com.natiqhaciyef.voyagers.data.model.db.FirebaseUserModel
 import com.natiqhaciyef.voyagers.data.model.enums.Luggage
 import com.natiqhaciyef.voyagers.data.model.enums.RegionSide
 import com.natiqhaciyef.voyagers.data.model.enums.TourScope
@@ -44,6 +45,25 @@ object DefaultModelImplementations {
         visaImage = "",
         idImage = "",
         password = "12345"
+    )
+
+    val userModelEmpty = UserModel(
+        id = 0,
+        name = "",
+        email = "",
+        surname = "",
+        dateOfBirth = "",
+        phone = "",
+        idNumber = "",
+        visaImage = "",
+        idImage = "",
+        password = ""
+    )
+
+    val firebaseUserModel = FirebaseUserModel(
+        username = "Natiq",
+        email = "@gmail.com",
+        phone = "88888888"
     )
 
     var place: PlaceModel = PlaceModel(
