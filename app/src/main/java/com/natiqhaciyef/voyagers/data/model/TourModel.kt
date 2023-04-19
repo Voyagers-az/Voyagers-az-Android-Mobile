@@ -17,5 +17,6 @@ data class TourModel(
     var location: String,
     var companyName: String,
     var date: MutableMap<String, String>,
-    var region: String = "Qeyd olunmayıb"
+    var region: String = "Qeyd olunmayıb",
+    var isLiked: Boolean
 )

@@ -1,5 +1,6 @@
 package com.natiqhaciyef.voyagers.view.screens.home.main.setting_screens
 
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ExperimentalMotionApi
 import androidx.constraintlayout.compose.SwipeDirection
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
 import com.natiqhaciyef.voyagers.data.model.CampModel
@@ -151,6 +153,7 @@ private fun TourCardComponent(
                 strokeWidth = 3.dp
             )
         }
+
 
 
         Image(

@@ -19,5 +19,6 @@ data class CampModelDatabase(
     var personCount: Int,
     var region: String,
     var rating: Double,
-    var date: String
+    var date: String,
+    var isLiked: Boolean
 )
