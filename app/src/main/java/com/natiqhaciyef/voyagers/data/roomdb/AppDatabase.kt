@@ -9,7 +9,7 @@ import com.natiqhaciyef.voyagers.data.model.db.TourModelDatabase
 
 @Database(
     entities = [UserModel::class, TourModelDatabase::class, CampModelDatabase::class, PaymentDBModel::class],
-    version = 4
+    version = 5
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getDao(): AppDao

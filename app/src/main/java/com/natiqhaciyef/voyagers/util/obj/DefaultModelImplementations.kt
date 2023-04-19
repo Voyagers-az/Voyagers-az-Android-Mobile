@@ -89,7 +89,8 @@ object DefaultModelImplementations {
         location = "Ispaniya, Kataloniya, Barselona",
         companyName = "Voyagers",
         region = RegionSide.Europe.side,
-        date = mutableMapOf("21 June" to "24 June")
+        date = mutableMapOf("21 June" to "24 June"),
+        isLiked = false
     )
 
 
@@ -106,7 +107,8 @@ object DefaultModelImplementations {
         scope = TourScope.Local.scope,
         companyName = "Voyagers",
         region = RegionSide.North.side,
-        location = "Şamaxı"
+        location = "Şamaxı",
+        isLiked = false
     )
 
     val flightTransfer = FlightTransfer(

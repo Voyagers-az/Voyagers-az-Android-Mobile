@@ -16,5 +16,6 @@ data class CampModel(
     var personCount: Int,
     var region: String,
     var rating: Double,
-    var date: MutableMap<String, String>
+    var date: MutableMap<String, String>,
+    var isLiked: Boolean
 )
