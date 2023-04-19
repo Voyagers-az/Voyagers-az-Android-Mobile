@@ -46,7 +46,6 @@ fun TourDetailsScreen(
     viewModel: TourDetailsViewModel = hiltViewModel(),
     navController: NavController = rememberNavController()
 ) {
-    val isLiked = remember { mutableStateOf(false) }
     val item = viewModel.dataTypeCaster(data)
 
     Box(
@@ -65,7 +64,7 @@ fun TourDetailsScreen(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            TourDetailsTopView(item, data, navController, viewModel, isLiked)
+            TourDetailsTopView(item, data, navController, viewModel)
             TourDetailsMainView(data, navController)
         }
     }
@@ -78,7 +77,6 @@ fun TourDetailsTopView(
     data: Any = Any(),
     navController: NavController,
     viewModel: TourDetailsViewModel,
-    isLiked: MutableState<Boolean>
 ) {
     val colorMatrix = floatArrayOf(
         0.8f, 0f, 0f, 0f, 0f,
@@ -87,7 +85,7 @@ fun TourDetailsTopView(
         0f, 0f, 0f, 1f, 0f
     )
 
-//    Spacer(modifier = Modifier.height(30.dp))
+    val isLiked: MutableState<Boolean> = remember{ mutableStateOf(false) }
 
     Card(
         modifier = Modifier
@@ -147,11 +145,13 @@ fun TourDetailsTopView(
                                 isLiked.value = !isLiked.value
                                 if (data is TourModel) {
                                     viewModel.saveTourModel(data)
+                                } else if (data is CampModel) {
+                                    viewModel.saveCampModel(data)
                                 }
                             },
                         tint = AppWhiteLightPurple
                     )
-                }else{
+                } else {
                     Icon(
                         imageVector = Icons.Outlined.Favorite,
                         contentDescription = "Like",
@@ -161,6 +161,8 @@ fun TourDetailsTopView(
                                 isLiked.value = !isLiked.value
                                 if (data is TourModel) {
                                     viewModel.deleteTourModel(data)
+                                } else if (data is CampModel) {
+                                    viewModel.deleteCampModel(data)
                                 }
                             },
                         tint = Red

@@ -17,7 +17,7 @@ interface TourDao {
     suspend fun deleteTourModel(tourModel: TourModelDatabase)
 
 
-    @Query("SELECT * FROM tour_model")
+    @Query("SELECT * FROM camp_model")
     suspend fun getCampModels(): List<CampModelDatabase>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
