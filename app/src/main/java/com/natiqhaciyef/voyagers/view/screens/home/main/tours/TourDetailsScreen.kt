@@ -42,6 +42,7 @@ import com.natiqhaciyef.voyagers.view.components.RatingBar
 import com.natiqhaciyef.voyagers.view.navigation.NavigationData
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.*
+import com.natiqhaciyef.voyagers.view.viewmodel.settings.SettingsViewModel
 
 
 @Preview
@@ -199,8 +200,21 @@ fun TourDetailsTopView(
 @Composable
 fun TourDetailsMainView(
     data: Any = Any(),
-    navController: NavController
+    navController: NavController,
+    viewModel: SettingsViewModel = hiltViewModel()
 ) {
+    val appeals = remember{ viewModel.appeals }
+    val enableState = remember { mutableStateOf(true) }
+
+    if (data is TourModel){
+        val toursList = mutableListOf<TourModel>()
+        appeals.value.forEach {
+            toursList.add(it.tourModel)
+        }
+
+        enableState.value = !toursList.contains(data)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth(),
@@ -316,12 +330,14 @@ fun TourDetailsMainView(
                 navController.navigate(ScreenID.PersonalInformation.name)
             },
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = AppDarkBlue
+                backgroundColor = AppDarkBlue,
+                disabledBackgroundColor = AppGray
             ),
+            enabled = enableState.value,
             shape = RoundedCornerShape(10.dp)
         ) {
             Text(
-                text = "Müraciət et",
+                text = if(enableState.value) "Müraciət et" else "Müraciət edilib",
                 color = AppWhiteLightPurple,
                 fontWeight = FontWeight.Bold,
                 fontSize = 17.sp,
