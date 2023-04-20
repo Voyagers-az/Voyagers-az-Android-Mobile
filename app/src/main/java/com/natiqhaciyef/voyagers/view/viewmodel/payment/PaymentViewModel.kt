@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.natiqhaciyef.voyagers.data.local.repository.LocalRepository
-import com.natiqhaciyef.voyagers.data.model.PaymentDataModel
+import com.natiqhaciyef.voyagers.data.model.payment.PaymentDataModel
 import com.natiqhaciyef.voyagers.data.model.UserModel
 import com.natiqhaciyef.voyagers.util.functions.toMapForFirebase
 import com.natiqhaciyef.voyagers.view.viewmodel.BaseViewModel

@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagers.data.model
+package com.natiqhaciyef.voyagers.data.model.car
 
 data class CarRentModel(
     var id: Int,

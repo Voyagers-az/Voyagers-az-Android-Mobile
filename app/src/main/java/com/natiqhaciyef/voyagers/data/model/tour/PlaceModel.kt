@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagers.data.model
+package com.natiqhaciyef.voyagers.data.model.tour
 
 import com.natiqhaciyef.voyagers.data.model.enums.RegionSide
 

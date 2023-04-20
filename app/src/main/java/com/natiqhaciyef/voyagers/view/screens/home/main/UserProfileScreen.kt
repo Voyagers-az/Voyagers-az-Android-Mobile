@@ -91,7 +91,7 @@ fun UserProfileMainView(
             modifier = Modifier
         ) {
             LikedPosts(navController)
-            LastTours()
+            TourAppeal(navController)
         }
     }
 
@@ -196,11 +196,14 @@ private fun LikedPosts(
 
 
 @Composable
-private fun LastTours() {
+private fun TourAppeal(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 20.dp, top = 15.dp, bottom = 15.dp)
+            .clickable {
+                navController.navigate(ScreenID.TourAppeal.name)
+            }
     ) {
         Row(
             modifier = Modifier
@@ -219,7 +222,7 @@ private fun LastTours() {
             Spacer(modifier = Modifier.width(30.dp))
 
             Text(
-                text = "Son gəzintilər",
+                text = "Son müraciətlər",
                 fontSize = 17.sp,
                 color = AppDarkBlue,
                 fontWeight = FontWeight.Bold,

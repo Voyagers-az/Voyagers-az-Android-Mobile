@@ -2,10 +2,20 @@ package com.natiqhaciyef.voyagers.util.obj
 
 import androidx.compose.runtime.mutableStateOf
 import com.natiqhaciyef.voyagers.data.model.*
+import com.natiqhaciyef.voyagers.data.model.car.CarModel
+import com.natiqhaciyef.voyagers.data.model.car.CarRentModel
 import com.natiqhaciyef.voyagers.data.model.db.FirebaseUserModel
 import com.natiqhaciyef.voyagers.data.model.enums.Luggage
+import com.natiqhaciyef.voyagers.data.model.enums.PaymentTypes
 import com.natiqhaciyef.voyagers.data.model.enums.RegionSide
 import com.natiqhaciyef.voyagers.data.model.enums.TourScope
+import com.natiqhaciyef.voyagers.data.model.flight.FlightTransfer
+import com.natiqhaciyef.voyagers.data.model.flight.TicketInfoModel
+import com.natiqhaciyef.voyagers.data.model.flight.TicketModel
+import com.natiqhaciyef.voyagers.data.model.payment.PaymentDataModel
+import com.natiqhaciyef.voyagers.data.model.tour.CampModel
+import com.natiqhaciyef.voyagers.data.model.tour.PlaceModel
+import com.natiqhaciyef.voyagers.data.model.tour.TourModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -138,6 +148,16 @@ object DefaultModelImplementations {
         id = 0,
         userInfo = userModel,
         ticketModel = ticketModel
+    )
+
+    val paymentDataModel = PaymentDataModel(
+        id = 0,
+        paymentType = PaymentTypes.VISA.mainName,
+        nameOnCard = "Natig Haciyev",
+        numberOnCard = "9329 9092 6483 8884",
+        expirationDate = "07/27",
+        cvvCode = 992,
+        userModel = userModel
     )
 
     private fun dateTime(): String {

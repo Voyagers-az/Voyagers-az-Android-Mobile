@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagers.data.model
+package com.natiqhaciyef.voyagers.data.model.car
 
 data class CarModel(
     var id: Int,
@@ -24,7 +24,7 @@ data class CarModel(
 
 
     companion object{
-        fun mapToCarModel(map: Map<String, String>): CarModel{
+        fun mapToCarModel(map: Map<String, String>): CarModel {
             return CarModel(
                 id = map["id"]!!.toInt(),
                 name = map["name"]!!.toString(),

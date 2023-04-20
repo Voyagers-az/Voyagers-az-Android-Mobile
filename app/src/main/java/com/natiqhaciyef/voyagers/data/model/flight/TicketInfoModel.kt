@@ -1,6 +1,6 @@
-package com.natiqhaciyef.voyagers.data.model
+package com.natiqhaciyef.voyagers.data.model.flight
 
-import com.natiqhaciyef.voyagers.data.model.enums.Luggage
+import com.natiqhaciyef.voyagers.data.model.UserModel
 
 data class TicketInfoModel(
     var id: Int,

@@ -1,6 +1,4 @@
-package com.natiqhaciyef.voyagers.data.model
-
-import com.natiqhaciyef.voyagers.data.model.enums.Luggage
+package com.natiqhaciyef.voyagers.data.model.flight
 
 data class TicketModel(
     var price: Double,

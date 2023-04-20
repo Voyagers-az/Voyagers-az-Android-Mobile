@@ -33,8 +33,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberImagePainter
-import com.natiqhaciyef.voyagers.data.model.CampModel
-import com.natiqhaciyef.voyagers.data.model.TourModel
+import com.natiqhaciyef.voyagers.data.model.tour.CampModel
+import com.natiqhaciyef.voyagers.data.model.tour.TourModel
 import com.natiqhaciyef.voyagers.util.classes.DataTypes
 import com.natiqhaciyef.voyagers.view.viewmodel.tour.TourDetailsViewModel
 import com.natiqhaciyef.voyagers.util.obj.FontList
@@ -308,10 +308,11 @@ fun TourDetailsMainView(
                 .height(55.dp),
             onClick = {
                 // go to cart and details screen
-                if (data is TourModel)
+                if (data is TourModel){
                     NavigationData.tourModel = data
-                else if (data is CampModel)
+                } else if (data is CampModel){
                     NavigationData.campModel = data
+                }
                 navController.navigate(ScreenID.PersonalInformation.name)
             },
             colors = ButtonDefaults.buttonColors(
