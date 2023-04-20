@@ -149,8 +149,10 @@ fun TourDetailsTopView(
                             .clickable {
                                 isLiked.value = !isLiked.value
                                 if (data is TourModel) {
+                                    data.isLiked = isLiked.value
                                     viewModel.saveTourModel(data)
                                 } else if (data is CampModel) {
+                                    data.isLiked = isLiked.value
                                     viewModel.saveCampModel(data)
                                 }
                             },
@@ -165,8 +167,10 @@ fun TourDetailsTopView(
                             .clickable {
                                 isLiked.value = !isLiked.value
                                 if (data is TourModel) {
+                                    data.isLiked = isLiked.value
                                     viewModel.deleteTourModel(data)
                                 } else if (data is CampModel) {
+                                    data.isLiked = isLiked.value
                                     viewModel.deleteCampModel(data)
                                 }
                             },
@@ -333,7 +337,7 @@ fun shareData(data: Any, context: Context){
     if (data is TourModel) {
         val introLink = data.image[0].toUri()
         val shareIntent = Intent(Intent.ACTION_SEND).apply {
-            type = "text/plain"
+            type = "image/jpeg"
             putExtra(Intent.EXTRA_SUBJECT, "Share tour image")
             putExtra(Intent.EXTRA_TEXT, data.toString())
             if (introLink != null) {
@@ -353,7 +357,7 @@ fun shareData(data: Any, context: Context){
     } else if (data is CampModel) {
         val introLink = data.image.toUri()
         val shareIntent = Intent(Intent.ACTION_SEND).apply {
-            type = "text/plain"
+            type = "image/jpeg"
             putExtra(Intent.EXTRA_SUBJECT, "Share tour image")
             putExtra(Intent.EXTRA_TEXT, data.toString())
             if (introLink != null) {

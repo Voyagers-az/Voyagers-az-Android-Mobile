@@ -136,7 +136,7 @@ private fun TourCardComponent(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(330.dp)
+            .height(380.dp)
             .padding(start = 20.dp, end = 20.dp, bottom = 10.dp),
         shape = RoundedCornerShape(12.dp),
         backgroundColor = Color.White,
@@ -232,7 +232,7 @@ private fun CampCardComponent(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(330.dp)
+            .height(380.dp)
             .padding(start = 20.dp, end = 20.dp, bottom = 10.dp),
         shape = RoundedCornerShape(12.dp),
         backgroundColor = Color.White,

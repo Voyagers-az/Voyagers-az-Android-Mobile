@@ -19,7 +19,6 @@ enum class ScreenID {
     HouseRent,
 
     Payment,
-    PaymentDetails,
     PersonalInformation,
     TourDetails,
     Waiting,
