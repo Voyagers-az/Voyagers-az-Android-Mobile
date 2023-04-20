@@ -28,9 +28,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.natiqhaciyef.voyagers.data.model.PaymentChoiceModel
-import com.natiqhaciyef.voyagers.data.model.PaymentDataModel
+import com.natiqhaciyef.voyagers.data.model.payment.PaymentChoiceModel
+import com.natiqhaciyef.voyagers.data.model.payment.PaymentDataModel
 import com.natiqhaciyef.voyagers.data.model.enums.PaymentTypes
+import com.natiqhaciyef.voyagers.data.model.tour.AppealStatus
+import com.natiqhaciyef.voyagers.data.model.tour.TourAppealModel
 import com.natiqhaciyef.voyagers.util.obj.PaymentMethodList
 import com.natiqhaciyef.voyagers.view.navigation.NavigationData
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID
@@ -38,6 +40,7 @@ import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.AppGray
 import com.natiqhaciyef.voyagers.view.ui.theme.AppWhiteLightPurple
 import com.natiqhaciyef.voyagers.view.viewmodel.payment.PaymentViewModel
+import com.natiqhaciyef.voyagers.view.viewmodel.settings.SettingsViewModel
 
 //@Preview
 @Composable
@@ -200,6 +203,7 @@ fun PaymentDetailsMainPart(
     cvvCode: MutableState<String>,
     paymentMethod: MutableState<String>,
     viewModel: PaymentViewModel = hiltViewModel(),
+    settingsViewModel: SettingsViewModel = hiltViewModel(),
     navController: NavController
 ) {
     Column(
@@ -439,7 +443,14 @@ fun PaymentDetailsMainPart(
                             userModel = NavigationData.userModel!!
                         )
 
-                        viewModel.sendPaymentInfoToFirebase(paymentDataModel)
+//                        viewModel.sendPaymentInfoToFirebase(paymentDataModel)
+                        settingsViewModel.sendTourAppealStatusToFirebase(
+                            TourAppealModel(
+                                tourModel = NavigationData.tourModel!!,
+                                payment = paymentDataModel,
+                                status = AppealStatus.NonStatus.mainStatus
+                            )
+                        )
                         navController.navigate(ScreenID.Waiting.name)
                     }
                 }

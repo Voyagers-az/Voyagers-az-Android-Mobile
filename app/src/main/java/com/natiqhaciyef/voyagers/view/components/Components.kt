@@ -39,6 +39,7 @@ import androidx.compose.ui.util.lerp
 import coil.compose.rememberImagePainter
 import com.google.accompanist.pager.*
 import com.natiqhaciyef.voyagers.data.model.*
+import com.natiqhaciyef.voyagers.data.model.tour.TourModel
 import com.natiqhaciyef.voyagers.util.obj.Services
 import com.natiqhaciyef.voyagers.view.ui.theme.*
 import kotlin.math.ceil

@@ -21,8 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
-import com.natiqhaciyef.voyagers.data.model.TicketInfoModel
-import com.natiqhaciyef.voyagers.data.model.TicketModel
+import com.natiqhaciyef.voyagers.data.model.flight.TicketInfoModel
+import com.natiqhaciyef.voyagers.data.model.flight.TicketModel
 import com.natiqhaciyef.voyagers.util.obj.DefaultModelImplementations
 import com.natiqhaciyef.voyagers.util.functions.fromDoubleToTimeLine
 import com.natiqhaciyef.voyagers.view.ui.theme.*

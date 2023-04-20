@@ -26,4 +26,5 @@ enum class ScreenID {
     // settings ui
     ContactDetails,
     SavedTours,
+    TourAppeal
 }

@@ -1,6 +1,5 @@
 package com.natiqhaciyef.voyagers.view.screens.home.main.home_categories
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -25,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.natiqhaciyef.voyagers.data.model.TicketModel
+import com.natiqhaciyef.voyagers.data.model.flight.TicketModel
 import com.natiqhaciyef.voyagers.view.components.DatePicker1
 import com.natiqhaciyef.voyagers.view.components.DatePicker2
 import com.natiqhaciyef.voyagers.view.components.TicketCardView
@@ -34,8 +33,6 @@ import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.AppGray
 import com.natiqhaciyef.voyagers.view.ui.theme.AppWhiteLightPurple
 import com.natiqhaciyef.voyagers.view.viewmodel.home_categories_viewmodel.FlightTicketViewModel
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 @Preview
 @Composable

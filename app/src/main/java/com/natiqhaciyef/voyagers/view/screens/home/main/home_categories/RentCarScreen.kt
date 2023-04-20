@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.natiqhaciyef.voyagers.data.model.CarRentModel
+import com.natiqhaciyef.voyagers.data.model.car.CarRentModel
 import com.natiqhaciyef.voyagers.util.obj.CarBrands
 import com.natiqhaciyef.voyagers.util.obj.CityList
 import com.natiqhaciyef.voyagers.util.obj.CurrencyList

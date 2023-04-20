@@ -1,7 +1,7 @@
 package com.natiqhaciyef.voyagers.util.obj
 
 import com.natiqhaciyef.voyagers.R
-import com.natiqhaciyef.voyagers.data.model.PaymentChoiceModel
+import com.natiqhaciyef.voyagers.data.model.payment.PaymentChoiceModel
 import com.natiqhaciyef.voyagers.data.model.enums.PaymentTypes
 
 object PaymentMethodList {

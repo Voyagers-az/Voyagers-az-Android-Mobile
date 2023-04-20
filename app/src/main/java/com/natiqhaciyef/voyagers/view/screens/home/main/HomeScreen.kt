@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.natiqhaciyef.voyagers.data.model.PlaceModel
+import com.natiqhaciyef.voyagers.data.model.tour.PlaceModel
 import com.natiqhaciyef.voyagers.util.obj.CategoryIcons
 import com.natiqhaciyef.voyagers.util.obj.ContactList
 import com.natiqhaciyef.voyagers.view.components.*

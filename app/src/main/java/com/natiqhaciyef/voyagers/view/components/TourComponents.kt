@@ -21,9 +21,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
-import com.natiqhaciyef.voyagers.data.model.CampModel
-import com.natiqhaciyef.voyagers.data.model.PlaceModel
-import com.natiqhaciyef.voyagers.data.model.TourModel
+import com.natiqhaciyef.voyagers.data.model.tour.CampModel
+import com.natiqhaciyef.voyagers.data.model.tour.PlaceModel
+import com.natiqhaciyef.voyagers.data.model.tour.TourModel
 import com.natiqhaciyef.voyagers.util.obj.DefaultModelImplementations
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 

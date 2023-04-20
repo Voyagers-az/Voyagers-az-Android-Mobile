@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
-import com.natiqhaciyef.voyagers.data.model.CarRentModel
+import com.natiqhaciyef.voyagers.data.model.car.CarRentModel
 import com.natiqhaciyef.voyagers.util.obj.DefaultModelImplementations
 import com.natiqhaciyef.voyagers.view.ui.theme.*
 
