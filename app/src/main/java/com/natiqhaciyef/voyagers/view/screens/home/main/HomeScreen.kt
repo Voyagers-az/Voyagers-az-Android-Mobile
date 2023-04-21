@@ -77,6 +77,7 @@ fun HomeTopView(
     list: MutableList<ImageVector> = mutableListOf(),
     viewModel: RegistrationViewModel = hiltViewModel()
 ) {
+
     val users = remember { viewModel.fums }
     val user = users.value.filter {
         it.email == FirebaseAuth.getInstance().currentUser!!.email!!

@@ -80,8 +80,8 @@
     <string name="previous_user_name">Keçmiş istifadəçi adı</string>
     <string name="new_user_name_enter">Yeni istifadəçi adını daxil edin</string>
     <string name="new_user_name">Yeni istifadəçi adı</string>
-    <string name="password_info_enter">Şifrəni daxil edin</string>
-    <string name="password_info">Şifrə</string>
+    <string name="email_info_enter">E-poçt daxil edin</string>
+    <string name="email_info">E-poçt</string>
     <string name="reset_username_title">İstifadəçi adını yeniləmək</string>
 
 
