@@ -30,6 +30,7 @@ import com.natiqhaciyef.voyagers.data.model.tour.TourAppealModel
 import com.natiqhaciyef.voyagers.data.model.tour.TourModel
 import com.natiqhaciyef.voyagers.view.components.RatingBar
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
+import com.natiqhaciyef.voyagers.view.ui.theme.AppWhiteLightPurple
 import com.natiqhaciyef.voyagers.view.viewmodel.settings.SettingsViewModel
 import com.natiqhaciyef.voyagers.view.viewmodel.tour.TourDetailsViewModel
 
@@ -45,27 +46,33 @@ fun TourAppeal(
 
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(120.dp)
-                .background(AppDarkBlue)
-        )
-        Column(
-            modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Transparent)
-        ) {
-            Text(
+                .background(AppWhiteLightPurple)
+        ){
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 20.dp, top = 60.dp),
-                text = stringResource(id = R.string.last_appeals),
-                color = Color.White,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
+                    .height(120.dp)
+                    .background(AppDarkBlue)
             )
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Transparent)
+            ) {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 20.dp, top = 60.dp),
+                    text = stringResource(id = R.string.last_appeals),
+                    color = Color.White,
+                    fontSize = 23.sp,
+                    fontWeight = FontWeight.Bold
+                )
 
-            Spacer(modifier = Modifier.height(55.dp))
-            ToursAppealMainPart(tours = list, viewModel = viewModel)
+                Spacer(modifier = Modifier.height(55.dp))
+                ToursAppealMainPart(tours = list, viewModel = viewModel)
+            }
         }
     }
 }
