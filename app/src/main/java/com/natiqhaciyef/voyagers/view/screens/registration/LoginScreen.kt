@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -76,7 +77,7 @@ private fun LoginTopView() {
     )
 
     Text(
-        text = "Daxil ol",
+        text = stringResource(id = R.string.enter),
         fontSize = 25.sp,
         color = Color.Black,
         fontFamily = FontList.fontFamily,
@@ -123,7 +124,7 @@ private fun LoginMainPart(
                 singleLine = true,
                 placeholder = {
                     Text(
-                        text = "E-poçt",
+                        text = stringResource(id = R.string.email),
                         color = AppGray
                     )
                 },
@@ -164,7 +165,7 @@ private fun LoginMainPart(
                 singleLine = true,
                 placeholder = {
                     Text(
-                        text = "Şifrə",
+                        text = stringResource(id = R.string.password),
                         color = AppGray
                     )
                 },
@@ -217,7 +218,7 @@ private fun LoginMainPart(
 
             Spacer(modifier = Modifier.height(5.dp))
             Text(
-                text = "Şifrəni unutmusuz ?",
+                text = stringResource(id = R.string.forgot_password),
                 color = Color.White,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.SemiBold,
@@ -247,7 +248,7 @@ private fun LoginMainPart(
                 )
             ) {
                 Text(
-                    text = "Daxil ol",
+                    text = stringResource(id = R.string.enter),
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
@@ -275,7 +276,7 @@ private fun LoginMainPart(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Yeni hesab yaratmaq ?",
+                    text = stringResource(id = R.string.create_new_account),
                     fontWeight = FontWeight.SemiBold,
                     color = Color.White,
                     fontSize = 15.sp
@@ -288,7 +289,7 @@ private fun LoginMainPart(
                         .clickable {
                             navController.navigate(ScreenID.Register.name)
                         },
-                    text = "Qeydiyyatdan keç",
+                    text = stringResource(id = R.string.sign_up),
                     color = Red,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.SemiBold,

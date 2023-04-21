@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -93,7 +94,7 @@ private fun RegisterTopView() {
     )
 
     Text(
-        text = "Qeydiyyat",
+        text = stringResource(id = R.string.register),
         fontSize = 25.sp,
         color = Color.Black,
         fontFamily = FontList.fontFamily,
@@ -139,7 +140,7 @@ private fun RegisterMainPart(
                 singleLine = true,
                 placeholder = {
                     Text(
-                        text = "İstifadəçi adı",
+                        text = stringResource(id = R.string.username),
                         color = AppGray
                     )
                 },
@@ -186,7 +187,7 @@ private fun RegisterMainPart(
                 singleLine = true,
                 placeholder = {
                     Text(
-                        text = "E-poçt",
+                        text = stringResource(id = R.string.email),
                         color = AppGray
                     )
                 },
@@ -230,7 +231,7 @@ private fun RegisterMainPart(
                 singleLine = true,
                 placeholder = {
                     Text(
-                        text = "Nömrə",
+                        text = stringResource(id = R.string.phone),
                         color = AppGray
                     )
                 },
@@ -271,7 +272,7 @@ private fun RegisterMainPart(
                 singleLine = true,
                 placeholder = {
                     Text(
-                        text = "Şifrə",
+                        text = stringResource(id = R.string.password),
                         color = AppGray
                     )
                 },
@@ -339,7 +340,7 @@ private fun RegisterMainPart(
                 )
             ) {
                 Text(
-                    text = "Qeydiyyat",
+                    text = stringResource(id = R.string.register),
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
@@ -367,7 +368,7 @@ private fun RegisterMainPart(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Aktiv hesabınız var ?",
+                    text = stringResource(id = R.string.have_an_account),
                     fontWeight = FontWeight.SemiBold,
                     color = Color.White,
                     fontSize = 15.sp
@@ -380,7 +381,7 @@ private fun RegisterMainPart(
                         .clickable {
                             navController.navigate(ScreenID.Login.name)
                         },
-                    text = "Daxil ol",
+                    text = stringResource(id = R.string.enter),
                     color = Red,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.SemiBold,

@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -183,7 +184,7 @@ fun PersonalInformationMainPart(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 15.dp),
-                text = "Ad və Soyad",
+                text = stringResource(id = R.string.name_surname),
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 18.sp,
                 color = Color.White
@@ -226,7 +227,7 @@ fun PersonalInformationMainPart(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 15.dp),
-                text = "E-poçt (qeydiyyatdan keçdiyiniz)",
+                text = stringResource(id = R.string.registered_email),
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 18.sp,
                 color = Color.White
@@ -269,7 +270,7 @@ fun PersonalInformationMainPart(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 15.dp),
-                text = "Əlaqə nömrəsi",
+                text = stringResource(id = R.string.phone),
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 18.sp,
                 color = Color.White
@@ -311,7 +312,7 @@ fun PersonalInformationMainPart(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 15.dp),
-                text = "Fərdi identifikasiya nömrəsi (FIN kod)",
+                text = stringResource(id = R.string.fin_code),
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 18.sp,
                 color = Color.White
@@ -398,7 +399,7 @@ fun PersonalInformationBottomView(
     ) {
         Text(
             modifier = Modifier,
-            text = "Təsdiqlə",
+            text = stringResource(id = R.string.submit),
             color = Color.White,
             fontWeight = FontWeight.SemiBold,
             fontSize = 16.sp

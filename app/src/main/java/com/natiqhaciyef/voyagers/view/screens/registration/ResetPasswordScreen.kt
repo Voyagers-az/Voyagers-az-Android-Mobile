@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -70,7 +71,7 @@ private fun ResetPasswordTopView() {
     Spacer(modifier = Modifier.height(25.dp))
 
     Text(
-        text = "Şifrəni yenilə",
+        text = stringResource(id = R.string.reset_password),
         fontSize = 25.sp,
         color = Color.Black,
         fontFamily = FontList.fontFamily,
@@ -112,7 +113,7 @@ private fun ResetPasswordMainPart(
                 singleLine = true,
                 placeholder = {
                     Text(
-                        text = "E-poçt",
+                        text = stringResource(id = R.string.email),
                         color = AppGray
                     )
                 },
@@ -149,7 +150,7 @@ private fun ResetPasswordMainPart(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 25.dp),
-                text = "Zəhmət olmasa e-poçt addressinizi yoxlayın, sizə şifrə yeniləmə linki göndərildi. Əgər inboxda bildiriş yoxdursa, spam qutusuna nəzər salın. ",
+                text = stringResource(id = R.string.reset_info),
                 color = Color.White,
                 fontSize = 15.sp,
                 textAlign = TextAlign.Center,
@@ -172,7 +173,7 @@ private fun ResetPasswordMainPart(
                 )
             ) {
                 Text(
-                    text = "Göndər",
+                    text = stringResource(id = R.string.send),
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White

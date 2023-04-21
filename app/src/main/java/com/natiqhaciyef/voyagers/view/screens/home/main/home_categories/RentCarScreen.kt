@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -22,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.natiqhaciyef.voyagers.R
 import com.natiqhaciyef.voyagers.data.model.car.CarRentModel
 import com.natiqhaciyef.voyagers.util.obj.CarBrands
 import com.natiqhaciyef.voyagers.util.obj.CityList
@@ -95,7 +97,7 @@ fun RentCarScreen(
                         .fillMaxWidth()
                         .padding(horizontal = 10.dp),
                     textAlign = TextAlign.Center,
-                    text = "Avtomobil və ya digər nəqliyyat növlərinin icarələnməsi",
+                    text = stringResource(id = R.string.rent_car_title),
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
                     color = Color.White
@@ -123,14 +125,14 @@ private fun RentCarTopView(
 
     Row(modifier = Modifier.fillMaxWidth()) {
         CustomDropDownMenu(
-            name = "Marka",
+            name = stringResource(id = R.string.brand),
             width = 225.dp,
             padding = 10.dp,
             list = CarBrands.list,
             selectedOption = brand
         )
         CustomDropDownMenu(
-            name = "Şəhər",
+            name = stringResource(id = R.string.city),
             width = 225.dp,
             padding = 10.dp,
             list = CityList.list,
@@ -155,7 +157,7 @@ private fun RentCarTopView(
             },
             label = {
                 Text(
-                    text = "Min qiymət",
+                    text = stringResource(id = R.string.min_price),
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 15.sp,
                 )
@@ -195,7 +197,7 @@ private fun RentCarTopView(
             },
             label = {
                 Text(
-                    text = "Max qiymət",
+                    text = stringResource(id = R.string.max_price),
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 15.sp,
                 )

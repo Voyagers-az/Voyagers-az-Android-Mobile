@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.natiqhaciyef.voyagers.R
 import com.natiqhaciyef.voyagers.data.model.payment.PaymentChoiceModel
 import com.natiqhaciyef.voyagers.data.model.payment.PaymentDataModel
 import com.natiqhaciyef.voyagers.data.model.enums.PaymentTypes
@@ -85,7 +87,7 @@ fun PaymentScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 25.dp),
-                        text = "Ödəniş metodunu seçin",
+                        text = stringResource(id = R.string.select_payment_method),
                         fontWeight = FontWeight.Bold,
                         fontSize = 18.sp,
                         color = Color.White,
@@ -216,7 +218,7 @@ fun PaymentDetailsMainPart(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp),
-            text = "Məlumatları daxil edin",
+            text = stringResource(id = R.string.insert_data),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold
         )
@@ -252,7 +254,7 @@ fun PaymentDetailsMainPart(
             label = {
                 Text(
                     modifier = Modifier,
-                    text = "Kart sahibinin ad və soyadı",
+                    text = stringResource(id = R.string.card_name_surname),
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 15.sp
                 )
@@ -293,7 +295,7 @@ fun PaymentDetailsMainPart(
             label = {
                 Text(
                     modifier = Modifier,
-                    text = "Kart nömrəsi",
+                    text = stringResource(id = R.string.card_number),
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 15.sp
                 )
@@ -353,7 +355,7 @@ fun PaymentDetailsMainPart(
                 label = {
                     Text(
                         modifier = Modifier,
-                        text = "Tarix",
+                        text = stringResource(id = R.string.card_date),
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 15.sp
                     )
@@ -401,7 +403,7 @@ fun PaymentDetailsMainPart(
                 label = {
                     Text(
                         modifier = Modifier,
-                        text = "CVV kod",
+                        text = stringResource(id = R.string.cvv),
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 15.sp
                     )
@@ -461,7 +463,7 @@ fun PaymentDetailsMainPart(
         ) {
             Text(
                 modifier = Modifier,
-                text = "Təsdiqlə",
+                text = stringResource(id = R.string.submit),
                 fontSize = 16.sp,
                 color = Color.White,
                 fontWeight = FontWeight.SemiBold

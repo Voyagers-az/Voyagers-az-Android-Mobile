@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,6 +34,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberImagePainter
+import com.natiqhaciyef.voyagers.R
 import com.natiqhaciyef.voyagers.data.model.tour.CampModel
 import com.natiqhaciyef.voyagers.data.model.tour.TourModel
 import com.natiqhaciyef.voyagers.util.classes.DataTypes
@@ -337,7 +339,7 @@ fun TourDetailsMainView(
             shape = RoundedCornerShape(10.dp)
         ) {
             Text(
-                text = if(enableState.value) "Müraciət et" else "Müraciət edilib",
+                text = if(enableState.value) stringResource(id = R.string.apply) else stringResource(id = R.string.applied),
                 color = AppWhiteLightPurple,
                 fontWeight = FontWeight.Bold,
                 fontSize = 17.sp,
