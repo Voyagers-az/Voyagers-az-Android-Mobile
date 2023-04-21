@@ -1,5 +1,6 @@
-package com.natiqhaciyef.voyagers.view.screens.home
+package com.natiqhaciyef.voyagers.view.screens.home.main
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -11,11 +12,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import com.natiqhaciyef.voyagers.R
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -27,12 +30,15 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.natiqhaciyef.voyagers.data.model.PlaceModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.natiqhaciyef.voyagers.data.model.tour.PlaceModel
 import com.natiqhaciyef.voyagers.util.obj.CategoryIcons
 import com.natiqhaciyef.voyagers.util.obj.ContactList
 import com.natiqhaciyef.voyagers.view.components.*
 import com.natiqhaciyef.voyagers.view.ui.theme.*
 import com.natiqhaciyef.voyagers.view.viewmodel.HomeViewModel
+import com.natiqhaciyef.voyagers.view.viewmodel.RegistrationViewModel
 
 //@Preview
 @Composable
@@ -68,8 +74,14 @@ fun HomeScreen(
 @Composable
 fun HomeTopView(
     navController: NavController,
-    list: MutableList<ImageVector> = mutableListOf()
+    list: MutableList<ImageVector> = mutableListOf(),
+    viewModel: RegistrationViewModel = hiltViewModel()
 ) {
+    val users = remember { viewModel.fums }
+    val user = users.value.filter {
+        it.email == FirebaseAuth.getInstance().currentUser!!.email!!
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -92,7 +104,7 @@ fun HomeTopView(
                         color = Color.White,
                     )
                 ) {
-                    append(text = "Xoş gəldin, ")
+                    append(text = stringResource(id = R.string.welcome))
                 }
                 withStyle(
                     style = SpanStyle(
@@ -104,7 +116,12 @@ fun HomeTopView(
                         color = AppDarkBlue
                     )
                 ) {
-                    append(text = "Natiq")
+                    append(
+                        text = if (user.isNotEmpty())
+                            " ${user[0].username}"
+                        else
+                            "No name"
+                    )
                 }
                 withStyle(
                     style = SpanStyle(
@@ -116,7 +133,7 @@ fun HomeTopView(
                         color = Color.White,
                     )
                 ) {
-                    append(text = "\nSəyahət üçün məkan seç və dünya turuna başla")
+                    append(text = stringResource(id = R.string.welcome_info))
                 }
             }
         )
@@ -153,7 +170,7 @@ fun HomeMainPartView(
         Spacer(modifier = Modifier.height(10.dp))
 
         Text(
-            text = "Məkanlar",
+            text = stringResource(id = R.string.places),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Black,
@@ -174,7 +191,7 @@ fun HomeMainPartView(
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(
-            text = "Əlaqə",
+            text = stringResource(id = R.string.contact),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Black,

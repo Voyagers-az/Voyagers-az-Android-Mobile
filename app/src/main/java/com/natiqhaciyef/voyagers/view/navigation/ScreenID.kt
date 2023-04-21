@@ -19,7 +19,6 @@ enum class ScreenID {
     HouseRent,
 
     Payment,
-    PaymentDetails,
     PersonalInformation,
     TourDetails,
     Waiting,
@@ -27,4 +26,6 @@ enum class ScreenID {
     // settings ui
     ContactDetails,
     SavedTours,
+    TourAppeal,
+    ResetUserName
 }

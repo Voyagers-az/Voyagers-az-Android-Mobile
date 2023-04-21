@@ -1,6 +1,5 @@
 package com.natiqhaciyef.voyagers.view.screens.home.main.setting_screens
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -18,17 +17,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ExperimentalMotionApi
-import androidx.constraintlayout.compose.SwipeDirection
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
-import com.natiqhaciyef.voyagers.data.model.TourModel
-import com.natiqhaciyef.voyagers.util.obj.DefaultModelImplementations
+import com.natiqhaciyef.voyagers.R
+import com.natiqhaciyef.voyagers.data.model.tour.CampModel
+import com.natiqhaciyef.voyagers.data.model.tour.TourModel
 import com.natiqhaciyef.voyagers.view.components.RatingBar
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.AppWhiteLightPurple
@@ -40,7 +39,7 @@ fun SavedToursScreen(
     tourDetailsViewModel: TourDetailsViewModel = hiltViewModel()
 ) {
     val savedTours = remember { tourDetailsViewModel.savedTours }
-    val isDeleted = remember { mutableStateOf(false) }
+    val savedCamps = remember { tourDetailsViewModel.savedCamps }
 
     Box(
         modifier = Modifier
@@ -62,35 +61,45 @@ fun SavedToursScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 20.dp, top = 60.dp),
-                text = "Bəyənilən tur və düşərgələr",
-                fontSize = 20.sp,
+                text = stringResource(id = R.string.liked_tours_and_camps),
+                fontSize = 23.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
 
             Spacer(modifier = Modifier.height(55.dp))
-            SavedToursMainPart(savedTours, tourDetailsViewModel, isDeleted)
+            SavedToursMainPart(savedTours, savedCamps, tourDetailsViewModel)
         }
     }
 }
 
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalMotionApi::class)
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SavedToursMainPart(
-    list: MutableState<MutableList<TourModel>>,
-    viewModel: TourDetailsViewModel,
-    isDeleted: MutableState<Boolean>
+    tours: MutableState<MutableList<TourModel>>,
+    camps: MutableState<MutableList<CampModel>>,
+    viewModel: TourDetailsViewModel
 ) {
-    Log.d("NyLog - n", "$list")
+    val list = remember { mutableStateOf(mutableListOf<Any>()) }
+    list.value.addAll(
+        tours.value,
+    )
+    list.value.addAll(
+        camps.value
+    )
+
     LazyColumn(
         modifier = Modifier.fillMaxWidth()
     ) {
-        items(list.value) { tourModel ->
+        items(list.value) { data ->
             val dismissState = rememberDismissState(
                 confirmStateChange = {
                     if (it == DismissValue.DismissedToStart) {
-                        viewModel.deleteTourModel(tourModel)
+                        if (data is TourModel)
+                            viewModel.deleteTourModel(data)
+                        else if (data is CampModel)
+                            viewModel.deleteCampModel(data)
                     }
                     true
                 }
@@ -100,11 +109,11 @@ fun SavedToursMainPart(
                 background = {},
                 directions = setOf(DismissDirection.EndToStart),
             ) {
-                TourCardComponent(
-                    tourModel = tourModel,
-                )
+                if (data is TourModel)
+                    TourCardComponent(tourModel = data)
+                else if (data is CampModel)
+                    CampCardComponent(camp = data)
             }
-
         }
     }
 }
@@ -113,8 +122,6 @@ fun SavedToursMainPart(
 private fun TourCardComponent(
     tourModel: TourModel,
 ) {
-    Log.d("NyLog - x", "$tourModel")
-
     val colorMatrix = floatArrayOf(
         0.7f, 0f, 0f, 0f, 0f,
         0f, 0.7f, 0f, 0f, 0f,
@@ -126,7 +133,7 @@ private fun TourCardComponent(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(330.dp)
+            .height(380.dp)
             .padding(start = 20.dp, end = 20.dp, bottom = 10.dp),
         shape = RoundedCornerShape(12.dp),
         backgroundColor = Color.White,
@@ -143,6 +150,7 @@ private fun TourCardComponent(
                 strokeWidth = 3.dp
             )
         }
+
 
 
         Image(
@@ -197,6 +205,101 @@ private fun TourCardComponent(
                 Spacer(modifier = Modifier.height(5.dp))
 
                 RatingBar(rating = tourModel.rating)
+
+                Spacer(modifier = Modifier.height(10.dp))
+            }
+        }
+
+    }
+}
+
+
+@Composable
+private fun CampCardComponent(
+    camp: CampModel,
+) {
+    val colorMatrix = floatArrayOf(
+        0.7f, 0f, 0f, 0f, 0f,
+        0f, 0.7f, 0f, 0f, 0f,
+        0f, 0f, 0.7f, 0f, 0f,
+        0f, 0f, 0f, 1f, 0f
+    )
+
+    val price = "%.2f".format(camp.price)
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(380.dp)
+            .padding(start = 20.dp, end = 20.dp, bottom = 10.dp),
+        shape = RoundedCornerShape(12.dp),
+        backgroundColor = Color.White,
+        elevation = 5.dp
+    ) {
+
+
+        Box(modifier = Modifier.fillMaxSize()) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .size(50.dp)
+                    .align(Alignment.Center),
+                color = AppDarkBlue,
+                strokeWidth = 3.dp
+            )
+        }
+
+
+        Image(
+            painter = rememberImagePainter(data = camp.image),
+            contentDescription = "Tour image",
+            colorFilter = ColorFilter.colorMatrix(ColorMatrix(colorMatrix)),
+            modifier = Modifier
+                .fillMaxSize(),
+            contentScale = ContentScale.Crop,
+        )
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Card(
+                modifier = Modifier
+                    .width(150.dp)
+                    .height(45.dp)
+                    .padding(horizontal = 15.dp, vertical = 10.dp)
+                    .align(Alignment.TopEnd),
+            ) {
+                Text(
+                    modifier = Modifier
+                        .background(AppDarkBlue),
+                    text = "$price AZN",
+                    textAlign = TextAlign.Center,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
+            }
+
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 15.dp),
+                verticalArrangement = Arrangement.Bottom,
+                horizontalAlignment = Alignment.Start
+            ) {
+
+
+                Text(
+                    text = camp.name,
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    modifier = Modifier
+                )
+
+                Spacer(modifier = Modifier.height(5.dp))
+
+                RatingBar(rating = camp.rating)
 
                 Spacer(modifier = Modifier.height(10.dp))
             }

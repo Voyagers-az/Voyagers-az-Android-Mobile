@@ -19,5 +19,6 @@ data class TourModelDatabase (
     var location: String,
     var companyName: String,
     var date: String,
-    var region: String = "Qeyd olunmayıb"
+    var region: String = "Qeyd olunmayıb",
+    var isLiked: Boolean = false
 )

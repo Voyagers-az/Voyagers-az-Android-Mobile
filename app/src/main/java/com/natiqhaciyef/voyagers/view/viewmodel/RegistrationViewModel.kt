@@ -2,11 +2,13 @@ package com.natiqhaciyef.voyagers.view.viewmodel
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.natiqhaciyef.voyagers.data.local.repository.LocalRepository
 import com.natiqhaciyef.voyagers.data.model.UserModel
+import com.natiqhaciyef.voyagers.data.model.db.FirebaseUserModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,12 +20,14 @@ class RegistrationViewModel @Inject constructor(
 ) : BaseViewModel() {
     val auth = Firebase.auth
     val firestore = Firebase.firestore
+    val fums = mutableStateOf<List<FirebaseUserModel>>(mutableListOf())
     var userState = mutableStateOf(UserModel(id = 0, name = "", email = "", phone = "", password = ""))
     var allUsersState = mutableStateOf<List<UserModel>>(listOf())
     var resultMessage = mutableStateOf("")
 
     init {
         getAllUsers()
+        getAllUsersFromFirebase()
     }
 
     fun getUser(email: String) = viewModelScope.launch(Dispatchers.Main) {
@@ -42,6 +46,28 @@ class RegistrationViewModel @Inject constructor(
         else
             allUsersState.value = listOf()
     }
+
+    fun getAllUsersFromFirebase(){
+        val list = mutableListOf<FirebaseUserModel>()
+        viewModelScope.launch(Dispatchers.IO) {
+            firestore.collection("Users").addSnapshotListener{value, error ->
+                if (value != null && !value.isEmpty){
+                    val docs = value.documents
+                    list.clear()
+                    for (doc in docs){
+                        val username = doc["username"].toString()
+                        val email = doc["email"].toString()
+                        val phone = doc["phone"].toString()
+
+                        val fum = FirebaseUserModel(username,email,phone)
+                        list.add(fum)
+                    }
+                    fums.value = list
+                }
+            }
+        }
+    }
+
 
     fun insertUser(userModel: UserModel) = viewModelScope.launch(Dispatchers.Main) {
         repository.insertUser(userModel)

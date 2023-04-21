@@ -4,9 +4,11 @@ import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.natiqhaciyef.voyagers.data.local.repository.TourRepository
-import com.natiqhaciyef.voyagers.data.model.*
 import com.natiqhaciyef.voyagers.data.model.db.CampModelDatabase
 import com.natiqhaciyef.voyagers.data.model.db.TourModelDatabase
+import com.natiqhaciyef.voyagers.data.model.tour.CampModel
+import com.natiqhaciyef.voyagers.data.model.tour.PlaceModel
+import com.natiqhaciyef.voyagers.data.model.tour.TourModel
 import com.natiqhaciyef.voyagers.util.classes.DataTypes
 import com.natiqhaciyef.voyagers.util.functions.toSQLiteMutableList
 import com.natiqhaciyef.voyagers.util.functions.toSQLiteMutableMap
@@ -58,7 +60,8 @@ class TourDetailsViewModel @Inject constructor(
                         scope = element.scope,
                         location = element.location,
                         date = element.date.toSQLiteMutableMap(),
-                        region = element.region
+                        region = element.region,
+                        isLiked = element.isLiked
                     )
                 )
             }
@@ -131,7 +134,8 @@ class TourDetailsViewModel @Inject constructor(
                     personCount = campModel.personCount,
                     region = campModel.region,
                     rating = campModel.rating,
-                    date = campModel.date.toSQLiteString()
+                    date = campModel.date.toSQLiteString(),
+                    isLiked = campModel.isLiked
                 )
             )
         }
@@ -153,7 +157,8 @@ class TourDetailsViewModel @Inject constructor(
                     personCount = campModel.personCount,
                     region = campModel.region,
                     rating = campModel.rating,
-                    date = campModel.date.toSQLiteString()
+                    date = campModel.date.toSQLiteString(),
+                    isLiked = campModel.isLiked
                 )
             )
         }
@@ -184,7 +189,8 @@ class TourDetailsViewModel @Inject constructor(
                         personCount = element.personCount,
                         region = element.region,
                         rating = element.rating,
-                        date = element.date.toSQLiteMutableMap()
+                        date = element.date.toSQLiteMutableMap(),
+                        isLiked = element.isLiked
                     )
                 )
             }

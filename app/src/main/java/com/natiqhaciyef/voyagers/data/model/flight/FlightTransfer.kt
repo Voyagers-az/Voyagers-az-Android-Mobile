@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagers.data.model
+package com.natiqhaciyef.voyagers.data.model.flight
 
 data class FlightTransfer(
     var id: Int,

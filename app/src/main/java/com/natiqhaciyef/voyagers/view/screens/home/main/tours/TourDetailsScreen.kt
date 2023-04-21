@@ -1,5 +1,8 @@
 package com.natiqhaciyef.voyagers.view.screens.home.main.tours
 
+import android.content.ClipData
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,17 +22,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberImagePainter
-import com.natiqhaciyef.voyagers.data.model.CampModel
-import com.natiqhaciyef.voyagers.data.model.TourModel
+import com.natiqhaciyef.voyagers.R
+import com.natiqhaciyef.voyagers.data.model.tour.CampModel
+import com.natiqhaciyef.voyagers.data.model.tour.TourModel
 import com.natiqhaciyef.voyagers.util.classes.DataTypes
 import com.natiqhaciyef.voyagers.view.viewmodel.tour.TourDetailsViewModel
 import com.natiqhaciyef.voyagers.util.obj.FontList
@@ -37,6 +44,7 @@ import com.natiqhaciyef.voyagers.view.components.RatingBar
 import com.natiqhaciyef.voyagers.view.navigation.NavigationData
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.*
+import com.natiqhaciyef.voyagers.view.viewmodel.settings.SettingsViewModel
 
 
 @Preview
@@ -46,7 +54,6 @@ fun TourDetailsScreen(
     viewModel: TourDetailsViewModel = hiltViewModel(),
     navController: NavController = rememberNavController()
 ) {
-    val isLiked = remember { mutableStateOf(false) }
     val item = viewModel.dataTypeCaster(data)
 
     Box(
@@ -65,7 +72,7 @@ fun TourDetailsScreen(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            TourDetailsTopView(item, data, navController, viewModel, isLiked)
+            TourDetailsTopView(item, data, navController, viewModel)
             TourDetailsMainView(data, navController)
         }
     }
@@ -74,11 +81,10 @@ fun TourDetailsScreen(
 
 @Composable
 fun TourDetailsTopView(
-    type: DataTypes = DataTypes.PlaceModel,
+    infoType: DataTypes = DataTypes.PlaceModel,
     data: Any = Any(),
     navController: NavController,
     viewModel: TourDetailsViewModel,
-    isLiked: MutableState<Boolean>
 ) {
     val colorMatrix = floatArrayOf(
         0.8f, 0f, 0f, 0f, 0f,
@@ -87,7 +93,7 @@ fun TourDetailsTopView(
         0f, 0f, 0f, 1f, 0f
     )
 
-//    Spacer(modifier = Modifier.height(30.dp))
+    val isLiked: MutableState<Boolean> = remember { mutableStateOf(false) }
 
     Card(
         modifier = Modifier
@@ -100,7 +106,7 @@ fun TourDetailsTopView(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            if (type == DataTypes.TourModel) {
+            if (infoType == DataTypes.TourModel) {
                 Image(
                     modifier = Modifier.fillMaxSize(),
                     painter = rememberImagePainter(data = (data as TourModel).image[0]),
@@ -108,7 +114,7 @@ fun TourDetailsTopView(
                     contentScale = ContentScale.Crop,
                     colorFilter = ColorFilter.colorMatrix(ColorMatrix(colorMatrix)),
                 )
-            } else if (type == DataTypes.CampModel) {
+            } else if (infoType == DataTypes.CampModel) {
                 Image(
                     modifier = Modifier.fillMaxSize(),
                     painter = rememberImagePainter(data = (data as CampModel).image),
@@ -146,12 +152,16 @@ fun TourDetailsTopView(
                             .clickable {
                                 isLiked.value = !isLiked.value
                                 if (data is TourModel) {
+                                    data.isLiked = isLiked.value
                                     viewModel.saveTourModel(data)
+                                } else if (data is CampModel) {
+                                    data.isLiked = isLiked.value
+                                    viewModel.saveCampModel(data)
                                 }
                             },
                         tint = AppWhiteLightPurple
                     )
-                }else{
+                } else {
                     Icon(
                         imageVector = Icons.Outlined.Favorite,
                         contentDescription = "Like",
@@ -160,19 +170,28 @@ fun TourDetailsTopView(
                             .clickable {
                                 isLiked.value = !isLiked.value
                                 if (data is TourModel) {
+                                    data.isLiked = isLiked.value
                                     viewModel.deleteTourModel(data)
+                                } else if (data is CampModel) {
+                                    data.isLiked = isLiked.value
+                                    viewModel.deleteCampModel(data)
                                 }
                             },
                         tint = Red
                     )
                 }
+                val context = LocalContext.current
 
                 Spacer(modifier = Modifier.width(30.dp))
                 Icon(
                     imageVector = Icons.Default.KeyboardCommandKey,
                     contentDescription = "Share",
                     tint = AppWhiteLightPurple,
-                    modifier = Modifier.size(30.dp)
+                    modifier = Modifier
+                        .size(30.dp)
+                        .clickable {
+                            shareData(data, context)
+                        }
                 )
             }
         }
@@ -183,8 +202,21 @@ fun TourDetailsTopView(
 @Composable
 fun TourDetailsMainView(
     data: Any = Any(),
-    navController: NavController
+    navController: NavController,
+    viewModel: SettingsViewModel = hiltViewModel()
 ) {
+    val appeals = remember{ viewModel.appeals }
+    val enableState = remember { mutableStateOf(true) }
+
+    if (data is TourModel){
+        val toursList = mutableListOf<TourModel>()
+        appeals.value.forEach {
+            toursList.add(it.tourModel)
+        }
+
+        enableState.value = !toursList.contains(data)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth(),
@@ -292,19 +324,22 @@ fun TourDetailsMainView(
                 .height(55.dp),
             onClick = {
                 // go to cart and details screen
-                if (data is TourModel)
+                if (data is TourModel){
                     NavigationData.tourModel = data
-                else if (data is CampModel)
+                } else if (data is CampModel){
                     NavigationData.campModel = data
+                }
                 navController.navigate(ScreenID.PersonalInformation.name)
             },
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = AppDarkBlue
+                backgroundColor = AppDarkBlue,
+                disabledBackgroundColor = AppGray
             ),
+            enabled = enableState.value,
             shape = RoundedCornerShape(10.dp)
         ) {
             Text(
-                text = "Müraciət et",
+                text = if(enableState.value) stringResource(id = R.string.apply) else stringResource(id = R.string.applied),
                 color = AppWhiteLightPurple,
                 fontWeight = FontWeight.Bold,
                 fontSize = 17.sp,
@@ -313,5 +348,50 @@ fun TourDetailsMainView(
         }
 
         Spacer(modifier = Modifier.height(20.dp))
+    }
+}
+
+
+fun shareData(data: Any, context: Context){
+    if (data is TourModel) {
+        val introLink = data.image[0].toUri()
+        val shareIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "image/jpeg"
+            putExtra(Intent.EXTRA_SUBJECT, "Share tour image")
+            putExtra(Intent.EXTRA_TEXT, data.toString())
+            if (introLink != null) {
+                putExtra(Intent.EXTRA_STREAM, introLink)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                clipData =
+                    ClipData.newUri(
+                        context.contentResolver,
+                        "Image",
+                        introLink
+                    )
+            }
+        }
+        val chooserIntent =
+            Intent.createChooser(shareIntent, "Share with...")
+        context.startActivity(chooserIntent)
+    } else if (data is CampModel) {
+        val introLink = data.image.toUri()
+        val shareIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "image/jpeg"
+            putExtra(Intent.EXTRA_SUBJECT, "Share tour image")
+            putExtra(Intent.EXTRA_TEXT, data.toString())
+            if (introLink != null) {
+                putExtra(Intent.EXTRA_STREAM, introLink)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                clipData =
+                    ClipData.newUri(
+                        context.contentResolver,
+                        "Image",
+                        introLink
+                    )
+            }
+        }
+        val chooserIntent =
+            Intent.createChooser(shareIntent, "Share with...")
+        context.startActivity(chooserIntent)
     }
 }

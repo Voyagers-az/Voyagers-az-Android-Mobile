@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagers.data.model
+package com.natiqhaciyef.voyagers.data.model.tour
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -17,5 +17,6 @@ data class TourModel(
     var location: String,
     var companyName: String,
     var date: MutableMap<String, String>,
-    var region: String = "Qeyd olunmayıb"
+    var region: String = "Qeyd olunmayıb",
+    var isLiked: Boolean
 )

@@ -20,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -28,8 +29,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.natiqhaciyef.voyagers.data.model.CampModel
-import com.natiqhaciyef.voyagers.data.model.TourModel
+import com.natiqhaciyef.voyagers.R
+import com.natiqhaciyef.voyagers.data.model.tour.CampModel
+import com.natiqhaciyef.voyagers.data.model.tour.TourModel
 import com.natiqhaciyef.voyagers.data.model.enums.TourScope
 import com.natiqhaciyef.voyagers.util.obj.DefaultModelImplementations
 import com.natiqhaciyef.voyagers.util.obj.FontList
@@ -99,7 +101,7 @@ fun TourTopView(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 35.dp),
-            text = "Axtarış bölməsi",
+            text = stringResource(id = R.string.search_bar),
             color = Color.White,
             fontWeight = FontWeight.Bold,
             fontSize = 18.sp
@@ -117,7 +119,7 @@ fun TourTopView(
                 search.value = it
             },
             placeholder = {
-                Text(text = "Turlar üçün axtarış")
+                Text(text = stringResource(id = R.string.search_for_tours))
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 textColor = Color.Black,
@@ -180,7 +182,7 @@ fun TourMainView(
     ) {
         Spacer(modifier = Modifier.height(45.dp))
         Text(
-            text = "Yerli turlar",
+            text = stringResource(id = R.string.local_tours),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp),
@@ -201,7 +203,7 @@ fun TourMainView(
 
         if (localTours.isEmpty()) {
             Text(
-                text = "Tur tapılmadı",
+                text =stringResource(id = R.string.tour_not_found),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontList.fontFamily,
@@ -228,7 +230,7 @@ fun TourMainView(
         Spacer(modifier = Modifier.height(25.dp))
 
         Text(
-            text = "Xarici turlar",
+            text = stringResource(id = R.string.global_tours),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp),
@@ -249,7 +251,7 @@ fun TourMainView(
 
         if (globalTours.isEmpty()) {
             Text(
-                text = "Tur tapılmadı",
+                text = stringResource(id = R.string.tour_not_found),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontList.fontFamily,
@@ -277,7 +279,7 @@ fun TourMainView(
         Spacer(modifier = Modifier.height(25.dp))
 
         Text(
-            text = "Düşərgələr",
+            text = stringResource(id = R.string.camps),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp),
@@ -297,7 +299,7 @@ fun TourMainView(
 
         if (campList.isEmpty()) {
             Text(
-                text = "Düşərgə tapılmadı",
+                text = stringResource(id = R.string.camp_not_found),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontList.fontFamily,

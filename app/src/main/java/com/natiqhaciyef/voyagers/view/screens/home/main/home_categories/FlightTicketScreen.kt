@@ -1,6 +1,5 @@
 package com.natiqhaciyef.voyagers.view.screens.home.main.home_categories
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,6 +15,7 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -25,7 +25,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.natiqhaciyef.voyagers.data.model.TicketModel
+import com.natiqhaciyef.voyagers.R
+import com.natiqhaciyef.voyagers.data.model.flight.TicketModel
 import com.natiqhaciyef.voyagers.view.components.DatePicker1
 import com.natiqhaciyef.voyagers.view.components.DatePicker2
 import com.natiqhaciyef.voyagers.view.components.TicketCardView
@@ -34,8 +35,6 @@ import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.AppGray
 import com.natiqhaciyef.voyagers.view.ui.theme.AppWhiteLightPurple
 import com.natiqhaciyef.voyagers.view.viewmodel.home_categories_viewmodel.FlightTicketViewModel
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 @Preview
 @Composable
@@ -94,7 +93,7 @@ fun FlightTicketScreen(
                 Text(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    text = "Avia biletlərin online alınması platforması",
+                    text = stringResource(id = R.string.flight_title),
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 18.sp,
                     textAlign = TextAlign.Center,
@@ -154,7 +153,7 @@ private fun FlightTicketTopView(
             ),
             label = {
                 Text(
-                    text = "Məkanım",
+                    text = stringResource(id = R.string.my_place),
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -201,7 +200,7 @@ private fun FlightTicketTopView(
             ),
             label = {
                 Text(
-                    text = "İstiqamət",
+                    text = stringResource(id = R.string.direction),
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -257,7 +256,7 @@ private fun FlightTicketMainPart(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 15.dp),
-        text = "Aktiv biletlər",
+        text = stringResource(id = R.string.available_tickets),
         color = Color.Black,
         fontSize = 19.sp,
         fontWeight = FontWeight.Bold

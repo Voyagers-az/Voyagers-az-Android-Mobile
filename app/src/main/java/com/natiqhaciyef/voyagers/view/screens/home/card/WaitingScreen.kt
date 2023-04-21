@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.*
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,7 +49,7 @@ fun WaitingScreen() {
             Text(
                 modifier = Modifier
                     .fillMaxWidth(),
-                text = "Sorğunuz uğurla göndərildi. \nTəsdiqləndikdən sonra sizinlə \nəlaqə saxlanacaq.",
+                text = stringResource(id = R.string.waiting_info),
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,

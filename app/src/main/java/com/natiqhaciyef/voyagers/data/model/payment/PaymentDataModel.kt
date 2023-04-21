@@ -1,4 +1,6 @@
-package com.natiqhaciyef.voyagers.data.model
+package com.natiqhaciyef.voyagers.data.model.payment
+
+import com.natiqhaciyef.voyagers.data.model.UserModel
 
 
 data class PaymentDataModel(

@@ -17,9 +17,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import com.natiqhaciyef.voyagers.R
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -73,7 +74,7 @@ fun UserProfileMainView(
             .background(AppLightGray)
     ) {
         Text(
-            text = "Kontentlər",
+            text = stringResource(id = R.string.contents),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp, vertical = 7.dp),
@@ -91,7 +92,7 @@ fun UserProfileMainView(
             modifier = Modifier
         ) {
             LikedPosts(navController)
-            LastTours()
+            TourAppeal(navController)
         }
     }
 
@@ -102,7 +103,7 @@ fun UserProfileMainView(
             .background(AppLightGray)
     ) {
         Text(
-            text = "Parametrlər",
+            text = stringResource(id = R.string.parameters),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp, vertical = 7.dp),
@@ -120,7 +121,7 @@ fun UserProfileMainView(
             modifier = Modifier
         ) {
             ResetPasswordUP()
-            ChangeUserName()
+            ChangeUserName(navController)
             CardInfo()
             LanguageSupport()
         }
@@ -142,7 +143,7 @@ fun UserProfileMainView(
     ) {
 
         Text(
-            text = "Çıxış etmək",
+            text = stringResource(id = R.string.log_out),
             fontSize = 17.sp,
             fontWeight = FontWeight.Bold,
             color = AppWhiteLightPurple
@@ -183,7 +184,7 @@ private fun LikedPosts(
             Spacer(modifier = Modifier.width(30.dp))
 
             Text(
-                text = "Bəyənilən turlar",
+                text = stringResource(id = R.string.liked_tours),
                 fontSize = 17.sp,
                 color = AppDarkBlue,
                 fontWeight = FontWeight.Bold,
@@ -196,11 +197,14 @@ private fun LikedPosts(
 
 
 @Composable
-private fun LastTours() {
+private fun TourAppeal(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 20.dp, top = 15.dp, bottom = 15.dp)
+            .clickable {
+                navController.navigate(ScreenID.TourAppeal.name)
+            }
     ) {
         Row(
             modifier = Modifier
@@ -219,7 +223,7 @@ private fun LastTours() {
             Spacer(modifier = Modifier.width(30.dp))
 
             Text(
-                text = "Son gəzintilər",
+                text = stringResource(id = R.string.last_appeals),
                 fontSize = 17.sp,
                 color = AppDarkBlue,
                 fontWeight = FontWeight.Bold,
@@ -254,7 +258,7 @@ private fun ResetPasswordUP() {
             Spacer(modifier = Modifier.width(30.dp))
 
             Text(
-                text = "Şifrəni yeniləmək",
+                text = stringResource(id = R.string.re_password),
                 fontSize = 17.sp,
                 color = AppDarkBlue,
                 fontWeight = FontWeight.Bold,
@@ -290,7 +294,7 @@ private fun LanguageSupport() {
             Spacer(modifier = Modifier.width(30.dp))
 
             Text(
-                text = "Dil dəyişmək",
+                text = stringResource(id = R.string.change_language),
                 fontSize = 17.sp,
                 color = AppDarkBlue,
                 fontWeight = FontWeight.Bold,
@@ -303,11 +307,14 @@ private fun LanguageSupport() {
 
 
 @Composable
-private fun ChangeUserName() {
+private fun ChangeUserName(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 20.dp, top = 15.dp, bottom = 15.dp)
+            .clickable {
+                navController.navigate(ScreenID.ResetUserName.name)
+            }
     ) {
         Row(
             modifier = Modifier
@@ -326,7 +333,7 @@ private fun ChangeUserName() {
             Spacer(modifier = Modifier.width(30.dp))
 
             Text(
-                text = "İstifadəçi adını dəyişmək",
+                text = stringResource(id = R.string.change_username),
                 fontSize = 17.sp,
                 color = AppDarkBlue,
                 fontWeight = FontWeight.Bold,
@@ -361,7 +368,7 @@ private fun CardInfo() {
             Spacer(modifier = Modifier.width(30.dp))
 
             Text(
-                text = "Kart məlumatlarını yeniləmək",
+                text = stringResource(id = R.string.reset_card_info),
                 fontSize = 17.sp,
                 color = AppDarkBlue,
                 fontWeight = FontWeight.Bold,

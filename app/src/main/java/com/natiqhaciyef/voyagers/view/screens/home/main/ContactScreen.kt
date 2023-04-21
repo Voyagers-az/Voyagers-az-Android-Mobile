@@ -15,6 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -130,7 +131,7 @@ fun ContactMainPart(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 25.dp),
-                text = "Bizimlə əlaqə",
+                text = stringResource(id = R.string.contact_us),
                 color = Color.White,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
@@ -170,7 +171,7 @@ fun ContactMainPart(
                 placeholder = {
                     Text(
                         modifier = Modifier,
-                        text = "İstifadəçi adı",
+                        text = stringResource(id = R.string.username),
                         fontSize = 16.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = AppGray
@@ -221,7 +222,7 @@ fun ContactMainPart(
                 placeholder = {
                     Text(
                         modifier = Modifier,
-                        text = "E-poçt",
+                        text = stringResource(id = R.string.email),
                         fontSize = 16.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = AppGray
@@ -271,7 +272,7 @@ fun ContactMainPart(
                 placeholder = {
                     Text(
                         modifier = Modifier,
-                        text = "Nömrə",
+                        text = stringResource(id = R.string.phone),
                         fontSize = 16.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = AppGray
@@ -313,7 +314,7 @@ fun ContactMainPart(
                 placeholder = {
                     Text(
                         modifier = Modifier,
-                        text = "Mövzu",
+                        text = stringResource(id = R.string.topic),
                         fontSize = 16.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = AppGray
@@ -354,7 +355,7 @@ fun ContactBottomView(
     ) {
         Text(
             modifier = Modifier,
-            text = "Göndər",
+            text = stringResource(id = R.string.send),
             color = Color.White,
             fontSize = 16.sp,
             fontWeight = FontWeight.SemiBold

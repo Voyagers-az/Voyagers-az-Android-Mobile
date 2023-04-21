@@ -4,8 +4,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.natiqhaciyef.voyagers.data.model.CarModel
-import com.natiqhaciyef.voyagers.data.model.CarRentModel
+import com.natiqhaciyef.voyagers.data.model.car.CarModel
+import com.natiqhaciyef.voyagers.data.model.car.CarRentModel
 import com.natiqhaciyef.voyagers.view.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

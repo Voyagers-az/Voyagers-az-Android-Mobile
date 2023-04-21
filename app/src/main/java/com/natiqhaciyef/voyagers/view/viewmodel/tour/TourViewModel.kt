@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.natiqhaciyef.voyagers.data.model.CampModel
-import com.natiqhaciyef.voyagers.data.model.TourModel
+import com.natiqhaciyef.voyagers.data.model.tour.CampModel
+import com.natiqhaciyef.voyagers.data.model.tour.TourModel
 import com.natiqhaciyef.voyagers.view.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -53,6 +53,7 @@ class TourViewModel @Inject constructor(
                         var companyName = doc["companyName"] as String
                         var date = doc["date"] as MutableMap<String, String>
                         var region = doc["region"] as String
+                        var isLiked = doc["isLiked"] as Boolean
 
                         val tourModel = TourModel(
                             id = id,
@@ -68,7 +69,8 @@ class TourViewModel @Inject constructor(
                             companyName = companyName,
                             region = region,
                             location = location,
-                            date =  date
+                            date =  date,
+                            isLiked = isLiked
                         )
 
                         list.add(tourModel)
@@ -97,6 +99,7 @@ class TourViewModel @Inject constructor(
             tourMap["companyName"] = tourModel.companyName
             tourMap["region"] = tourModel.region
             tourMap["date"] = tourModel.date
+            tourMap["isLiked"] = tourModel.isLiked
 
             firestore.collection("Tours")
                 .document("${tourModel.name} - ${tourModel.companyName}")
@@ -132,6 +135,7 @@ class TourViewModel @Inject constructor(
                         var personCount = doc["personCount"].toString().toInt()
                         var region = doc["region"] as String
                         var date = doc["date"] as MutableMap<String, String>
+                        var isLiked = doc["isLiked"] as Boolean
 
                         val campModel = CampModel(
                             id = id,
@@ -146,7 +150,8 @@ class TourViewModel @Inject constructor(
                             personCount = personCount,
                             region = region,
                             date = date,
-                            rating = rating
+                            rating = rating,
+                            isLiked = isLiked
                         )
 
                         list.add(campModel)
@@ -174,6 +179,7 @@ class TourViewModel @Inject constructor(
             tourMap["scope"] = campModel.scope
             tourMap["companyName"] = campModel.companyName
             tourMap["region"] = campModel.region
+            tourMap["isLiked"] = campModel.isLiked
 
             firestore.collection("Camps").document("${campModel.name} - ${campModel.companyName}")
                 .set(tourMap)
