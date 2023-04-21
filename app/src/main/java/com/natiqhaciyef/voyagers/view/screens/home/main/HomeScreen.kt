@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import com.natiqhaciyef.voyagers.R
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -92,7 +93,7 @@ fun HomeTopView(
                         color = Color.White,
                     )
                 ) {
-                    append(text = "Xoş gəldin, ")
+                    append(text = stringResource(id = R.string.welcome))
                 }
                 withStyle(
                     style = SpanStyle(
@@ -116,7 +117,7 @@ fun HomeTopView(
                         color = Color.White,
                     )
                 ) {
-                    append(text = "\nSəyahət üçün məkan seç və dünya turuna başla")
+                    append(text = stringResource(id = R.string.welcome_info))
                 }
             }
         )
@@ -153,7 +154,7 @@ fun HomeMainPartView(
         Spacer(modifier = Modifier.height(10.dp))
 
         Text(
-            text = "Məkanlar",
+            text = stringResource(id = R.string.places),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Black,
@@ -174,7 +175,7 @@ fun HomeMainPartView(
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(
-            text = "Əlaqə",
+            text = stringResource(id = R.string.contact),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Black,

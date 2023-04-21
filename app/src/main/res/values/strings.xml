@@ -1,4 +1,95 @@
 <resources>
     <string name="app_name">Voyagers</string>
     <string name="info">Voyagers.az - Turistlərin və yerli insanların Azərbaycan təbiətini kəşf etməsi, möcüzələr diyarına səyahət etməsi üçün yaradılmış tur xidmətidir. Yalnız yerli təbiət və incəsənət deyil, eyni zamanda xarici ölkələrə təşkil olunmuş turlar, həmin ölkənin mədəniyyəti, abidələri və görməli yerlərində xatirənizin olmasına yardımçı olacaq. Turlar büdcənizə uyğun qiymətə və təhlükəsizdir. Həm gəzin, həm öyrənin, həmdə kəşf edin...</string>
+
+    <!-- Registration text strings-->
+    <string name="enter">Daxil ol</string>
+    <string name="email">E-poçt</string>
+    <string name="password">Şifrə</string>
+    <string name="forgot_password">Şifrəni unutmusuz ?</string>
+    <string name="create_new_account">Yeni hesab yaratmaq ?</string>
+    <string name="sign_up">Qeydiyyatdan keç?</string>
+    <string name="register">Qeydiyyat</string>
+    <string name="username">İstifadəçi adı</string>
+    <string name="phone">Əlaqə nömrəsi</string>
+    <string name="have_an_account">Aktiv hesabınız var ?</string>
+    <string name="reset_password">Şifrəni yenilə</string>
+    <string name="reset_info">Zəhmət olmasa e-poçt addressinizi yoxlayın, sizə şifrə yeniləmə linki göndərildi. Əgər inboxda bildiriş yoxdursa, spam qutusuna nəzər salın. </string>
+    <string name="send">Göndər</string>
+
+    <!-- Home-Card-Payment text strings-->
+    <string name="select_payment_method">Ödəniş metodunu seçin</string>
+    <string name="insert_data">Məlumatları daxil edin</string>
+    <string name="card_name_surname">Kart sahibinin ad və soyadı</string>
+    <string name="card_number">Kart nömrəsi</string>
+    <string name="card_date">Tarix</string>
+    <string name="cvv">CVV kod</string>
+    <string name="submit">Təsdiqlə</string>
+
+
+    <!-- Home-Card-Personal information text strings-->
+    <string name="name_surname">Ad və Soyad</string>
+    <string name="registered_email">E-poçt (qeydiyyatdan keçdiyiniz)</string>
+    <string name="fin_code">Fərdi identifikasiya nömrəsi (FIN kod)</string>
+
+
+    <!-- Home-Card-Waiting information text strings-->
+    <string name="waiting_info">Sorğunuz uğurla göndərildi.\nTəsdiqləndikdən sonra sizinlə \nəlaqə saxlanacaq.</string>
+
+
+    <!-- Home-Main-Contact information text strings-->
+    <string name="contact_us">Bizimlə əlaqə</string>
+    <string name="topic">Mövzu</string>
+
+
+    <!-- Home-Main-Home information text strings-->
+    <string name="welcome">Xoş gəldin, </string>
+    <string name="welcome_info">\nSəyahət üçün məkan seç və dünya turuna başla</string>
+    <string name="places">Məkanlar</string>
+    <string name="contact">Əlaqə</string>
+
+
+    <!-- Home-Main-Home information text strings-->
+    <string name="contents">Kontentlər</string>
+    <string name="parameters">Parametrlər</string>
+    <string name="log_out">Çıxış etmək</string>
+    <string name="liked_tours">Bəyənilən turlar</string>
+    <string name="last_appeals">Son müraciətlər</string>
+    <string name="re_password">Şifrəni yeniləmək</string>
+    <string name="change_language">Dil dəyişmək</string>
+    <string name="change_username">İstifadəçi adını dəyişmək</string>
+    <string name="reset_card_info">Kart məlumatlarını yeniləmək</string>
+
+
+    <!-- Home-Main-Home-Home Categories information text strings-->
+    <string name="flight_title">Avia biletlərin online alınması platforması</string>
+    <string name="my_place">Məkanım</string>
+    <string name="direction">İstiqamət</string>
+    <string name="available_tickets">Aktiv biletlər</string>
+    <string name="under_maintain_house_rent">Hal-hazırda evlərin kirayələnməsi və hotel xidməti aktiv deyil</string>
+    <string name="rent_car_title">Avtomobil və ya digər nəqliyyat növlərinin icarələnməsi</string>
+    <string name="brand">Marka</string>
+    <string name="city">Şəhər</string>
+    <string name="min_price">Min qiymət</string>
+    <string name="max_price">Max qiymət</string>
+
+
+    <!-- Home-Main-Home-Settings information text strings-->
+    <string name="liked_tours_and_camps">Bəyənilən tur və düşərgələr</string>
+
+
+    <!-- Home-Main-Home-TourDetails information text strings-->
+    <string name="apply">Müraciət et</string>
+    <string name="applied">Müraciət edilib</string>
+
+
+    <!-- Home-Main-Home-Tour information text strings-->
+    <string name="search_bar">Axtarış bölməsi</string>
+    <string name="search_for_tours">Turlar üçün axtarış</string>
+    <string name="local_tours">Yerli turlar</string>
+    <string name="global_tours">Xarici turlar</string>
+    <string name="camps">Düşərgələr</string>
+    <string name="tour_not_found">Tur tapılmadı</string>
+    <string name="camp_not_found">Düşərgə tapılmadı</string>
+
 </resources>

@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
+import com.natiqhaciyef.voyagers.R
 import com.natiqhaciyef.voyagers.data.model.tour.CampModel
 import com.natiqhaciyef.voyagers.data.model.tour.TourAppealModel
 import com.natiqhaciyef.voyagers.data.model.tour.TourModel
@@ -56,7 +58,7 @@ fun TourAppeal(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 20.dp, top = 60.dp),
-                text = "Son müraciətlər",
+                text = stringResource(id = R.string.last_appeals),
                 color = Color.White,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold

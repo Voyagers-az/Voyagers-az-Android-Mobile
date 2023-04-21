@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,6 +34,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberImagePainter
+import com.natiqhaciyef.voyagers.R
 import com.natiqhaciyef.voyagers.data.model.tour.CampModel
 import com.natiqhaciyef.voyagers.data.model.tour.TourModel
 import com.natiqhaciyef.voyagers.util.classes.DataTypes
@@ -42,6 +44,7 @@ import com.natiqhaciyef.voyagers.view.components.RatingBar
 import com.natiqhaciyef.voyagers.view.navigation.NavigationData
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.*
+import com.natiqhaciyef.voyagers.view.viewmodel.settings.SettingsViewModel
 
 
 @Preview
@@ -199,8 +202,21 @@ fun TourDetailsTopView(
 @Composable
 fun TourDetailsMainView(
     data: Any = Any(),
-    navController: NavController
+    navController: NavController,
+    viewModel: SettingsViewModel = hiltViewModel()
 ) {
+    val appeals = remember{ viewModel.appeals }
+    val enableState = remember { mutableStateOf(true) }
+
+    if (data is TourModel){
+        val toursList = mutableListOf<TourModel>()
+        appeals.value.forEach {
+            toursList.add(it.tourModel)
+        }
+
+        enableState.value = !toursList.contains(data)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth(),
@@ -316,12 +332,14 @@ fun TourDetailsMainView(
                 navController.navigate(ScreenID.PersonalInformation.name)
             },
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = AppDarkBlue
+                backgroundColor = AppDarkBlue,
+                disabledBackgroundColor = AppGray
             ),
+            enabled = enableState.value,
             shape = RoundedCornerShape(10.dp)
         ) {
             Text(
-                text = "Müraciət et",
+                text = if(enableState.value) stringResource(id = R.string.apply) else stringResource(id = R.string.applied),
                 color = AppWhiteLightPurple,
                 fontWeight = FontWeight.Bold,
                 fontSize = 17.sp,
