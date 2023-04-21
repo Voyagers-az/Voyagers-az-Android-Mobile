@@ -57,7 +57,7 @@
     <string name="last_appeals">Son müraciətlər</string>
     <string name="re_password">Şifrəni yeniləmək</string>
     <string name="change_language">Dil dəyişmək</string>
-    <string name="change_username">İstifadəçi adını dəyişmək</string>
+    <string name="change_username">İstifadəçi adını yeniləmək</string>
     <string name="reset_card_info">Kart məlumatlarını yeniləmək</string>
 
 
@@ -76,6 +76,13 @@
 
     <!-- Home-Main-Home-Settings information text strings-->
     <string name="liked_tours_and_camps">Bəyənilən tur və düşərgələr</string>
+    <string name="previous_user_name_enter">Keçmiş istifadəçi adını daxil edin</string>
+    <string name="previous_user_name">Keçmiş istifadəçi adı</string>
+    <string name="new_user_name_enter">Yeni istifadəçi adını daxil edin</string>
+    <string name="new_user_name">Yeni istifadəçi adı</string>
+    <string name="password_info_enter">Şifrəni daxil edin</string>
+    <string name="password_info">Şifrə</string>
+    <string name="reset_username_title">İstifadəçi adını yeniləmək</string>
 
 
     <!-- Home-Main-Home-TourDetails information text strings-->

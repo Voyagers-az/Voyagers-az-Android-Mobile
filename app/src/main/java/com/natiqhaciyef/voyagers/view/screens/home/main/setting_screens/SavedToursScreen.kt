@@ -62,7 +62,7 @@ fun SavedToursScreen(
                     .fillMaxWidth()
                     .padding(start = 20.dp, top = 60.dp),
                 text = stringResource(id = R.string.liked_tours_and_camps),
-                fontSize = 20.sp,
+                fontSize = 23.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )

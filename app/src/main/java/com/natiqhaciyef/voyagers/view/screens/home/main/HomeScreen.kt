@@ -1,5 +1,6 @@
-package com.natiqhaciyef.voyagers.view.screens.home
+package com.natiqhaciyef.voyagers.view.screens.home.main
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -11,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,12 +30,15 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.natiqhaciyef.voyagers.data.model.tour.PlaceModel
 import com.natiqhaciyef.voyagers.util.obj.CategoryIcons
 import com.natiqhaciyef.voyagers.util.obj.ContactList
 import com.natiqhaciyef.voyagers.view.components.*
 import com.natiqhaciyef.voyagers.view.ui.theme.*
 import com.natiqhaciyef.voyagers.view.viewmodel.HomeViewModel
+import com.natiqhaciyef.voyagers.view.viewmodel.RegistrationViewModel
 
 //@Preview
 @Composable
@@ -69,8 +74,14 @@ fun HomeScreen(
 @Composable
 fun HomeTopView(
     navController: NavController,
-    list: MutableList<ImageVector> = mutableListOf()
+    list: MutableList<ImageVector> = mutableListOf(),
+    viewModel: RegistrationViewModel = hiltViewModel()
 ) {
+    val users = remember { viewModel.fums }
+    val user = users.value.filter {
+        it.email == FirebaseAuth.getInstance().currentUser!!.email!!
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -105,7 +116,12 @@ fun HomeTopView(
                         color = AppDarkBlue
                     )
                 ) {
-                    append(text = "Natiq")
+                    append(
+                        text = if (user.isNotEmpty())
+                            " ${user[0].username}"
+                        else
+                            "No name"
+                    )
                 }
                 withStyle(
                     style = SpanStyle(

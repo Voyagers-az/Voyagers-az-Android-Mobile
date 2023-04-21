@@ -18,6 +18,7 @@ import com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.RentCarS
 import com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.HouseRentScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.setting_screens.SavedToursScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.setting_screens.TourAppeal
+import com.natiqhaciyef.voyagers.view.screens.home.main.setting_screens.UsernameChangeScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.tours.TourDetailsScreen
 import com.natiqhaciyef.voyagers.view.screens.registration.LoginScreen
 import com.natiqhaciyef.voyagers.view.screens.registration.RegisterScreen
@@ -93,8 +94,13 @@ fun AppNavigation() {
             TourAppeal()
         }
 
+        composable(route = ScreenID.ResetUserName.name){
+            UsernameChangeScreen()
+        }
+
         composable(route = ScreenID.Waiting.name){
             WaitingScreen()
         }
+
     }
 }

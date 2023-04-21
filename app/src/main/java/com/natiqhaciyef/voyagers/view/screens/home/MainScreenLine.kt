@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.natiqhaciyef.voyagers.util.obj.DefaultModelImplementations
 import com.natiqhaciyef.voyagers.view.components.NavBar
+import com.natiqhaciyef.voyagers.view.screens.home.main.HomeScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.UserProfileScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.tours.TourScreen
 
