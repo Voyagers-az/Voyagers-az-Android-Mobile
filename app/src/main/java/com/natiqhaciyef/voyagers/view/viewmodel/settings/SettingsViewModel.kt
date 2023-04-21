@@ -55,6 +55,37 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
+    fun sendUserDataToFirebase(fum: FirebaseUserModel){
+        viewModelScope.launch(Dispatchers.IO) {
+            val fumMap = hashMapOf<String, String>()
+            fumMap["email"] = fum.email
+            fumMap["phone"] = fum.phone
+            fumMap["username"] = fum.username
+
+            firestore.collection("Users")
+                .document(fum.email)
+                .set(fumMap)
+                .addOnSuccessListener {
+
+                }.addOnFailureListener {
+
+                }
+        }
+    }
+
+    fun deleteFumFromFirestore(fum:FirebaseUserModel){
+        viewModelScope.launch(Dispatchers.IO) {
+            firestore.collection("Users")
+                .document(fum.email)
+                .delete()
+                .addOnSuccessListener {
+
+                }.addOnFailureListener {
+
+                }
+        }
+    }
+
     fun filter(userName: String): MutableList<FirebaseUserModel> {
         return if (fumList.value.isNotEmpty()) {
             fumList.value.filter {

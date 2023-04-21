@@ -25,6 +25,7 @@ import androidx.compose.material.TextFieldColors
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.NewReleases
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
@@ -51,9 +52,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.natiqhaciyef.voyagers.R
+import com.natiqhaciyef.voyagers.data.model.db.FirebaseUserModel
+import com.natiqhaciyef.voyagers.util.obj.DefaultModelImplementations
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.AppGray
 import com.natiqhaciyef.voyagers.view.ui.theme.AppWhiteLightPurple
+import com.natiqhaciyef.voyagers.view.viewmodel.RegistrationViewModel
 import com.natiqhaciyef.voyagers.view.viewmodel.settings.SettingsViewModel
 
 @Preview
@@ -64,7 +68,7 @@ fun UsernameChangeScreen(
     val user = remember { viewModel.fumList }
     val oldUsername = remember { mutableStateOf("") }
     val newUsername = remember { mutableStateOf("") }
-    val password = remember { mutableStateOf("") }
+    val email = remember { mutableStateOf("") }
 
     Scaffold(
         modifier = Modifier.fillMaxSize()
@@ -74,14 +78,14 @@ fun UsernameChangeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .background(AppWhiteLightPurple)
-        ){
+        ) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(120.dp)
                     .background(AppDarkBlue)
             )
-            UserNameChangeMainPart(oldUsername, newUsername, password)
+            UserNameChangeMainPart(oldUsername, newUsername, email)
         }
     }
 }
@@ -91,9 +95,17 @@ fun UsernameChangeScreen(
 fun UserNameChangeMainPart(
     oldUsername: MutableState<String>,
     newUsername: MutableState<String>,
-    password: MutableState<String>,
+    email: MutableState<String>,
+    viewModel: SettingsViewModel = hiltViewModel(),
+    registerViewModel: RegistrationViewModel = hiltViewModel()
 ) {
-    var passwordVisible by remember { mutableStateOf(false) }
+    val fums = remember { viewModel.fumList }
+    val fumFilter = fums.value.filter {
+        it.username == oldUsername.value &&
+                it.email == email.value
+    }
+
+    val fum = if (fumFilter.isNotEmpty()) fumFilter[0] else DefaultModelImplementations.firebaseUserModel
 
     Column(
         modifier = Modifier
@@ -233,7 +245,7 @@ fun UserNameChangeMainPart(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 23.dp),
-            text = stringResource(id = R.string.password_info),
+            text = stringResource(id = R.string.email_info),
             fontSize = 18.sp,
             fontWeight = FontWeight.SemiBold,
             color = Color.Black
@@ -243,9 +255,9 @@ fun UserNameChangeMainPart(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp),
-            value = password.value,
+            value = email.value,
             onValueChange = {
-                password.value = it
+                email.value = it
             },
             textStyle = TextStyle.Default.copy(
                 fontSize = 16.sp,
@@ -258,34 +270,23 @@ fun UserNameChangeMainPart(
             placeholder = {
                 Text(
                     modifier = Modifier,
-                    text = stringResource(id = R.string.password_info_enter),
+                    text = stringResource(id = R.string.email_info_enter),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold,
                     color = AppGray
                 )
             },
             trailingIcon = {
-                val image = if (passwordVisible)
-                    Icons.Filled.Visibility
-                else Icons.Filled.VisibilityOff
-
-                // Please provide localized description for accessibility services
-                val description = if (passwordVisible) "Hide password" else "Show password"
-
-                IconButton(
-                    modifier = Modifier.padding(end = 10.dp),
-                    onClick = { passwordVisible = !passwordVisible }) {
-                    Icon(imageVector = image, description)
-                }
+                Icon(
+                    modifier = Modifier.padding(end = 5.dp),
+                    imageVector = Icons.Default.Email,
+                    contentDescription = "Email"
+                )
             },
             keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = KeyboardType.Password,
+                keyboardType = KeyboardType.Email,
                 imeAction = ImeAction.Next
             ),
-            visualTransformation =
-            if (passwordVisible)
-                VisualTransformation.None
-            else PasswordVisualTransformation(),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 backgroundColor = Color.White,
                 unfocusedBorderColor = Color.Black,
@@ -304,7 +305,16 @@ fun UserNameChangeMainPart(
                 .height(60.dp),
             shape = RoundedCornerShape(10.dp),
             onClick = {
-                // vievModel
+                viewModel.deleteFumFromFirestore(
+                    fum
+                )
+                viewModel.sendUserDataToFirebase(
+                    FirebaseUserModel(
+                        username = newUsername.value,
+                        email = fum.email,
+                        phone = fum.phone
+                    )
+                )
             },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = AppDarkBlue,
