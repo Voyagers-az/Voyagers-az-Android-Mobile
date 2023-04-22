@@ -63,17 +63,20 @@ fun RegisterScreen(
             if (user.email != email.value && phone.value.isNotEmpty() &&
                 username.value.isNotEmpty() && password.value.isNotEmpty()
             ) {
-                viewModel.registerUser(email.value, password.value, username.value, phone.value) {
-                    viewModel.insertUser(
-                        UserModel(
-                            id = 0,
-                            name = username.value,
-                            email = email.value,
-                            phone = phone.value,
-                            password = password.value
-                        )
-                    )
-                    navController.navigate(ScreenID.Login.name)
+                if (
+                    email.value.endsWith("@gmail.com") &&
+                    ((phone.value.startsWith("055")) || (phone.value.startsWith("050")) ||
+                    (phone.value.startsWith("099")) || (phone.value.startsWith("070"))) &&
+                    password.value.length >= 8 && phone.value.length == 10
+                ) {
+                    viewModel.registerUser(
+                        email.value,
+                        password.value,
+                        username.value,
+                        phone.value
+                    ) {
+                        navController.navigate(ScreenID.Login.name)
+                    }
                 }
             }
         }
