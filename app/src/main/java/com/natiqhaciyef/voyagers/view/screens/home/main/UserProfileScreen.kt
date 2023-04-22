@@ -135,6 +135,11 @@ fun UserProfileMainView(
             .height(55.dp),
         onClick = {
             registerViewModel.auth.signOut()
+            navController.navigate(ScreenID.Login.name){
+                popUpTo(ScreenID.Login.name){
+                    inclusive = false
+                }
+            }
         },
         colors = ButtonDefaults.buttonColors(
             backgroundColor = AppDarkBlue
@@ -151,7 +156,6 @@ fun UserProfileMainView(
     }
 
     Spacer(modifier = Modifier.height(5.dp))
-
 }
 
 

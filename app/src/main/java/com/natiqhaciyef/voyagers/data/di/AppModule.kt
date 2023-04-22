@@ -3,9 +3,7 @@ package com.natiqhaciyef.voyagers.data.di
 import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.natiqhaciyef.voyagers.data.local.repository.LocalRepository
 import com.natiqhaciyef.voyagers.data.local.repository.TourRepository
-import com.natiqhaciyef.voyagers.data.local.source.AppDataSource
 import com.natiqhaciyef.voyagers.data.local.source.TourDataSource
 import com.natiqhaciyef.voyagers.data.roomdb.AppDao
 import com.natiqhaciyef.voyagers.data.roomdb.AppDatabase
@@ -31,24 +29,11 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideAppDao(database: AppDatabase) = database.getDao()
-
-    @Provides
-    @Singleton
     fun provideTourDao(database: AppDatabase) = database.getTourDao()
-
-
-    @Provides
-    @Singleton
-    fun provideDataSource(dao: AppDao) = AppDataSource(dao)
 
     @Provides
     @Singleton
     fun provideTourDataSource(dao: TourDao) = TourDataSource(dao)
-
-    @Provides
-    @Singleton
-    fun provideLocalRepository(ds: AppDataSource) = LocalRepository(ds)
 
     @Provides
     @Singleton

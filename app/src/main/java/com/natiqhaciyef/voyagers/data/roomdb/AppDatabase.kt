@@ -12,6 +12,5 @@ import com.natiqhaciyef.voyagers.data.model.db.TourModelDatabase
     version = 5
 )
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun getDao(): AppDao
     abstract fun getTourDao(): TourDao
 }

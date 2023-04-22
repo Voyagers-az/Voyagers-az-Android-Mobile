@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.natiqhaciyef.voyagers.data.local.repository.LocalRepository
 import com.natiqhaciyef.voyagers.data.model.payment.PaymentDataModel
 import com.natiqhaciyef.voyagers.data.model.UserModel
 import com.natiqhaciyef.voyagers.util.functions.toMapForFirebase
@@ -17,26 +16,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PaymentViewModel @Inject constructor(
-    var repository: LocalRepository
+
 ) : BaseViewModel() {
     var users = mutableStateOf<List<UserModel>>(mutableListOf())
     val firestore = Firebase.firestore
 
-    init {
-        getAllUsers()
-    }
-
-    fun getAllUsers() {
-        viewModelScope.launch(Dispatchers.Main) {
-            users.value = repository.getAllUsers()
-        }
-    }
-
-    fun filterByEmailAndPhone(email: String, phone: String): List<UserModel> {
-        return users.value.filter {
-            it.phone == phone && it.email == email
-        }
-    }
 
     fun sendPaymentInfoToFirebase(paymentDataModel: PaymentDataModel) {
         viewModelScope.launch(Dispatchers.IO) {
