@@ -76,13 +76,20 @@
 
     <!-- Home-Main-Home-Settings information text strings-->
     <string name="liked_tours_and_camps">Bəyənilən tur və düşərgələr</string>
+    <string name="card_info_change_title">Kart məlumatlarını dəyişmək</string>
     <string name="previous_user_name_enter">Keçmiş istifadəçi adını daxil edin</string>
     <string name="previous_user_name">Keçmiş istifadəçi adı</string>
     <string name="new_user_name_enter">Yeni istifadəçi adını daxil edin</string>
     <string name="new_user_name">Yeni istifadəçi adı</string>
-    <string name="email_info_enter">E-poçt daxil edin</string>
-    <string name="email_info">E-poçt</string>
+    <string name="password_info_enter">Şifrə daxil edin</string>
+    <string name="password_info">Şifrə</string>
     <string name="reset_username_title">İstifadəçi adını yeniləmək</string>
+
+    <string name="card_numner">Kart nörməsi</string>
+    <string name="card_numner_enter">Kart nörməsini daxil edin</string>
+    <string name="card_name">Kart üzərində istifadəçi adı</string>
+    <string name="card_name_enter">Kart üzərində istifadəçi adı daxil edin</string>
+    <string name="change">Dəyiş</string>
 
 
     <!-- Home-Main-Home-TourDetails information text strings-->

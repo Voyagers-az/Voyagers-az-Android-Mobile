@@ -38,8 +38,9 @@ class RegistrationViewModel @Inject constructor(
                         val username = doc["username"].toString()
                         val email = doc["email"].toString()
                         val phone = doc["phone"].toString()
+                        val password = doc["password"].toString()
 
-                        val fum = FirebaseUserModel(username,email,phone)
+                        val fum = FirebaseUserModel(username,email,phone, password)
                         list.add(fum)
                     }
                     fums.value = list
@@ -54,6 +55,7 @@ class RegistrationViewModel @Inject constructor(
             userMap["username"] = username
             userMap["email"] = email
             userMap["phone"] = phone
+            userMap["password"] = password
 
             firestore.collection("Users").document(email).set(userMap)
                 .addOnSuccessListener {

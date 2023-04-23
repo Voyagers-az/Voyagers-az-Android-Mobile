@@ -20,18 +20,20 @@ class PaymentViewModel @Inject constructor(
     val repository: PaymentRepository
 ) : BaseViewModel() {
     var payments = mutableStateOf<List<PaymentDBModel>>(mutableListOf())
+    var paymentModels = mutableStateOf<List<PaymentDataModel>>(mutableListOf())
 
     init {
         getPaymentDBModels()
     }
 
-    private fun getPaymentDBModels(){
-        viewModelScope.launch(Dispatchers.IO) {
-           payments.value = repository.getAllPaymentMethods()
+    private fun getPaymentDBModels() {
+        viewModelScope.launch(Dispatchers.Main) {
+            payments.value = repository.getAllPaymentMethods()
+            paymentModels.value = getPayment()
         }
     }
 
-    fun getPayment(): List<PaymentDataModel>{
+    private fun getPayment(): List<PaymentDataModel> {
         val list = mutableListOf<PaymentDataModel>()
         payments.value.forEach {
             list.add(
@@ -51,7 +53,7 @@ class PaymentViewModel @Inject constructor(
     }
 
 
-    fun insertPayment(payment: PaymentDataModel){
+    fun insertPayment(payment: PaymentDataModel) {
         val paymentDBModel = PaymentDBModel(
             id = payment.id,
             paymentType = payment.paymentType,
@@ -67,7 +69,7 @@ class PaymentViewModel @Inject constructor(
         }
     }
 
-    fun deletePayment(payment: PaymentDataModel){
+    fun deletePayment(payment: PaymentDataModel) {
         val paymentDBModel = PaymentDBModel(
             id = payment.id,
             paymentType = payment.paymentType,

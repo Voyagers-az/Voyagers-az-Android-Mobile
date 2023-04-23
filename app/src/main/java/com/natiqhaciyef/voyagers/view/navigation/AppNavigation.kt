@@ -16,6 +16,7 @@ import com.natiqhaciyef.voyagers.view.screens.home.card.WaitingScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.FlightTicketScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.RentCarScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.HouseRentScreen
+import com.natiqhaciyef.voyagers.view.screens.home.main.setting_screens.CardInfoChangeScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.setting_screens.SavedToursScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.setting_screens.TourAppeal
 import com.natiqhaciyef.voyagers.view.screens.home.main.setting_screens.UsernameChangeScreen
@@ -96,6 +97,10 @@ fun AppNavigation() {
 
         composable(route = ScreenID.ResetUserName.name){
             UsernameChangeScreen()
+        }
+
+        composable(route = ScreenID.CardInfoChange.name){
+            CardInfoChangeScreen()
         }
 
         composable(route = ScreenID.Waiting.name){

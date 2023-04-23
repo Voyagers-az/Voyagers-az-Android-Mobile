@@ -435,15 +435,6 @@ fun PaymentDetailsMainPart(
                             cvvCode = 0,
                             userModel = NavigationData.userModel!!
                         )
-                        val paymentDataModelForLocalDb = PaymentDataModel(
-                            id = 0,
-                            paymentType = paymentMethod.value,
-                            nameOnCard = nameOnCard.value,
-                            numberOnCard = numberOnCard.value,
-                            expirationDate = expirationDate.value,
-                            cvvCode = cvvCode.value.toInt(),
-                            userModel = NavigationData.userModel!!
-                        )
 
                         viewModel.insertPayment(paymentDataModel)
                         settingsViewModel.sendTourAppealStatusToFirebase(
