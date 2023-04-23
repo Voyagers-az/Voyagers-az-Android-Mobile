@@ -13,4 +13,5 @@ import com.natiqhaciyef.voyagers.data.model.db.TourModelDatabase
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getTourDao(): TourDao
+    abstract fun getPaymentDao(): PaymentDao
 }

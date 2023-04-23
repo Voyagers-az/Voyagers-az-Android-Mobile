@@ -445,7 +445,7 @@ fun PaymentDetailsMainPart(
                             userModel = NavigationData.userModel!!
                         )
 
-//                        viewModel.sendPaymentInfoToFirebase(paymentDataModel)
+                        viewModel.insertPayment(paymentDataModel)
                         settingsViewModel.sendTourAppealStatusToFirebase(
                             TourAppealModel(
                                 tourModel = NavigationData.tourModel!!,

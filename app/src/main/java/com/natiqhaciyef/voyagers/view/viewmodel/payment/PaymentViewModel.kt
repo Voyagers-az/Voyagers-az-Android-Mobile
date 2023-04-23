@@ -1,13 +1,14 @@
 package com.natiqhaciyef.voyagers.view.viewmodel.payment
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.natiqhaciyef.voyagers.data.local.repository.PaymentRepository
 import com.natiqhaciyef.voyagers.data.model.payment.PaymentDataModel
-import com.natiqhaciyef.voyagers.data.model.UserModel
+import com.natiqhaciyef.voyagers.data.model.db.PaymentDBModel
 import com.natiqhaciyef.voyagers.util.functions.toMapForFirebase
+import com.natiqhaciyef.voyagers.util.functions.toSQLiteMutableMap
+import com.natiqhaciyef.voyagers.util.functions.toSQLiteString
+import com.natiqhaciyef.voyagers.util.functions.toUserModelForFirebase
 import com.natiqhaciyef.voyagers.view.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,31 +17,69 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PaymentViewModel @Inject constructor(
-
+    val repository: PaymentRepository
 ) : BaseViewModel() {
-    var users = mutableStateOf<List<UserModel>>(mutableListOf())
-    val firestore = Firebase.firestore
+    var payments = mutableStateOf<List<PaymentDBModel>>(mutableListOf())
 
+    init {
+        getPaymentDBModels()
+    }
 
-    fun sendPaymentInfoToFirebase(paymentDataModel: PaymentDataModel) {
+    private fun getPaymentDBModels(){
         viewModelScope.launch(Dispatchers.IO) {
-            val paymentMap = hashMapOf<String, Any>()
-            paymentMap["id"] = paymentDataModel.id
-            paymentMap["paymentType"] = paymentDataModel.paymentType
-            paymentMap["cvvCode"] = paymentDataModel.cvvCode
-            paymentMap["expirationDate"] = paymentDataModel.expirationDate
-            paymentMap["nameOnCard"] = paymentDataModel.nameOnCard
-            paymentMap["numberOnCard"] = paymentDataModel.numberOnCard
-            paymentMap["userModel"] = paymentDataModel.userModel.toMapForFirebase()
+           payments.value = repository.getAllPaymentMethods()
+        }
+    }
 
-            firestore.collection("Payment")
-                .document(paymentDataModel.nameOnCard)
-                .set(paymentMap)
-                .addOnSuccessListener {
-                    // send data to room db
-                }.addOnFailureListener {
-                    Log.d("MYLOG", "${it.message} -> Error coused")
-                }
+    fun getPayment(): List<PaymentDataModel>{
+        val list = mutableListOf<PaymentDataModel>()
+        payments.value.forEach {
+            list.add(
+                PaymentDataModel(
+                    id = it.id,
+                    paymentType = it.paymentType,
+                    nameOnCard = it.nameOnCard,
+                    numberOnCard = it.numberOnCard,
+                    expirationDate = it.expirationDate,
+                    cvvCode = it.cvvCode,
+                    userModel = it.userModel.toSQLiteMutableMap().toUserModelForFirebase()
+                )
+            )
+        }
+
+        return list
+    }
+
+
+    fun insertPayment(payment: PaymentDataModel){
+        val paymentDBModel = PaymentDBModel(
+            id = payment.id,
+            paymentType = payment.paymentType,
+            nameOnCard = payment.nameOnCard,
+            numberOnCard = payment.numberOnCard,
+            expirationDate = payment.expirationDate,
+            cvvCode = payment.cvvCode,
+            userModel = payment.userModel.toMapForFirebase().toSQLiteString()
+        )
+
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.insertPaymentMethod(paymentDBModel)
+        }
+    }
+
+    fun deletePayment(payment: PaymentDataModel){
+        val paymentDBModel = PaymentDBModel(
+            id = payment.id,
+            paymentType = payment.paymentType,
+            nameOnCard = payment.nameOnCard,
+            numberOnCard = payment.numberOnCard,
+            expirationDate = payment.expirationDate,
+            cvvCode = payment.cvvCode,
+            userModel = payment.userModel.toMapForFirebase().toSQLiteString()
+        )
+
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deletePaymentMethod(paymentDBModel)
         }
     }
 }
