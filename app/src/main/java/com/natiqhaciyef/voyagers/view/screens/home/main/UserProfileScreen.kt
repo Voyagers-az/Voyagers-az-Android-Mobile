@@ -122,7 +122,7 @@ fun UserProfileMainView(
         ) {
             ResetPasswordUP(navController)
             ChangeUserName(navController)
-            CardInfo()
+            CardInfo(navController)
             LanguageSupport()
         }
     }
@@ -352,11 +352,16 @@ private fun ChangeUserName(navController: NavController) {
 }
 
 @Composable
-private fun CardInfo() {
+private fun CardInfo(
+    navController: NavController
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 20.dp, top = 15.dp, bottom = 15.dp)
+            .clickable {
+                navController.navigate(ScreenID.CardInfoChange.name)
+            }
     ) {
         Row(
             modifier = Modifier

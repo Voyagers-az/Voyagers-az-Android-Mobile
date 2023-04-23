@@ -33,6 +33,7 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun getUsernameFromFirebase() {
+        val auth = FirebaseAuth.getInstance().currentUser?.email
         val list = mutableListOf<FirebaseUserModel>()
         viewModelScope.launch(Dispatchers.IO) {
             firestore.collection("Users").addSnapshotListener { value, error ->
@@ -43,23 +44,25 @@ class SettingsViewModel @Inject constructor(
                         val username = doc["username"].toString()
                         val email = doc["email"].toString()
                         val phone = doc["phone"].toString()
+                        val password = doc["password"].toString()
 
-                        val fum = FirebaseUserModel(username, email, phone)
+                        val fum = FirebaseUserModel(username, email, phone, password)
                         list.add(fum)
                     }
-
-                    fumList.value = list
+                    val perList = list.filter { it.email == auth }
+                    fumList.value = perList.toMutableList()
                 }
             }
         }
     }
 
-    fun sendUserDataToFirebase(fum: FirebaseUserModel){
+    fun sendUserDataToFirebase(fum: FirebaseUserModel) {
         viewModelScope.launch(Dispatchers.IO) {
             val fumMap = hashMapOf<String, String>()
             fumMap["email"] = fum.email
             fumMap["phone"] = fum.phone
             fumMap["username"] = fum.username
+            fumMap["password"] = fum.password
 
             firestore.collection("Users")
                 .document(fum.email)
@@ -72,7 +75,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun deleteFumFromFirestore(fum:FirebaseUserModel){
+    fun deleteFumFromFirestore(fum: FirebaseUserModel) {
         viewModelScope.launch(Dispatchers.IO) {
             firestore.collection("Users")
                 .document(fum.email)
