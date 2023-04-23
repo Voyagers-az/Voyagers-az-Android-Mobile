@@ -120,7 +120,7 @@ fun UserProfileMainView(
         Column(
             modifier = Modifier
         ) {
-            ResetPasswordUP()
+            ResetPasswordUP(navController)
             ChangeUserName(navController)
             CardInfo()
             LanguageSupport()
@@ -135,6 +135,11 @@ fun UserProfileMainView(
             .height(55.dp),
         onClick = {
             registerViewModel.auth.signOut()
+            navController.navigate(ScreenID.Login.name){
+                popUpTo(ScreenID.Login.name){
+                    inclusive = false
+                }
+            }
         },
         colors = ButtonDefaults.buttonColors(
             backgroundColor = AppDarkBlue
@@ -151,7 +156,6 @@ fun UserProfileMainView(
     }
 
     Spacer(modifier = Modifier.height(5.dp))
-
 }
 
 
@@ -235,11 +239,14 @@ private fun TourAppeal(navController: NavController) {
 }
 
 @Composable
-private fun ResetPasswordUP() {
+private fun ResetPasswordUP(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 20.dp, top = 15.dp, bottom = 15.dp)
+            .clickable {
+                navController.navigate(ScreenID.ResetPassword.name)
+            }
     ) {
         Row(
             modifier = Modifier

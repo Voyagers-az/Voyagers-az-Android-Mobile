@@ -6,7 +6,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.natiqhaciyef.voyagers.data.local.repository.LocalRepository
 import com.natiqhaciyef.voyagers.data.model.UserModel
 import com.natiqhaciyef.voyagers.data.model.db.FirebaseUserModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegistrationViewModel @Inject constructor(
-    val repository: LocalRepository
+
 ) : BaseViewModel() {
     val auth = Firebase.auth
     val firestore = Firebase.firestore
@@ -26,27 +25,8 @@ class RegistrationViewModel @Inject constructor(
     var resultMessage = mutableStateOf("")
 
     init {
-        getAllUsers()
         getAllUsersFromFirebase()
     }
-
-    fun getUser(email: String) = viewModelScope.launch(Dispatchers.Main) {
-        val user = repository.getUserByEmail(email)
-        if (user != null) {
-            userState.value = user
-        } else {
-            userState.value = UserModel(id = 0, name = "", email = "", phone = "", password = "")
-        }
-    }
-
-    private fun getAllUsers() = viewModelScope.launch(Dispatchers.Main) {
-        val users = repository.getAllUsers()
-        if (users.isNotEmpty() || users != null)
-            allUsersState.value = users
-        else
-            allUsersState.value = listOf()
-    }
-
     fun getAllUsersFromFirebase(){
         val list = mutableListOf<FirebaseUserModel>()
         viewModelScope.launch(Dispatchers.IO) {
@@ -66,15 +46,6 @@ class RegistrationViewModel @Inject constructor(
                 }
             }
         }
-    }
-
-
-    fun insertUser(userModel: UserModel) = viewModelScope.launch(Dispatchers.Main) {
-        repository.insertUser(userModel)
-    }
-
-    fun deleteUser(userModel: UserModel) = viewModelScope.launch(Dispatchers.Main) {
-        repository.deleteUser(userModel)
     }
 
     fun registerUser(email: String, password: String, username: String, phone: String, content: () -> Unit){
