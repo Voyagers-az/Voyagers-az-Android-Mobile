@@ -7,6 +7,7 @@ import com.natiqhaciyef.voyagers.data.model.db.PaymentDBModel
 import com.natiqhaciyef.voyagers.data.roomdb.PaymentDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlin.math.exp
 
 class PaymentDataSource(var paymentDao: PaymentDao) {
 
@@ -35,4 +36,23 @@ class PaymentDataSource(var paymentDao: PaymentDao) {
             paymentDao.deletePaymentMethod(paymentDBModel)
         }
 
+    suspend fun updatePaymentMethod(
+        id: Int,
+        nameOnCard: String,
+        numberOnCard: String,
+        paymentType: String,
+        expirationDate: String,
+        cvvCode: Int,
+        userModel: String
+    ) = withContext(Dispatchers.IO){
+        paymentDao.updatePaymentMethod(
+            id = id,
+            nameOnCard = nameOnCard,
+            numberOnCard = numberOnCard,
+            paymentType = paymentType,
+            expirationDate = expirationDate,
+            cvvCode = cvvCode,
+            userModel = userModel
+        )
+    }
 }

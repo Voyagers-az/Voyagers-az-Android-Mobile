@@ -20,4 +20,15 @@ class PaymentRepository(var ds: PaymentDataSource) {
 
     suspend fun deletePaymentMethod(paymentDBModel: PaymentDBModel) =
         ds.deletePaymentMethod(paymentDBModel)
+
+    suspend fun updatePaymentMethod(id: Int, paymentDBModel: PaymentDBModel) =
+        ds.updatePaymentMethod(
+            id = id,
+            nameOnCard = paymentDBModel.nameOnCard,
+            numberOnCard = paymentDBModel.numberOnCard,
+            paymentType = paymentDBModel.paymentType,
+            expirationDate = paymentDBModel.expirationDate,
+            cvvCode = paymentDBModel.cvvCode,
+            userModel = paymentDBModel.userModel
+        )
 }

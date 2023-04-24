@@ -20,18 +20,20 @@ class PaymentViewModel @Inject constructor(
     val repository: PaymentRepository
 ) : BaseViewModel() {
     var payments = mutableStateOf<List<PaymentDBModel>>(mutableListOf())
+    var paymentModels = mutableStateOf<List<PaymentDataModel>>(mutableListOf())
 
     init {
         getPaymentDBModels()
     }
 
-    private fun getPaymentDBModels(){
-        viewModelScope.launch(Dispatchers.IO) {
-           payments.value = repository.getAllPaymentMethods()
+    private fun getPaymentDBModels() {
+        viewModelScope.launch(Dispatchers.Main) {
+            payments.value = repository.getAllPaymentMethods()
+            paymentModels.value = getPayment()
         }
     }
 
-    fun getPayment(): List<PaymentDataModel>{
+    private fun getPayment(): List<PaymentDataModel> {
         val list = mutableListOf<PaymentDataModel>()
         payments.value.forEach {
             list.add(
@@ -51,7 +53,7 @@ class PaymentViewModel @Inject constructor(
     }
 
 
-    fun insertPayment(payment: PaymentDataModel){
+    fun insertPayment(payment: PaymentDataModel) {
         val paymentDBModel = PaymentDBModel(
             id = payment.id,
             paymentType = payment.paymentType,
@@ -62,12 +64,12 @@ class PaymentViewModel @Inject constructor(
             userModel = payment.userModel.toMapForFirebase().toSQLiteString()
         )
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Main) {
             repository.insertPaymentMethod(paymentDBModel)
         }
     }
 
-    fun deletePayment(payment: PaymentDataModel){
+    fun deletePayment(payment: PaymentDataModel) {
         val paymentDBModel = PaymentDBModel(
             id = payment.id,
             paymentType = payment.paymentType,
@@ -78,8 +80,24 @@ class PaymentViewModel @Inject constructor(
             userModel = payment.userModel.toMapForFirebase().toSQLiteString()
         )
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Main) {
             repository.deletePaymentMethod(paymentDBModel)
+        }
+    }
+
+    fun updateCardInfo(id:Int, payment: PaymentDataModel){
+        val paymentDBModel = PaymentDBModel(
+            id = id,
+            paymentType = payment.paymentType,
+            nameOnCard = payment.nameOnCard,
+            numberOnCard = payment.numberOnCard,
+            expirationDate = payment.expirationDate,
+            cvvCode = payment.cvvCode,
+            userModel = payment.userModel.toMapForFirebase().toSQLiteString()
+        )
+
+        viewModelScope.launch(Dispatchers.Main) {
+            repository.updatePaymentMethod(id, paymentDBModel)
         }
     }
 }

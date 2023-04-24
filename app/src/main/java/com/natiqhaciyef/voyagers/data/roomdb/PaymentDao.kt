@@ -24,4 +24,19 @@ interface PaymentDao {
     @Delete
     suspend fun deletePaymentMethod(paymentDBModel: PaymentDBModel)
 
+    @Query("UPDATE payment_table SET nameOnCard = :nameOnCard, " +
+            "numberOnCard =:numberOnCard, " +
+            "paymentType = :paymentType, " +
+            "expirationDate =:expirationDate, " +
+            "cvvCode = :cvvCode, " +
+            "userModel = :userModel WHERE id = :id")
+    fun updatePaymentMethod(
+        id: Int,
+        nameOnCard: String,
+        numberOnCard: String,
+        paymentType: String,
+        expirationDate: String,
+        cvvCode: Int,
+        userModel: String
+    )
 }

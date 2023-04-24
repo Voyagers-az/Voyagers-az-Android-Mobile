@@ -73,7 +73,8 @@ object DefaultModelImplementations {
     val firebaseUserModel = FirebaseUserModel(
         username = "Natiq",
         email = "@gmail.com",
-        phone = "88888888"
+        phone = "88888888",
+        password = "Natiq123"
     )
 
     var place: PlaceModel = PlaceModel(
