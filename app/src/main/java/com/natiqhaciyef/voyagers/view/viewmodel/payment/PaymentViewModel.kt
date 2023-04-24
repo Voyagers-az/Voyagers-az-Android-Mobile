@@ -64,7 +64,7 @@ class PaymentViewModel @Inject constructor(
             userModel = payment.userModel.toMapForFirebase().toSQLiteString()
         )
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Main) {
             repository.insertPaymentMethod(paymentDBModel)
         }
     }
@@ -80,8 +80,24 @@ class PaymentViewModel @Inject constructor(
             userModel = payment.userModel.toMapForFirebase().toSQLiteString()
         )
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Main) {
             repository.deletePaymentMethod(paymentDBModel)
+        }
+    }
+
+    fun updateCardInfo(id:Int, payment: PaymentDataModel){
+        val paymentDBModel = PaymentDBModel(
+            id = id,
+            paymentType = payment.paymentType,
+            nameOnCard = payment.nameOnCard,
+            numberOnCard = payment.numberOnCard,
+            expirationDate = payment.expirationDate,
+            cvvCode = payment.cvvCode,
+            userModel = payment.userModel.toMapForFirebase().toSQLiteString()
+        )
+
+        viewModelScope.launch(Dispatchers.Main) {
+            repository.updatePaymentMethod(id, paymentDBModel)
         }
     }
 }
