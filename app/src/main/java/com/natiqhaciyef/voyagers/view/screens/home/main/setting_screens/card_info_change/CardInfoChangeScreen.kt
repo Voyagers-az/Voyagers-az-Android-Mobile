@@ -1,6 +1,5 @@
-package com.natiqhaciyef.voyagers.view.screens.home.main.setting_screens
+package com.natiqhaciyef.voyagers.view.screens.home.main.setting_screens.card_info_change
 
-import android.nfc.cardemulation.CardEmulation
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,7 +15,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
@@ -29,7 +27,6 @@ import androidx.compose.material.icons.filled.NewReleases
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -47,23 +44,19 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import androidx.navigation.NavController
 import com.natiqhaciyef.voyagers.R
-import com.natiqhaciyef.voyagers.data.model.db.FirebaseUserModel
-import com.natiqhaciyef.voyagers.util.obj.DefaultModelImplementations
-import com.natiqhaciyef.voyagers.view.screens.home.main.ContactTopView
+import com.natiqhaciyef.voyagers.view.navigation.CardNavData
+import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.AppGray
 import com.natiqhaciyef.voyagers.view.ui.theme.AppWhiteLightPurple
-import com.natiqhaciyef.voyagers.view.viewmodel.RegistrationViewModel
 import com.natiqhaciyef.voyagers.view.viewmodel.payment.PaymentViewModel
 import com.natiqhaciyef.voyagers.view.viewmodel.settings.SettingsViewModel
 
 
 @Composable
-fun CardInfoChangeScreen() {
+fun CardInfoChangeScreen(navController: NavController) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         backgroundColor = AppWhiteLightPurple
@@ -90,16 +83,17 @@ fun CardInfoChangeScreen() {
                 color = Color.White
             )
             Spacer(modifier = Modifier.height(50.dp))
-            CardInfoChangeTopView()
+            CardInfoChangeTopView(navController = navController)
         }
     }
 }
 
 
 @Composable
-fun CardInfoChangeTopView(
+private fun CardInfoChangeTopView(
     viewModel: SettingsViewModel = hiltViewModel(),
-    paymentViewModel: PaymentViewModel = hiltViewModel()
+    paymentViewModel: PaymentViewModel = hiltViewModel(),
+    navController: NavController
 ) {
     var passwordVisible by remember { mutableStateOf(false) }
     val cardNumber = remember { mutableStateOf("") }
@@ -115,7 +109,7 @@ fun CardInfoChangeTopView(
         it.nameOnCard == cardUserName.value &&
                 it.numberOnCard == cardNumber.value
     }
-    val enabledData = paymentFilter.isNotEmpty()
+    val enabledData = paymentFilter.isNotEmpty() //9839 2981 2918 7493
 
     Column(
         modifier = Modifier
@@ -170,6 +164,9 @@ fun CardInfoChangeTopView(
                 keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Next
             ),
+            visualTransformation = { number ->
+                formatOtherCardNumbers(cardNumber.value)
+            },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 backgroundColor = Color.White,
                 unfocusedBorderColor = Color.Black,
@@ -312,7 +309,8 @@ fun CardInfoChangeTopView(
             shape = RoundedCornerShape(10.dp),
             enabled = fumEnabled && enabledData,
             onClick = {
-                      // change data
+                CardNavData.userModel = paymentFilter[0].userModel
+                navController.navigate("${ScreenID.NewCardInfoChange.name}/${paymentFilter[0].id}/${paymentFilter[0].paymentType}")
             },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = AppDarkBlue,

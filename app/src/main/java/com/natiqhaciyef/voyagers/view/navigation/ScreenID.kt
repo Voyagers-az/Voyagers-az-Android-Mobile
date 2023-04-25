@@ -28,5 +28,6 @@ enum class ScreenID {
     SavedTours,
     TourAppeal,
     ResetUserName,
-    CardInfoChange
+    CardInfoChange,
+    NewCardInfoChange
 }
