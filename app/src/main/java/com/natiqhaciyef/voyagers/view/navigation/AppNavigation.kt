@@ -16,10 +16,11 @@ import com.natiqhaciyef.voyagers.view.screens.home.card.WaitingScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.FlightTicketScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.RentCarScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.HouseRentScreen
-import com.natiqhaciyef.voyagers.view.screens.home.main.setting_screens.CardInfoChangeScreen
+import com.natiqhaciyef.voyagers.view.screens.home.main.setting_screens.card_info_change.CardInfoChangeScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.setting_screens.SavedToursScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.setting_screens.TourAppeal
 import com.natiqhaciyef.voyagers.view.screens.home.main.setting_screens.UsernameChangeScreen
+import com.natiqhaciyef.voyagers.view.screens.home.main.setting_screens.card_info_change.NewCardInfoScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.tours.TourDetailsScreen
 import com.natiqhaciyef.voyagers.view.screens.registration.LoginScreen
 import com.natiqhaciyef.voyagers.view.screens.registration.RegisterScreen
@@ -87,23 +88,42 @@ fun AppNavigation() {
             PersonalInformationScreen(navController)
         }
 
-        composable(route = ScreenID.SavedTours.name){
+        composable(route = ScreenID.SavedTours.name) {
             SavedToursScreen()
         }
 
-        composable(route = ScreenID.TourAppeal.name){
+        composable(route = ScreenID.TourAppeal.name) {
             TourAppeal()
         }
 
-        composable(route = ScreenID.ResetUserName.name){
+        composable(route = ScreenID.ResetUserName.name) {
             UsernameChangeScreen()
         }
 
-        composable(route = ScreenID.CardInfoChange.name){
-            CardInfoChangeScreen()
+        composable(route = ScreenID.CardInfoChange.name) {
+            CardInfoChangeScreen(navController)
         }
 
-        composable(route = ScreenID.Waiting.name){
+        composable(
+            route = "${ScreenID.NewCardInfoChange.name}/{id}/{paymentType}",
+            arguments = arrayListOf(
+                navArgument("id") {
+                    type = NavType.IntType
+                },
+                navArgument("paymentType") {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            val id = remember { it.arguments?.getInt("id") }
+            val paymentType = remember { it.arguments?.getString("paymentType") }
+            NewCardInfoScreen(
+                id ?: 0,
+                paymentType ?: "Visa"
+            )
+        }
+
+        composable(route = ScreenID.Waiting.name) {
             WaitingScreen()
         }
 

@@ -58,7 +58,9 @@
     <string name="re_password">Şifrəni yeniləmək</string>
     <string name="change_language">Dil dəyişmək</string>
     <string name="change_username">İstifadəçi adını yeniləmək</string>
+    <string name="card_info">Kart məlumatları</string>
     <string name="reset_card_info">Kart məlumatlarını yeniləmək</string>
+    <string name="insert_card_info">Kart məlumatlarını daxil etmək</string>
 
 
     <!-- Home-Main-Home-Home Categories information text strings-->
