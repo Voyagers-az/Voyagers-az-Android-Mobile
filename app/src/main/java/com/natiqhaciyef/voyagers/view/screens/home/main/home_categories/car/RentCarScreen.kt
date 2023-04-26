@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagers.view.screens.home.main.home_categories
+package com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.car
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

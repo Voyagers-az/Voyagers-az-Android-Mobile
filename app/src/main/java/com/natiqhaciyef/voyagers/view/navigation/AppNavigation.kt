@@ -13,9 +13,9 @@ import com.natiqhaciyef.voyagers.view.screens.home.MainScreenLine
 import com.natiqhaciyef.voyagers.view.screens.home.card.PersonalInformationScreen
 import com.natiqhaciyef.voyagers.view.screens.home.card.PaymentScreen
 import com.natiqhaciyef.voyagers.view.screens.home.card.WaitingScreen
-import com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.FlightTicketScreen
-import com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.RentCarScreen
-import com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.HouseRentScreen
+import com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.flight.FlightTicketScreen
+import com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.car.RentCarScreen
+import com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.hotel.HouseRentScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.setting_screens.card_info_change.CardInfoChangeScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.setting_screens.SavedToursScreen
 import com.natiqhaciyef.voyagers.view.screens.home.main.setting_screens.TourAppeal
