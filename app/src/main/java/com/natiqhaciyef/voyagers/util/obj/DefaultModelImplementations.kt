@@ -134,7 +134,7 @@ object DefaultModelImplementations {
         price = 942.0,
         info = "Airbus A321neo da uçuş 3s 10d. Dar gövdə",
         departureDate = "05:35 07.06.2023",
-        arrivalDate = "11:15 07.06.2023",
+        arrivalDate = "13:05 07.06.2023",
         fromCity = "Bakı",
         toCity = "Berlin",
         flightTime = 7.5,

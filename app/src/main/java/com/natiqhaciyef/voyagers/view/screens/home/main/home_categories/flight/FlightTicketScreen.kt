@@ -1,4 +1,4 @@
-package com.natiqhaciyef.voyagers.view.screens.home.main.home_categories
+package com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.flight
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -30,6 +30,7 @@ import com.natiqhaciyef.voyagers.data.model.flight.TicketModel
 import com.natiqhaciyef.voyagers.view.components.DatePicker1
 import com.natiqhaciyef.voyagers.view.components.DatePicker2
 import com.natiqhaciyef.voyagers.view.components.TicketCardView
+import com.natiqhaciyef.voyagers.view.components.TicketItem
 import com.natiqhaciyef.voyagers.view.ui.theme.AppAquatic
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.AppGray
@@ -273,7 +274,7 @@ private fun FlightTicketMainPart(
         items(tickets) { ticket ->
             // Ticket view without users creating
 
-            TicketCardView(ticketModel = ticket)
+            TicketItem(ticketModel = ticket)
             Spacer(modifier = Modifier.height(5.dp))
         }
     }

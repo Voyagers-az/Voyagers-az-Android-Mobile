@@ -1,10 +1,12 @@
 package com.natiqhaciyef.voyagers.view.components
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
@@ -14,17 +16,24 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
+import com.natiqhaciyef.voyagers.R
 import com.natiqhaciyef.voyagers.data.model.flight.TicketInfoModel
 import com.natiqhaciyef.voyagers.data.model.flight.TicketModel
+import com.natiqhaciyef.voyagers.util.functions.dateToLocalTime
 import com.natiqhaciyef.voyagers.util.obj.DefaultModelImplementations
 import com.natiqhaciyef.voyagers.util.functions.fromDoubleToTimeLine
+import com.natiqhaciyef.voyagers.util.functions.splitterTimeDate
 import com.natiqhaciyef.voyagers.view.ui.theme.*
 import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
@@ -358,6 +367,114 @@ fun TicketCardView(
     }
 }
 
+
+@Preview
+@Composable
+fun TicketItem(
+    ticketModel: TicketModel = DefaultModelImplementations.ticketInfoModel.ticketModel
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(150.dp)
+            .padding(start = 10.dp, end = 10.dp, top = 5.dp),
+        shape = RoundedCornerShape(10.dp)
+    ) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            Image(
+                painter = painterResource(id = R.drawable.item_flight_png),
+                contentDescription = "Flight line",
+                modifier = Modifier
+                    .padding(start = 20.dp, end = 20.dp, top = 20.dp)
+                    .fillMaxWidth()
+                    .align(Alignment.Center),
+                contentScale = ContentScale.Crop
+            )
+
+            Icon(
+                imageVector = Icons.Default.Flight,
+                contentDescription = "Flight",
+                modifier = Modifier
+                    .padding(top = 20.dp)
+                    .align(Alignment.Center)
+                    .rotate(90f)
+                    .size(40.dp),
+                tint = Color(0xff008FA0)
+            )
+
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Transparent)
+                    .align(Alignment.TopStart),
+            ) {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 10.dp, top = 7.dp),
+                    text = "Uçuş bileti : ${dateToLocalTime(splitterTimeDate(ticketModel.departureDate)["date"]!!)}",
+                    fontSize = 18.sp,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+            Text(
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .padding(start = 15.dp, bottom = 25.dp),
+                text = splitterTimeDate(ticketModel.departureDate)["time"]!!,
+                fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = Color.Black
+            )
+
+
+            Text(
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+                    .padding(end = 15.dp, bottom = 25.dp),
+                text = splitterTimeDate(ticketModel.arrivalDate)["time"]!!,
+                fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = Color.Black
+            )
+
+
+            Text(
+                modifier = Modifier
+                    .align(Alignment.BottomStart)
+                    .padding(start = 15.dp, bottom = 20.dp),
+                text = ticketModel.fromCity,
+                fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = Color.Black
+            )
+
+            Text(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 5.dp),
+                text = fromDoubleToTimeLine(DefaultModelImplementations.ticketInfoModel.ticketModel.flightTime),
+                fontSize = 13.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = Color.Black,
+                textAlign = TextAlign.Center
+            )
+
+            Text(
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(end = 15.dp, bottom = 20.dp),
+                text = ticketModel.toCity,
+                fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = Color.Black
+            )
+
+        }
+    }
+}
 
 @Preview
 @Composable
