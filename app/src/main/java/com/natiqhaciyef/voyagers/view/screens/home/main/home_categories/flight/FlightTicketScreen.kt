@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.natiqhaciyef.voyagers.R
+import com.natiqhaciyef.voyagers.data.model.flight.CombinedTicketModel
 import com.natiqhaciyef.voyagers.data.model.flight.TicketModel
 import com.natiqhaciyef.voyagers.view.components.DatePicker1
 import com.natiqhaciyef.voyagers.view.components.DatePicker2
@@ -49,7 +50,7 @@ fun FlightTicketScreen(
     val to = remember { mutableStateOf("") }
     val dateFrom = remember { mutableStateOf("") }
     val dateTo = remember { mutableStateOf("") }
-    val ticketsList = remember { viewModel.ticketList }
+    val ticketsList = remember { viewModel.combinedTicketList }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -118,7 +119,7 @@ fun FlightTicketScreen(
                     to = to,
                     dateFrom = dateFrom,
                     dateTo = dateTo,
-                    ticketsList = ticketsList,
+                    combinedTickets = ticketsList,
                     navController = navController
                 )
                 Spacer(modifier = Modifier.height(15.dp))
@@ -255,9 +256,14 @@ private fun FlightTicketMainPart(
     to: MutableState<String> = mutableStateOf(""),
     dateFrom: MutableState<String> = mutableStateOf(""),
     dateTo: MutableState<String> = mutableStateOf(""),
-    ticketsList: MutableState<List<TicketModel>>,
+    combinedTickets: MutableState<List<CombinedTicketModel>>,
     navController: NavController
 ) {
+    val ticketsList = mutableListOf<TicketModel>()
+    combinedTickets.value.toMutableList().forEach {
+        ticketsList.add(it.depTicketModel)
+    }
+
     Text(
         modifier = Modifier
             .fillMaxWidth()
@@ -270,38 +276,21 @@ private fun FlightTicketMainPart(
 
     Spacer(modifier = Modifier.height(5.dp))
 
-    val dep = ticketsList.value
-    val ret = ticketsList.value
+    val dep = ticketsList
 
     val depTickets = dep
         .filter { it.toCity.contains(to.value) || it.toCountry.contains(to.value) }
         .filter { it.fromCity.contains(from.value) || it.fromCountry.contains(from.value) }
         .filter { it.departureDate.contains(dateFrom.value) }
 
-    depTickets.toMutableList().removeAll(
-        dep
-            .filter { it.toCity.contains(from.value) || it.toCountry.contains(from.value) }
-            .filter { it.fromCity.contains(to.value) || it.fromCountry.contains(to.value) }
-            .filter { it.departureDate.contains(dateTo.value) }
-    )
 
-    val retTickets = ret
-        .filter { it.toCity.contains(from.value) || it.toCountry.contains(from.value) }
-        .filter { it.fromCity.contains(to.value) || it.fromCountry.contains(to.value) }
-        .filter { it.departureDate.contains(dateTo.value) }
-
-    if (depTickets.isNotEmpty() && retTickets.isNotEmpty()) {
-        println("Legolas - dep : $depTickets")
-        println("Legolas - ret : $retTickets")
-        FlightTicketData.retTickets = retTickets
-
-        LazyColumn {
-            items(depTickets) { ticket ->
-                // Ticket view without users creating
-                TicketItem(ticketModel = ticket, navController = navController)
-                Spacer(modifier = Modifier.height(5.dp))
-            }
+    LazyColumn {
+        items(depTickets) { ticket ->
+            // Ticket view without users creating
+            TicketItem(ticketModel = ticket, navController = navController)
+            Spacer(modifier = Modifier.height(5.dp))
         }
     }
+
 }
 

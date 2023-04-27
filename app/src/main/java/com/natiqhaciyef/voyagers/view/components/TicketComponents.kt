@@ -378,21 +378,13 @@ fun TicketItem(
     ticketModel: TicketModel = DefaultModelImplementations.ticketInfoModel.depTicketModel,
     navController: NavController = rememberNavController()
 ) {
-    val list = FlightTicketData.retTickets
-    val filter = list.filter { it?.companyNames == ticketModel.companyNames && it.fromCity != ticketModel.fromCity}
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .height(150.dp)
             .padding(start = 10.dp, end = 10.dp, top = 5.dp)
             .clickable {
-                if (filter.isNotEmpty()) {
-                    println("Free Data : $filter")
-                    FlightTicketData.retTicket = filter[0]
-                    FlightTicketData.depTicket = ticketModel
-                    navController.navigate(ScreenID.TicketRequest.name)
-                }
+                navController.navigate(ScreenID.TicketRequest.name)
             },
         shape = RoundedCornerShape(10.dp)
     ) {

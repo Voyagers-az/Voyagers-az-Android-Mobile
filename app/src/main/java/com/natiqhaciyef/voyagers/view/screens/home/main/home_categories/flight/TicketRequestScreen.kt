@@ -42,6 +42,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberImagePainter
 import com.natiqhaciyef.voyagers.R
+import com.natiqhaciyef.voyagers.data.model.flight.CombinedTicketModel
 import com.natiqhaciyef.voyagers.data.model.flight.TicketModel
 import com.natiqhaciyef.voyagers.util.functions.dateToLocalTime
 import com.natiqhaciyef.voyagers.util.functions.fromDateToDay
@@ -58,13 +59,13 @@ import com.natiqhaciyef.voyagers.view.ui.theme.AppWhiteLightPurple
 @Preview
 @Composable
 fun TicketRequestScreen(
-    ticketModel: TicketModel = DefaultModelImplementations.ticketModel
+    combinedTicketModel: CombinedTicketModel = DefaultModelImplementations.combinedTicketModel
 ) {
     Scaffold(modifier = Modifier.fillMaxSize()) {
         it.calculateTopPadding()
 
-        TicketRequestTopView(ticketModel = ticketModel)
-        TicketRequestMainPart(ticketModel = ticketModel)
+        TicketRequestTopView(ticketModel = combinedTicketModel.depTicketModel)
+        TicketRequestMainPart(combinedTicketModel = combinedTicketModel)
     }
 }
 
@@ -89,7 +90,9 @@ private fun TicketRequestTopView(ticketModel: TicketModel) {
 
 
 @Composable
-private fun TicketRequestMainPart(ticketModel: TicketModel) {
+private fun TicketRequestMainPart(combinedTicketModel: CombinedTicketModel) {
+    val depTicket = combinedTicketModel.depTicketModel
+    val retTicket = combinedTicketModel.retTicketModel
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -105,7 +108,7 @@ private fun TicketRequestMainPart(ticketModel: TicketModel) {
             elevation = 5.dp
         ) {
             Image(
-                painter = rememberImagePainter(data = ticketModel.image),
+                painter = rememberImagePainter(data = depTicket.image),
                 contentDescription = "Ticket model",
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
@@ -124,12 +127,12 @@ private fun TicketRequestMainPart(ticketModel: TicketModel) {
                     .rotate(45f),
                 tint = AppDarkBlue
             )
-            if (ticketModel.transfer != null) {
+            if (depTicket.transfer != null) {
                 Text(
                     modifier = Modifier
                         .padding(start = 10.dp, end = 20.dp),
                     fontFamily = FontList.fontFamily2,
-                    text = "${ticketModel.companyNames[0]} hava yolları : ${ticketModel.fromCity} - ${ticketModel.transfer!!.landedPlace} - ${ticketModel.toCity}",
+                    text = "${depTicket.companyNames[0]} hava yolları : ${depTicket.fromCity} - ${depTicket.transfer!!.landedPlace} - ${depTicket.toCity}",
                     color = Color.Black,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
@@ -139,7 +142,7 @@ private fun TicketRequestMainPart(ticketModel: TicketModel) {
                     modifier = Modifier
                         .padding(start = 20.dp, end = 20.dp),
                     fontFamily = FontList.fontFamily2,
-                    text = "${ticketModel.companyNames[0]} hava yolları : ${ticketModel.fromCity} - ${ticketModel.toCity}",
+                    text = "${depTicket.companyNames[0]} hava yolları : ${depTicket.fromCity} - ${depTicket.toCity}",
                     color = Color.Black,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
@@ -149,8 +152,8 @@ private fun TicketRequestMainPart(ticketModel: TicketModel) {
         }
 
 
-        val depTime = splitterTimeDate(ticketModel.departureDate)["time"]
-        val depDate = splitterTimeDate(ticketModel.departureDate)["date"]
+        val depTime = splitterTimeDate(depTicket.departureDate)["time"]
+        val depDate = splitterTimeDate(depTicket.departureDate)["date"]
 
         val formattedDepTimeDate = dateToLocalTime(depDate!!)
 
@@ -216,7 +219,7 @@ private fun TicketRequestMainPart(ticketModel: TicketModel) {
                     .fillMaxWidth()
                     .padding(start = 20.dp, end = 20.dp),
                 textAlign = TextAlign.End,
-                text = "Qiymət: \n${ticketModel.price.toInt()} AZN",
+                text = "Qiymət: \n${depTicket.price.toInt() + retTicket.price.toInt()} AZN",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontList.fontFamily2
@@ -225,9 +228,11 @@ private fun TicketRequestMainPart(ticketModel: TicketModel) {
 
         Spacer(modifier = Modifier.height(30.dp))
 
+        Ticket(ticketModel = depTicket, type = "Dep")
+        Ticket(ticketModel = retTicket, type = "Ret")
 
-        Ticket(ticketModel = FlightTicketData.depTicket!!)
-        Ticket(ticketModel = FlightTicketData.retTicket!!)
+        Spacer(modifier = Modifier.height(30.dp))
+
     }
 }
 
@@ -235,6 +240,7 @@ private fun TicketRequestMainPart(ticketModel: TicketModel) {
 @Composable
 private fun Ticket(
     ticketModel: TicketModel = DefaultModelImplementations.ticketInfoModel.depTicketModel,
+    type: String
 ) {
     Card(
         modifier = Modifier
@@ -271,15 +277,27 @@ private fun Ticket(
                     .background(Color.Transparent)
                     .align(Alignment.TopStart),
             ) {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 10.dp, top = 7.dp),
-                    text = "Uçuş bileti : ${dateToLocalTime(splitterTimeDate(ticketModel.departureDate)["date"]!!)}",
-                    fontSize = 18.sp,
-                    color = Color.Black,
-                    fontWeight = FontWeight.Bold
-                )
+                if (type == "Dep") {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 10.dp, top = 7.dp),
+                        text = "Uçuş bileti : ${dateToLocalTime(splitterTimeDate(ticketModel.departureDate)["date"]!!)}",
+                        fontSize = 18.sp,
+                        color = Color.Black,
+                        fontWeight = FontWeight.Bold
+                    )
+                } else if (type == "Ret") {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 10.dp, top = 7.dp),
+                        text = "Dönüş bileti : ${dateToLocalTime(splitterTimeDate(ticketModel.departureDate)["date"]!!)}",
+                        fontSize = 18.sp,
+                        color = Color.Black,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
             }
 
             Text(

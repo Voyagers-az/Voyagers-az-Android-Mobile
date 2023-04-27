@@ -35,23 +35,23 @@ data class TicketModel(
     }
 
 
-    fun stringMapperToTicketModel(map: Map<String, Any>): TicketModel {
-        return TicketModel(
-            price = map["price"]!!.toString().toDouble(),
-            info = map["info"]!!.toString(),
-            image = map["image"]!!.toString(),
-            departureDate = map["departureDate"]!!.toString(),
-            arrivalDate = map["arrivalDate"]!!.toString(),
-            fromCity = map["fromCity"]!!.toString(),
-            fromCountry = map["fromCountry"]!!.toString(),
-            toCity = map["toCity"]!!.toString(),
-            toCountry = map["toCountry"]!!.toString(),
-            flightTime = map["flightTime"]!!.toString().toDouble(),
-            companyNames = map["companyNames"]!! as MutableList<String>,
-            transfer = FlightTransfer.stringMapperToFlightTransfer(map["transfer"]!! as Map<String, String>),
-            luggage = map["luggage"].toString()
-        )
+    companion object{
+        fun stringMapperToTicketModel(map: Map<String, Any>): TicketModel {
+            return TicketModel(
+                price = map["price"]!!.toString().toDouble(),
+                info = map["info"]!!.toString(),
+                image = map["image"]!!.toString(),
+                departureDate = map["departureDate"]!!.toString(),
+                arrivalDate = map["arrivalDate"]!!.toString(),
+                fromCity = map["fromCity"]!!.toString(),
+                fromCountry = map["fromCountry"]!!.toString(),
+                toCity = map["toCity"]!!.toString(),
+                toCountry = map["toCountry"]!!.toString(),
+                flightTime = map["flightTime"]!!.toString().toDouble(),
+                companyNames = map["companyNames"]!! as MutableList<String>,
+                transfer = FlightTransfer.stringMapperToFlightTransfer(map["transfer"]!! as Map<String, String>),
+                luggage = map["luggage"].toString()
+            )
+        }
     }
-
-
 }
