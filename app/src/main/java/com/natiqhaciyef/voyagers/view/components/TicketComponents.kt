@@ -3,6 +3,7 @@ package com.natiqhaciyef.voyagers.view.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ButtonDefaults
@@ -27,6 +28,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.natiqhaciyef.voyagers.R
 import com.natiqhaciyef.voyagers.data.model.flight.TicketInfoModel
 import com.natiqhaciyef.voyagers.data.model.flight.TicketModel
@@ -34,6 +37,8 @@ import com.natiqhaciyef.voyagers.util.functions.dateToLocalTime
 import com.natiqhaciyef.voyagers.util.obj.DefaultModelImplementations
 import com.natiqhaciyef.voyagers.util.functions.fromDoubleToTimeLine
 import com.natiqhaciyef.voyagers.util.functions.splitterTimeDate
+import com.natiqhaciyef.voyagers.view.navigation.FlightTicketData
+import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.*
 import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
@@ -262,7 +267,7 @@ fun TicketCardViewWithUserInfo(
 
                 Text(
                     modifier = Modifier.fillMaxWidth(0.82f),
-                    text = "${ticketInfoModel.ticketModel.fromCity}, ${ticketInfoModel.ticketModel.fromCountry}",
+                    text = "${ticketInfoModel.depTicketModel.fromCity}, ${ticketInfoModel.depTicketModel.fromCountry}",
                     fontSize = 15.sp,
                     textAlign = TextAlign.Center,
                     color = Color.Black,
@@ -281,7 +286,7 @@ fun TicketCardViewWithUserInfo(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
-                TicketDepArrView(ticketInfoModel.ticketModel)
+                TicketDepArrView(ticketInfoModel.depTicketModel)
 
             }
         }
@@ -302,7 +307,7 @@ fun TicketCardViewWithUserInfo(
 @Preview
 @Composable
 fun TicketCardView(
-    ticketModel: TicketModel = DefaultModelImplementations.ticketInfoModel.ticketModel
+    ticketModel: TicketModel = DefaultModelImplementations.ticketInfoModel.depTicketModel
 ) {
     Box(
         modifier = Modifier
@@ -368,16 +373,27 @@ fun TicketCardView(
 }
 
 
-@Preview
 @Composable
 fun TicketItem(
-    ticketModel: TicketModel = DefaultModelImplementations.ticketInfoModel.ticketModel
+    ticketModel: TicketModel = DefaultModelImplementations.ticketInfoModel.depTicketModel,
+    navController: NavController = rememberNavController()
 ) {
+    val list = FlightTicketData.retTickets
+    val filter = list.filter { it?.companyNames == ticketModel.companyNames && it.fromCity != ticketModel.fromCity}
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .height(150.dp)
-            .padding(start = 10.dp, end = 10.dp, top = 5.dp),
+            .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+            .clickable {
+                if (filter.isNotEmpty()) {
+                    println("Free Data : $filter")
+                    FlightTicketData.retTicket = filter[0]
+                    FlightTicketData.depTicket = ticketModel
+                    navController.navigate(ScreenID.TicketRequest.name)
+                }
+            },
         shape = RoundedCornerShape(10.dp)
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
@@ -455,7 +471,7 @@ fun TicketItem(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .padding(bottom = 5.dp),
-                text = fromDoubleToTimeLine(DefaultModelImplementations.ticketInfoModel.ticketModel.flightTime),
+                text = fromDoubleToTimeLine(DefaultModelImplementations.ticketInfoModel.depTicketModel.flightTime),
                 fontSize = 13.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = Color.Black,

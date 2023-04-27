@@ -4,6 +4,7 @@ import com.natiqhaciyef.voyagers.data.model.UserModel
 
 data class TicketInfoModel(
     var id: Int,
-    var ticketModel: TicketModel,
+    var depTicketModel: TicketModel,
+    var retTicketModel: TicketModel,
     var userInfo : UserModel,
 )

@@ -124,15 +124,17 @@ object DefaultModelImplementations {
 
     val flightTransfer = FlightTransfer(
         id = 0,
-        landedPlace = "Istanbul, Türkiyə",
+        landedPlace = "Istanbul",
         waitingTime = 1.5,
         arrivalDate = "07:40 07.06.2023",
-        departureDate = "09:20 07.06.2023"
+        departureDate = "09:20 07.06.2023",
+        landedCountry = "Türkiyə"
     )
 
     var ticketModel = TicketModel(
         price = 942.0,
         info = "Airbus A321neo da uçuş 3s 10d. Dar gövdə",
+        image = "https://media.cntraveler.com/photos/5b914e80d5806340ca438db1/1:1/w_2250,h_2250,c_limit/BrandenburgGate_2018_GettyImages-549093677.jpg",
         departureDate = "05:35 07.06.2023",
         arrivalDate = "13:05 07.06.2023",
         fromCity = "Bakı",
@@ -148,7 +150,8 @@ object DefaultModelImplementations {
     val ticketInfoModel = TicketInfoModel(
         id = 0,
         userInfo = userModel,
-        ticketModel = ticketModel
+        depTicketModel = ticketModel,
+        retTicketModel = ticketModel
     )
 
     val paymentDataModel = PaymentDataModel(

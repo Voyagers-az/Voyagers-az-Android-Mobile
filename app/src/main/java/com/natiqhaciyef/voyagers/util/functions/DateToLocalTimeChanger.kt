@@ -25,7 +25,7 @@ fun dateToLocalTime(formattedDate: String): String{
 fun main() {
     println(dateToLocalTime("02.04.2023"))
     splitterTimeDate(date)
-    println(fromDoubleToTimeLine(DefaultModelImplementations.ticketInfoModel.ticketModel.flightTime))
+    println(fromDoubleToTimeLine(DefaultModelImplementations.ticketInfoModel.depTicketModel.flightTime))
 
 //    println("02.04.2023".substring(3 until 5))  // month
 //    println("02.04.2023".substring(0 until 2))  // day

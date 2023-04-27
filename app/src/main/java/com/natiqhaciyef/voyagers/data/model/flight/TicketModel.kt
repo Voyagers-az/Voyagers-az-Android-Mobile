@@ -3,6 +3,7 @@ package com.natiqhaciyef.voyagers.data.model.flight
 data class TicketModel(
     var price: Double,
     var info: String,
+    var image: String,
     var departureDate: String,
     var arrivalDate: String,
     var fromCity: String,               // country - city
@@ -19,6 +20,7 @@ data class TicketModel(
         return mapOf(
             "price" to "$price",
             "info" to "$info",
+            "image" to "$image",
             "departureDate" to "$departureDate",
             "arrivalDate" to "$arrivalDate",
             "fromCity" to "$fromCity",
@@ -37,6 +39,7 @@ data class TicketModel(
         return TicketModel(
             price = map["price"]!!.toString().toDouble(),
             info = map["info"]!!.toString(),
+            image = map["image"]!!.toString(),
             departureDate = map["departureDate"]!!.toString(),
             arrivalDate = map["arrivalDate"]!!.toString(),
             fromCity = map["fromCity"]!!.toString(),

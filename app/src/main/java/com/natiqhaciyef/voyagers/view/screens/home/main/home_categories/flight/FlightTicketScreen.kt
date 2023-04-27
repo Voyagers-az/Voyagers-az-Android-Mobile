@@ -25,22 +25,25 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.natiqhaciyef.voyagers.R
 import com.natiqhaciyef.voyagers.data.model.flight.TicketModel
 import com.natiqhaciyef.voyagers.view.components.DatePicker1
 import com.natiqhaciyef.voyagers.view.components.DatePicker2
 import com.natiqhaciyef.voyagers.view.components.TicketCardView
 import com.natiqhaciyef.voyagers.view.components.TicketItem
+import com.natiqhaciyef.voyagers.view.navigation.FlightTicketData
 import com.natiqhaciyef.voyagers.view.ui.theme.AppAquatic
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.AppGray
 import com.natiqhaciyef.voyagers.view.ui.theme.AppWhiteLightPurple
 import com.natiqhaciyef.voyagers.view.viewmodel.home_categories_viewmodel.FlightTicketViewModel
 
-@Preview
+//@Preview
 @Composable
 fun FlightTicketScreen(
-    viewModel: FlightTicketViewModel = hiltViewModel()
+    viewModel: FlightTicketViewModel = hiltViewModel(),
+    navController: NavController
 ) {
     val from = remember { mutableStateOf("") }
     val to = remember { mutableStateOf("") }
@@ -115,7 +118,8 @@ fun FlightTicketScreen(
                     to = to,
                     dateFrom = dateFrom,
                     dateTo = dateTo,
-                    ticketsList = ticketsList
+                    ticketsList = ticketsList,
+                    navController = navController
                 )
                 Spacer(modifier = Modifier.height(15.dp))
             }
@@ -251,7 +255,8 @@ private fun FlightTicketMainPart(
     to: MutableState<String> = mutableStateOf(""),
     dateFrom: MutableState<String> = mutableStateOf(""),
     dateTo: MutableState<String> = mutableStateOf(""),
-    ticketsList: MutableState<List<TicketModel>>
+    ticketsList: MutableState<List<TicketModel>>,
+    navController: NavController
 ) {
     Text(
         modifier = Modifier
@@ -265,17 +270,37 @@ private fun FlightTicketMainPart(
 
     Spacer(modifier = Modifier.height(5.dp))
 
-    val tickets = ticketsList.value
+    val dep = ticketsList.value
+    val ret = ticketsList.value
+
+    val depTickets = dep
         .filter { it.toCity.contains(to.value) || it.toCountry.contains(to.value) }
         .filter { it.fromCity.contains(from.value) || it.fromCountry.contains(from.value) }
-        .filter { (it.departureDate.contains(dateFrom.value) || it.arrivalDate.contains(dateTo.value)) }
+        .filter { it.departureDate.contains(dateFrom.value) }
 
-    LazyColumn {
-        items(tickets) { ticket ->
-            // Ticket view without users creating
+    depTickets.toMutableList().removeAll(
+        dep
+            .filter { it.toCity.contains(from.value) || it.toCountry.contains(from.value) }
+            .filter { it.fromCity.contains(to.value) || it.fromCountry.contains(to.value) }
+            .filter { it.departureDate.contains(dateTo.value) }
+    )
 
-            TicketItem(ticketModel = ticket)
-            Spacer(modifier = Modifier.height(5.dp))
+    val retTickets = ret
+        .filter { it.toCity.contains(from.value) || it.toCountry.contains(from.value) }
+        .filter { it.fromCity.contains(to.value) || it.fromCountry.contains(to.value) }
+        .filter { it.departureDate.contains(dateTo.value) }
+
+    if (depTickets.isNotEmpty() && retTickets.isNotEmpty()) {
+        println("Legolas - dep : $depTickets")
+        println("Legolas - ret : $retTickets")
+        FlightTicketData.retTickets = retTickets
+
+        LazyColumn {
+            items(depTickets) { ticket ->
+                // Ticket view without users creating
+                TicketItem(ticketModel = ticket, navController = navController)
+                Spacer(modifier = Modifier.height(5.dp))
+            }
         }
     }
 }
