@@ -9,6 +9,7 @@ import com.natiqhaciyef.voyagers.data.model.enums.Luggage
 import com.natiqhaciyef.voyagers.data.model.enums.PaymentTypes
 import com.natiqhaciyef.voyagers.data.model.enums.RegionSide
 import com.natiqhaciyef.voyagers.data.model.enums.TourScope
+import com.natiqhaciyef.voyagers.data.model.flight.CombinedTicketModel
 import com.natiqhaciyef.voyagers.data.model.flight.FlightTransfer
 import com.natiqhaciyef.voyagers.data.model.flight.TicketInfoModel
 import com.natiqhaciyef.voyagers.data.model.flight.TicketModel
@@ -124,15 +125,17 @@ object DefaultModelImplementations {
 
     val flightTransfer = FlightTransfer(
         id = 0,
-        landedPlace = "Istanbul, Türkiyə",
+        landedPlace = "Istanbul",
         waitingTime = 1.5,
         arrivalDate = "07:40 07.06.2023",
-        departureDate = "09:20 07.06.2023"
+        departureDate = "09:20 07.06.2023",
+        landedCountry = "Türkiyə"
     )
 
     var ticketModel = TicketModel(
         price = 942.0,
         info = "Airbus A321neo da uçuş 3s 10d. Dar gövdə",
+        image = "https://media.cntraveler.com/photos/5b914e80d5806340ca438db1/1:1/w_2250,h_2250,c_limit/BrandenburgGate_2018_GettyImages-549093677.jpg",
         departureDate = "05:35 07.06.2023",
         arrivalDate = "13:05 07.06.2023",
         fromCity = "Bakı",
@@ -148,7 +151,8 @@ object DefaultModelImplementations {
     val ticketInfoModel = TicketInfoModel(
         id = 0,
         userInfo = userModel,
-        ticketModel = ticketModel
+        depTicketModel = ticketModel,
+        retTicketModel = ticketModel
     )
 
     val paymentDataModel = PaymentDataModel(
@@ -159,6 +163,39 @@ object DefaultModelImplementations {
         expirationDate = "07/27",
         cvvCode = 992,
         userModel = userModel
+    )
+
+    val combinedTicketModel = CombinedTicketModel(
+        depTicketModel = TicketModel(
+            price = 510.0,
+            info = "Airbus A321neo da uçuş 3s 10d. Dar gövdə",
+            image = "https://media.cntraveler.com/photos/5b914e80d5806340ca438db1/1:1/w_2250,h_2250,c_limit/BrandenburgGate_2018_GettyImages-549093677.jpg",
+            departureDate = "05:35 07.06.2023",
+            arrivalDate = "13:05 07.06.2023",
+            fromCity = "Bakı",
+            toCity = "Berlin",
+            flightTime = 7.5,
+            companyNames = mutableListOf("Anadolu Jet"),
+            transfer = flightTransfer,
+            luggage = Luggage.Medium.name.lowercase(),
+            fromCountry = "Azərbaycan",
+            toCountry = "Almanya"
+        ),
+        retTicketModel = TicketModel(
+            price = 455.0,
+            info = "Airbus A321neo da uçuş 3s 10d. Dar gövdə",
+            image = "https://www.thediaryofanomad.com/wp-content/uploads/2020/08/best-places-visit-in-baku-cityscape.jpg",
+            departureDate = "12:10 12.06.2023",
+            arrivalDate = "20:35 12.06.2023",
+            toCity = "Bakı",
+            fromCity = "Berlin",
+            flightTime = 8.25,
+            companyNames = mutableListOf("Anadolu Jet"),
+            transfer = flightTransfer,
+            luggage = Luggage.Medium.name.lowercase(),
+            toCountry = "Azərbaycan",
+            fromCountry = "Almanya"
+        )
     )
 
     private fun dateTime(): String {

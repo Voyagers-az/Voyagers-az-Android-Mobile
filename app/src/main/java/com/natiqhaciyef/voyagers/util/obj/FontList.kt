@@ -17,4 +17,10 @@ object FontList {
             Font(resId = R.font.ubuntu_italic),
         )
     )
+
+    val fontFamily2 = FontFamily(
+        fonts = listOf(
+            Font(resId = R.font.rubik_bold)
+        )
+    )
 }

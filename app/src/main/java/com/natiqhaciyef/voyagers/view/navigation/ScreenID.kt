@@ -15,7 +15,9 @@ enum class ScreenID {
 
     // home categories
     RentCar,
+    CarDetails,
     FlightTickets,
+    TicketRequest,
     HouseRent,
 
     Payment,

@@ -5,6 +5,7 @@ data class FlightTransfer(
     var arrivalDate: String,
     var departureDate: String,
     var landedPlace:String,
+    var landedCountry:String,
     var waitingTime: Double,
     var details: String = ""
 ){
@@ -14,6 +15,7 @@ data class FlightTransfer(
             "arrivalDate" to "$arrivalDate",
             "departureDate" to "$departureDate",
             "landedPlace" to "$landedPlace",
+            "landedCountry" to "$landedCountry",
             "waitingTime" to "$waitingTime",
             "details" to "$details",
         )
@@ -26,6 +28,7 @@ data class FlightTransfer(
                 arrivalDate = map["arrivalDate"]!!,
                 departureDate = map["departureDate"]!!,
                 landedPlace = map["landedPlace"]!!,
+                landedCountry = map["landedCountry"]!!,
                 waitingTime = map["waitingTime"]!!.toDouble(),
                 details = map["details"]!!
             )
