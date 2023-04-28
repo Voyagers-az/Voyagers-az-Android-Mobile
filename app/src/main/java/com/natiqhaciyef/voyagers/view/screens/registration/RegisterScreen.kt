@@ -66,7 +66,8 @@ fun RegisterScreen(
                 if (
                     email.value.endsWith("@gmail.com") &&
                     ((phone.value.startsWith("055")) || (phone.value.startsWith("050")) ||
-                    (phone.value.startsWith("099")) || (phone.value.startsWith("070"))) &&
+                            (phone.value.startsWith("099")) || (phone.value.startsWith("070")) ||
+                            (phone.value.startsWith("077"))) &&
                     password.value.length >= 8 && phone.value.length == 10
                 ) {
                     viewModel.registerUser(
@@ -327,8 +328,6 @@ private fun RegisterMainPart(
             BottomShadow(padding = 23.dp)
 
             Spacer(modifier = Modifier.height(25.dp))
-
-            val context = LocalContext.current
 
             Button(
                 modifier = Modifier

@@ -55,8 +55,10 @@ fun LoginScreen(
     ) {
         LoginTopView()
         LoginMainPart(email, password, navController) {
-            viewModel.loginUser(email.value, password.value) {
-                navController.navigate(ScreenID.MainScreenLine.name)
+            if (email.value.isNotEmpty() && password.value.isNotEmpty()){
+                viewModel.loginUser(email.value, password.value) {
+                    navController.navigate(ScreenID.MainScreenLine.name)
+                }
             }
         }
     }
@@ -232,8 +234,6 @@ private fun LoginMainPart(
             )
 
             Spacer(modifier = Modifier.height(45.dp))
-
-            val context = LocalContext.current
 
             Button(
                 modifier = Modifier
