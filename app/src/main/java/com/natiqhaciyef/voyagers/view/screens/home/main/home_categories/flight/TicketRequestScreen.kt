@@ -84,7 +84,6 @@ private fun TicketRequestTopView(ticketModel: TicketModel) {
                 .fillMaxSize()
                 .alpha(0.25f),
         )
-
     }
 }
 
@@ -336,7 +335,7 @@ private fun Ticket(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .padding(bottom = 5.dp),
-                text = fromDoubleToTimeLine(DefaultModelImplementations.ticketInfoModel.depTicketModel.flightTime),
+                text = fromDoubleToTimeLine(ticketModel.flightTime),
                 fontSize = 13.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = Color.Black,
@@ -352,7 +351,6 @@ private fun Ticket(
                 fontWeight = FontWeight.SemiBold,
                 color = Color.Black
             )
-
         }
     }
 }
