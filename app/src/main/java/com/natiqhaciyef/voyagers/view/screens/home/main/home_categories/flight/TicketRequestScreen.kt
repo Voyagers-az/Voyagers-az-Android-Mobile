@@ -2,12 +2,10 @@ package com.natiqhaciyef.voyagers.view.screens.home.main.home_categories.flight
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -38,21 +36,15 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberImagePainter
 import com.natiqhaciyef.voyagers.R
 import com.natiqhaciyef.voyagers.data.model.flight.CombinedTicketModel
 import com.natiqhaciyef.voyagers.data.model.flight.TicketModel
 import com.natiqhaciyef.voyagers.util.functions.dateToLocalTime
-import com.natiqhaciyef.voyagers.util.functions.fromDateToDay
 import com.natiqhaciyef.voyagers.util.functions.fromDoubleToTimeLine
 import com.natiqhaciyef.voyagers.util.functions.splitterTimeDate
 import com.natiqhaciyef.voyagers.util.obj.DefaultModelImplementations
-import com.natiqhaciyef.voyagers.util.obj.FontList
-import com.natiqhaciyef.voyagers.view.components.TicketItem
-import com.natiqhaciyef.voyagers.view.navigation.FlightTicketData
-import com.natiqhaciyef.voyagers.view.navigation.ScreenID
+import com.natiqhaciyef.domain.util.obj.FontList
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue
 import com.natiqhaciyef.voyagers.view.ui.theme.AppWhiteLightPurple
 

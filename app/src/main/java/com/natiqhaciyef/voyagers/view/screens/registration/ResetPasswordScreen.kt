@@ -25,7 +25,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.natiqhaciyef.voyagers.R
-import com.natiqhaciyef.voyagers.util.obj.FontList
+import com.natiqhaciyef.domain.util.obj.FontList
 import com.natiqhaciyef.voyagers.view.components.BottomShadow
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID
 import com.natiqhaciyef.voyagers.view.ui.theme.AppBrown

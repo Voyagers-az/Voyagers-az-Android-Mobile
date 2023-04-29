@@ -34,7 +34,7 @@ import com.natiqhaciyef.voyagers.data.model.tour.CampModel
 import com.natiqhaciyef.voyagers.data.model.tour.TourModel
 import com.natiqhaciyef.voyagers.data.model.enums.TourScope
 import com.natiqhaciyef.voyagers.util.obj.DefaultModelImplementations
-import com.natiqhaciyef.voyagers.util.obj.FontList
+import com.natiqhaciyef.domain.util.obj.FontList
 import com.natiqhaciyef.voyagers.view.components.CampCardItem
 import com.natiqhaciyef.voyagers.view.components.TourCardItem
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID

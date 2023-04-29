@@ -39,7 +39,7 @@ import com.natiqhaciyef.voyagers.data.model.tour.CampModel
 import com.natiqhaciyef.voyagers.data.model.tour.TourModel
 import com.natiqhaciyef.voyagers.util.classes.DataTypes
 import com.natiqhaciyef.voyagers.view.viewmodel.tour.TourDetailsViewModel
-import com.natiqhaciyef.voyagers.util.obj.FontList
+import com.natiqhaciyef.domain.util.obj.FontList
 import com.natiqhaciyef.voyagers.view.components.RatingBar
 import com.natiqhaciyef.voyagers.view.navigation.NavigationData
 import com.natiqhaciyef.voyagers.view.navigation.ScreenID

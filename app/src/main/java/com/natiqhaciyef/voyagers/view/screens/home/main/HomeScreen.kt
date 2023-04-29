@@ -1,6 +1,5 @@
 package com.natiqhaciyef.voyagers.view.screens.home.main
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -31,8 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.natiqhaciyef.voyagers.data.model.tour.PlaceModel
+import com.natiqhaciyef.data.data.model.tour.PlaceModel
 import com.natiqhaciyef.voyagers.util.obj.CategoryIcons
 import com.natiqhaciyef.voyagers.util.obj.ContactList
 import com.natiqhaciyef.voyagers.view.components.*
