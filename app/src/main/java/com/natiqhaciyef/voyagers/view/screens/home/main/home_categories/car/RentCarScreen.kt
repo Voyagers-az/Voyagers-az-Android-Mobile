@@ -26,7 +26,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.natiqhaciyef.voyagers.R
 import com.natiqhaciyef.voyagers.data.model.car.CarRentModel
 import com.natiqhaciyef.voyagers.util.obj.CarBrands
-import com.natiqhaciyef.voyagers.util.obj.CityList
+import com.natiqhaciyef.domain.util.obj.CityList
 import com.natiqhaciyef.voyagers.util.obj.CurrencyList
 import com.natiqhaciyef.voyagers.view.components.CarCardItem
 import com.natiqhaciyef.voyagers.view.components.CurrencyDropDownMenu

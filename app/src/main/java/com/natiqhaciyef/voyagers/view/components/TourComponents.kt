@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.natiqhaciyef.voyagers.data.model.tour.CampModel
-import com.natiqhaciyef.voyagers.data.model.tour.PlaceModel
+import com.natiqhaciyef.data.data.model.tour.PlaceModel
 import com.natiqhaciyef.voyagers.data.model.tour.TourModel
 import com.natiqhaciyef.voyagers.util.obj.DefaultModelImplementations
 import com.natiqhaciyef.voyagers.view.ui.theme.AppDarkBlue

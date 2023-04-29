@@ -7,7 +7,7 @@ import com.natiqhaciyef.voyagers.data.local.repository.TourRepository
 import com.natiqhaciyef.voyagers.data.model.db.CampModelDatabase
 import com.natiqhaciyef.voyagers.data.model.db.TourModelDatabase
 import com.natiqhaciyef.voyagers.data.model.tour.CampModel
-import com.natiqhaciyef.voyagers.data.model.tour.PlaceModel
+import com.natiqhaciyef.data.data.model.tour.PlaceModel
 import com.natiqhaciyef.voyagers.data.model.tour.TourModel
 import com.natiqhaciyef.voyagers.util.classes.DataTypes
 import com.natiqhaciyef.voyagers.util.functions.toSQLiteMutableList
